@@ -1,26 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:avis/ui/view/homepage.dart';
 
+import 'ui/view/SearchPage.dart';
+import 'ui/view/UnknownPage.dart';
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Map<String, WidgetBuilder> _routes = {
+      '/':         (BuildContext context) => HomePage(),
+      '/Search': (BuildContext context) => SearchPage(),
+    };
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
+
         primarySwatch: Colors.teal,
       ),
-      home: HomePage(),
+      routes: _routes,
+      onGenerateRoute: _getRoute,
+    onUnknownRoute: _unknowRoute,
     );
+  }
+
+  Route<dynamic> _unknowRoute(RouteSettings settings) {
+    return MaterialPageRoute<void>(
+      settings: settings,
+      builder: (BuildContext context) => UnknownPage(),
+    );
+  }
+    Route<dynamic> _getRoute(RouteSettings settings) {
+//    if (settings.name == '/Search') {
+//      final String symbol = settings.arguments;
+//      return MaterialPageRoute<void>(
+//        settings: settings,
+//        builder: (BuildContext context) => SearchPage(),
+//      );
+//    }
+    // The other paths we support are in the routes table.
+    return null;
   }
 }
 

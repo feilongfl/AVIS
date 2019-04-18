@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../controller/HomePageConTroller.dart';
-import '../widget/SearchBar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -26,12 +25,18 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SearchBar(),
+        title: Text(homePageController.title),
         bottom: TabBar(
           isScrollable: true,
           controller: homePageController.tabController,
           tabs: homePageController.widgetTabs,
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () => homePageController.doSearch(context),
+          )
+        ],
       ),
       body: TabBarView(
           controller: homePageController.tabController,
@@ -41,6 +46,14 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
           children: <Widget>[
             UserAccountsDrawerHeader(
                 accountName: Text("test"), accountEmail: Text("test@test.com")),
+            ListTile(
+              title: Text("Ttem 1"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
+            ListTile(
+              title: Text("Item 2"),
+              trailing: Icon(Icons.arrow_forward),
+            ),
             ListTile(
               title: Text("Ttem 1"),
               trailing: Icon(Icons.arrow_forward),

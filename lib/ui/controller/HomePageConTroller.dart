@@ -8,6 +8,8 @@ class HomePageController extends ControllerMVC {
 
   int get displaythis => HomePageModel.count;
 
+  String get title => HomePageModel.title;
+
   bool showIcon = false;
 
   List<Widget> get widgetTabs => HomePageModel.widgetTabs
@@ -21,4 +23,8 @@ class HomePageController extends ControllerMVC {
       HomePageModel.widgetTabs.map((t) => t.child).toList();
 
   void whatever() => HomePageModel.incre();
+
+  void doSearch(BuildContext context) {
+    Navigator.pushNamed(context, "/Search");
+  }
 }
