@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+
 import '../controller/HomePageConTroller.dart';
+import '../widget/SearchBar.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -9,33 +11,46 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends StateMVC {
+class _HomePageState extends StateMVC with TickerProviderStateMixin {
+  final String title = "AVIS";
+  HomePageController homePageController = new HomePageController();
+
+  @override
+  void initState() {
+    super.initState();
+    homePageController.tabController = new TabController(
+        length: homePageController.widgetTabs.length, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("title"),
+        title: SearchBar(),
+        bottom: TabBar(
+          isScrollable: true,
+          controller: homePageController.tabController,
+          tabs: homePageController.widgetTabs,
+        ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: TabBarView(
+          controller: homePageController.tabController,
+          children: homePageController.widgetBodys),
+      drawer: Drawer(
+        child: ListView(
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            UserAccountsDrawerHeader(
+                accountName: Text("test"), accountEmail: Text("test@test.com")),
+            ListTile(
+              title: Text("Ttem 1"),
+              trailing: Icon(Icons.arrow_forward),
             ),
-            Text(
-              '${HomePageController.displaythis}',
-              style: Theme.of(context).textTheme.display1,
+            ListTile(
+              title: Text("Item 2"),
+              trailing: Icon(Icons.arrow_forward),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(HomePageController.whatever);
-        },
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
