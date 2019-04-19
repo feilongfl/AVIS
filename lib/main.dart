@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'common/AppEnums.dart';
 import 'common/AppShareData.dart';
-import 'parse/DemoParse.dart';
+import 'parse/DemoHttpParse.dart';
 
 void initAppParse() {
   for (int i = 0 ; i < MediaType.All.index;i++){
@@ -11,7 +11,7 @@ void initAppParse() {
   }
 
   // for debug use
-  AppShareData.AppParse[MediaType.Image.index].add(DemoParse());
+  AppShareData.AppParse[MediaType.Image.index].add(DemoHttpParse());
 }
 
 void init() {
