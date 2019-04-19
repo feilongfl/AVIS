@@ -3,8 +3,8 @@ import 'MediaEposide.dart';
 import 'MediaInfo.dart';
 
 class Media {
-  MediaInfoFull info;
-  MediaType type;
+  MediaInfoFull info = new MediaInfoFull();
+  MediaType type = MediaType.All;
 
-  List<MediaEposide> eposide;
+  List<MediaEposide> eposide = new List();
 }
