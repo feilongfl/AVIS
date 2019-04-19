@@ -1,18 +1,18 @@
 class MediaInfo{
-  String title;
-  String intro;
-  String cover;
-  String url;
+  String title = "media";
+  String intro= "intro";
+  String cover = "https://seaside.ebb.io/615x1017.jpg";
+  String url = "";
   //save parse data
-  String eid;
-  String cid;
-  String pid;
+  String eid = "";
+  String cid = "";
+  String pid = "";
 }
 
 class MediaInfoFull extends MediaInfo{
-  String author;
-  DateTime date;
-  String studio;
-  bool isFinished;
-  String databaseUrl;
+  String author = "feilong";
+  DateTime date = DateTime.now();
+  String studio = "";
+  bool isFinished = false;
+  String databaseUrl = "";
 }

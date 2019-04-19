@@ -52,52 +52,65 @@ class _SearchPageState extends StateMVC {
   }
 
   Widget _searchPage(BuildContext context) {
-    return Column(
-      children: <Widget>[]
-        ..add(Image.network(
-            "http://www.baidu.com/img/bd_logo1.png")) //todo change image
-        ..add(Padding(
-          padding: EdgeInsets.only(left: 20, right: 20),
-          child: Row(
-            children: <Widget>[
-              Flexible(
-                  child: TextField(
-                controller: textEditingController,
-              )),
-              IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  if (textEditingController.toString() != "")
-                    Navigator.of(context)
-                        .pushNamed(AppRoutes.SearchResult, arguments: {
-                      AppRoutes.SearchResultArg_type: type,
-                      AppRoutes.SearchResultArg_keyword:
-                          textEditingController.text
-                    });
-                },
-              ),
-            ],
-          ),
-        ))
-        ..add(Padding(
-          padding: EdgeInsets.only(left: 20, right: 20),
-          child: Column(
-            children: <Widget>[
-              Row(
+    return SingleChildScrollView(
+      child: Container(
+        child: Column(
+          children: <Widget>[]
+            ..add(Image.network(
+                "http://www.baidu.com/img/bd_logo1.png")) //todo change image
+            ..add(Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: Row(
                 children: <Widget>[
-                  _radioItem(context, MediaType.Article),
-                  _radioItem(context, MediaType.Video),
+                  Flexible(
+                      child: TextField(
+                    controller: textEditingController,
+                  )),
+                  IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: () {
+                      if (textEditingController.toString() != "")
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.SearchResult, arguments: {
+                          AppRoutes.SearchResultArg_type: type,
+                          AppRoutes.SearchResultArg_keyword:
+                              textEditingController.text
+                        });
+                    },
+                  ),
                 ],
               ),
-              Row(
-                children: <Widget>[
-                  _radioItem(context, MediaType.Image),
-                  _radioItem(context, MediaType.Sound),
-                ],
-              ),
-            ],
-          ),
-        )),
+            ))
+            ..add(Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
+              child: MediaQuery.of(context).orientation == Orientation.landscape
+                  ? Row(
+                      children: <Widget>[
+                        _radioItem(context, MediaType.Article),
+                        _radioItem(context, MediaType.Video),
+                        _radioItem(context, MediaType.Image),
+                        _radioItem(context, MediaType.Sound),
+                      ],
+                    )
+                  : Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            _radioItem(context, MediaType.Article),
+                            _radioItem(context, MediaType.Video),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            _radioItem(context, MediaType.Image),
+                            _radioItem(context, MediaType.Sound),
+                          ],
+                        ),
+                      ],
+                    ),
+            )),
+        ),
+      ),
     );
   }
 }
