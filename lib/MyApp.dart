@@ -1,27 +1,22 @@
-import 'package:flutter/material.dart';
 import 'package:avis/ui/view/homepage.dart';
+import 'package:flutter/material.dart';
 
+import 'common/AppShareData.dart';
 import 'ui/view/SearchPage.dart';
+import 'ui/view/SearchResultPage.dart';
 import 'ui/view/UnknownPage.dart';
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Map<String, WidgetBuilder> _routes = {
-      '/':         (BuildContext context) => HomePage(),
-      '/Search': (BuildContext context) => SearchPage(),
-    };
-
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: AppShareData.AppName,
       theme: ThemeData(
-
         primarySwatch: Colors.teal,
       ),
       routes: _routes,
       onGenerateRoute: _getRoute,
-    onUnknownRoute: _unknowRoute,
+      onUnknownRoute: _unknowRoute,
     );
   }
 
@@ -31,16 +26,23 @@ class MyApp extends StatelessWidget {
       builder: (BuildContext context) => UnknownPage(),
     );
   }
-    Route<dynamic> _getRoute(RouteSettings settings) {
-//    if (settings.name == '/Search') {
-//      final String symbol = settings.arguments;
-//      return MaterialPageRoute<void>(
-//        settings: settings,
-//        builder: (BuildContext context) => SearchPage(),
-//      );
-//    }
+
+  Map<String, WidgetBuilder> _routes = {
+    AppRoutes.Home: (BuildContext context) => HomePage(),
+    AppRoutes.Search: (BuildContext context) => SearchPage(),
+  };
+
+  Route<dynamic> _getRoute(RouteSettings settings) {
+    if (settings.name == AppRoutes.SearchResult) {
+      final Map<String, dynamic> argv = settings.arguments;
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (BuildContext context) => SearchResultPage(
+            argv[AppRoutes.SearchResultArg_type],
+            argv[AppRoutes.SearchResultArg_keyword]),
+      );
+    }
     // The other paths we support are in the routes table.
     return null;
   }
 }
-

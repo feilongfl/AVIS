@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../../common/AppShareData.dart';
 import '../model/HomePageModel.dart';
 
 class HomePageController extends ControllerMVC {
@@ -25,6 +26,6 @@ class HomePageController extends ControllerMVC {
   void whatever() => HomePageModel.incre();
 
   void doSearch(BuildContext context) {
-    Navigator.pushNamed(context, "/Search");
+    Navigator.pushNamed(context, AppRoutes.Search);
   }
 }
