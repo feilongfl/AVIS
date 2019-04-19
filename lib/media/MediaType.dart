@@ -1,7 +1,8 @@
 enum MediaType {
-  Null,
-  Novel,
+  Article,
   Video,
-  Comic,
-  Music,
+  Image,
+  Sound,
+
+  All,
 }
