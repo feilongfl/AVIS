@@ -139,6 +139,6 @@ class SearchResultPageController extends ControllerMVC {
   }
 
   Future<List<Media>> doSearch() async {
-    return await ParseRunner.Search(this.keyword, this.type);
+    return ParseRunner.Search(this.keyword, this.type);
   }
 }

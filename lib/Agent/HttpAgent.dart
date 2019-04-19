@@ -1,13 +1,10 @@
-import 'dart:_http';
-import 'dart:_internal';
+import 'dart:io';
 
 import '../common/AppEnums.dart';
-import '../common/HttpUserAgent.dart';
+import '../common/AppShareData.dart';
 import '../core/HTTP.dart';
 import '../event/Event.dart';
 import 'BaseAgent.dart';
-
-
 
 class HttpAgent extends BaseAgent {
   static String name = "HttpAgent";
@@ -17,16 +14,16 @@ class HttpAgent extends BaseAgent {
 
   HttpMethod method = HttpMethod.Get;
   String userAgent = HttpUserAgent.Linux_Chrome;
-  String postData = "";
-  String cookies = "";
-  String referer = "";
+  String postData;
+  String cookies;
+  String referer;
   String url = "";
 
   HttpClient httpClient = new HttpClient();
 
   String get UUID => _UUID;
 
-  HttpAgent(
+  HttpAgent(this.url,
       {this.lastRun,
       this.cookies,
       this.method,
@@ -40,12 +37,13 @@ class HttpAgent extends BaseAgent {
     List<Event> eventOut = await super.doWork(eventIn);
 
     //todo http post
-    HTTPResult httpResult = await HTTP.Get(
+    HTTPResult httpResult = await HTTP.work(
       httpClient,
-      url,
-      referer: this.referer,
-      useragent: this.userAgent,
-      cookies: this.cookies,
+      eventIn.Data['url'] ?? url,
+      referer: eventIn.Data['referer'] ?? this.referer,
+      useragent: eventIn.Data['useragent'] ?? this.userAgent,
+      cookies: eventIn.Data['cookies'] ?? this.cookies,
+      method: eventIn.Data['cookies'] ?? this.method,
     );
 
     eventOut[0].Data['body'] = httpResult.body;

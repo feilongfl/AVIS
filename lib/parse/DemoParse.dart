@@ -11,7 +11,7 @@ class DemoParse implements Parse {
 
   List<List<Agent>> agents = new List(ParseType.All.index);
 
-  Future<List<Media>> doWork(ParseType type) async {
+  Future<List<Media>> doWork(ParseType type,Map<String, dynamic> argv) async {
     List<Media> result = new List();
 
     for (int i = 0; i < 20; i++) {

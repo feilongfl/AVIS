@@ -9,6 +9,7 @@ class Event {
 
   Event(this.Data, {this.success, this.RecvUUID, this.SendUUID}) {
     this.Time = DateTime.now();
+    this.success = this.success?? true;
   }
 
   @override

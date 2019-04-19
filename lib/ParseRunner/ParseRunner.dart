@@ -5,7 +5,9 @@ import '../parse/Parse.dart';
 
 class ParseRunner {
   static Future<List<Media>> _SearchOne(Parse parse, String keyword) async {
-    return parse.doWork(ParseType.Search);
+    Map<String,dynamic> data = new Map();
+    data['SearchKeywors'] = keyword;
+    return parse.doWork(ParseType.Search, data);
   }
 
   static Future<List<Media>> Search(String keyword, MediaType type) async {

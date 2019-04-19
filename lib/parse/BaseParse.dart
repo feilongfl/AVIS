@@ -11,7 +11,7 @@ class BaseParse implements Parse {
 
   List<List<Agent>> agents = new List(ParseType.All as int);
 
-  Future<List<Media>> doWork(ParseType type) async {
+  Future<List<Media>> doWork(ParseType type, Map<String, dynamic> argv) async {
     List<Agent> parseAgent = agents[type as int];
     List<Media> result;
     List<Event> event = new List();

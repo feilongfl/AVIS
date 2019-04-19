@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import '../Agent/Agent.dart';
+import '../Agent/HttpAgent.dart';
 import '../common/AppEnums.dart';
 import '../core/HTTP.dart';
+import '../event/Event.dart';
 import '../media/Media.dart';
 import 'Parse.dart';
 
@@ -16,14 +18,20 @@ class DemoHttpParse implements Parse {
 
   HttpClient httpClient = new HttpClient();
 
-  Future<List<Media>> doWork(ParseType type) async {
+  Agent domoAgent = HttpAgent("https://www.50mh.com/list/riben/");
+
+  Future<List<Media>> doWork(ParseType type, Map<String, dynamic> data) async {
+    Event eventTrig = Event(data);
+    List<Event> events = await domoAgent.doWork(eventTrig);
+
+    ///////////////////////////////////////////////////////////////////
     // fetch net data
     HTTPResult netResult =
         await HTTP.Get(httpClient, "https://www.50mh.com/list/riben/");
 
     if (netResult.status != HttpStatus.ok) return null;
 
-    // match regex
+    // match regex.
     RegExp re = RegExp(
         '<a class="comic_img" href="(.*?)"><img src="(.*?)" alt="(.*?)"');
 
