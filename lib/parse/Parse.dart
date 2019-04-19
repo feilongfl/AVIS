@@ -1,15 +1,8 @@
 import '../Agent/Agent.dart';
+import '../common/AppEnums.dart';
 import '../media/Media.dart';
 
-enum ParseType {
-  Search,
-  info,
-  Episode,
-  Chapter,
-  Source,
-  SourceLazy,
-  All,
-}
+
 
 class Parse {
   static String ParseUUID;

@@ -1,5 +1,5 @@
+import '../common/AppEnums.dart';
 import 'MediaInfo.dart';
-import 'MediaType.dart';
 
 class MediaChapter {
   int index;

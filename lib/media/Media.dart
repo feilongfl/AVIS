@@ -1,6 +1,6 @@
+import '../common/AppEnums.dart';
 import 'MediaEposide.dart';
 import 'MediaInfo.dart';
-import 'MediaType.dart';
 
 class Media {
   MediaInfoFull info;

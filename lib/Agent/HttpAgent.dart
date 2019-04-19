@@ -1,15 +1,13 @@
 import 'dart:_http';
 import 'dart:_internal';
 
+import '../common/AppEnums.dart';
 import '../common/HttpUserAgent.dart';
 import '../core/http.dart';
 import '../event/Event.dart';
 import 'BaseAgent.dart';
 
-enum HttpMethod {
-  Get,
-  Post,
-}
+
 
 class HttpAgent extends BaseAgent {
   static String name = "HttpAgent";

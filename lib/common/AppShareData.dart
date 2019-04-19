@@ -1,5 +1,5 @@
 import '../media/Media.dart';
-import '../media/MediaType.dart';
+import 'AppEnums.dart';
 
 class AppShareData{
   //Saved Media
