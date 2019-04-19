@@ -12,7 +12,7 @@ class HTTP {
 
   static Future<HTTPResult> Get(HttpClient httpClient, String url,
       {String useragent, String referer, String cookies}) async {
-    HTTPResult result;
+    HTTPResult result = new HTTPResult();
 
     try {
       var request = await httpClient.getUrl(Uri.parse(url));

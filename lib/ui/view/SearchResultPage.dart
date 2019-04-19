@@ -34,6 +34,9 @@ class _SearchResultPageState extends StateMVC {
 //  }
 
   Widget _searchItem(BuildContext context, Media media) {
+    if(media == null)
+      return Text("load failed");
+
     final image_width = MediaQuery.of(context).size.width / 3;
     final image_height = image_width * 0.75;
     return Row(

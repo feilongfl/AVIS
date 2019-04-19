@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import '../Agent/Agent.dart';
 import '../common/AppEnums.dart';
+import '../core/HTTP.dart';
 import '../media/Media.dart';
 import 'Parse.dart';
 
@@ -11,17 +14,25 @@ class DemoHttpParse implements Parse {
 
   List<List<Agent>> agents = new List(ParseType.All.index);
 
+  HttpClient httpClient = new HttpClient();
+
   Future<List<Media>> doWork(ParseType type) async {
-    List<Media> result = new List();
+    // fetch net data
+    HTTPResult netResult =
+        await HTTP.Get(httpClient, "https://www.50mh.com/list/riben/");
 
-    for (int i = 0; i < 20; i++) {
+    if (netResult.status != HttpStatus.ok) return null;
+
+    // match regex
+    RegExp re = RegExp(
+        '<a class="comic_img" href="(.*?)"><img src="(.*?)" alt="(.*?)"');
+
+    return re.allMatches(netResult.body).map((Match m) {
       Media media = Media();
-      media.info.title = "demo result ";
-      media.info.cover = "https://seaside.ebb.io/615x1017.jpg";
-      media.info.title += i.toString();
-      result.add(media);
-    }
-
-    return result;
+      media.info.title = m.group(3);
+      media.info.cover = m.group(2);
+      media.info.url = m.group(1);
+      return media;
+    }).toList();
   }
 }

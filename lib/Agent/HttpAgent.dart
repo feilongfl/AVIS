@@ -3,7 +3,7 @@ import 'dart:_internal';
 
 import '../common/AppEnums.dart';
 import '../common/HttpUserAgent.dart';
-import '../core/http.dart';
+import '../core/HTTP.dart';
 import '../event/Event.dart';
 import 'BaseAgent.dart';
 
