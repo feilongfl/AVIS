@@ -1,3 +1,4 @@
+import '../ResultFormatter/ResultFormatter.dart';
 import '../event/Event.dart';
 import 'BaseAgent.dart';
 
@@ -22,7 +23,7 @@ class RegexpAgent extends BaseAgent {
 
     this.lastRun = DateTime.now();
 
-    String matchBody = eventIn.Data['body'];
+    String matchBody = eventIn.Data[ResultFormatter.body];
     List<Event> eventResult = new List();
     Iterable<Match> matcher = regexp.allMatches(matchBody);
 
