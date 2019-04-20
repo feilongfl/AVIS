@@ -20,7 +20,7 @@ class BaseParse implements Parse {
     for (var agent in parseAgent) {
       while (event.length != 0)
         for (var e in event) {
-          event.addAll(await agent.doWork(e));
+          event.addAll(await agent.doWork(eventIn: e));
           event.remove(e);
         }
     }

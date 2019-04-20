@@ -7,10 +7,10 @@ import '../event/Event.dart';
 import 'BaseAgent.dart';
 
 class HttpAgent extends BaseAgent {
-  static String name = "HttpAgent";
+  final String name = "HttpAgent";
   String _UUID = "";
   DateTime lastRun = BaseAgent.DefaultDateTime;
-  static String AgentUUID = "c8d639f3-fbf7-4575-bbd2-0a3945446ff9";
+  final String AgentUUID = "c8d639f3-fbf7-4575-bbd2-0a3945446ff9";
 
   HttpMethod method = HttpMethod.Get;
   String userAgent = HttpUserAgent.Linux_Chrome;
@@ -34,7 +34,7 @@ class HttpAgent extends BaseAgent {
 
   @override
   Future<List<Event>> doRealWork(Event eventIn) async {
-    List<Event> eventOut = await super.doWork(eventIn);
+    List<Event> eventOut = await super.doRealWork(eventIn);
 
     //todo http post
     HTTPResult httpResult = await HTTP.work(

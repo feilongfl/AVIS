@@ -5,12 +5,12 @@ import 'Agent.dart';
 
 class BaseAgent implements Agent {
 //  .*?\s+(\w+)(?:;|(?:\s+=.*;))
-  static String name = "BaseAgent";
+  final String name = "BaseAgent";
   static DateTime DefaultDateTime = DateTime(2010);
   String _UUID = "";
 
   DateTime lastRun = DefaultDateTime;
-  static String AgentUUID =
+  final String AgentUUID =
       "36aee99f-5ce8-4726-802d-363308bb9054"; //https://www.uuidgenerator.net/
 
   String get UUID => _UUID;
@@ -22,7 +22,7 @@ class BaseAgent implements Agent {
 
   bool checkEventIn(Event eventIn) {
     if (eventIn != null)
-      return eventIn.success;
+      return !eventIn.success;
     else
       return true;
   }
@@ -36,11 +36,30 @@ class BaseAgent implements Agent {
     return [Event(data, SendUUID: this._UUID, success: true)];
   }
 
-  Future<List<Event>> doWork(Event eventIn) async {
+  Future<List<Event>> _doOneWork(Event eventIn) async {
     if (this.checkEventIn(eventIn))
       return [Event(null, SendUUID: this._UUID, success: false)];
 
-    return doRealWork(eventIn);
+    return doRealWork(eventIn).then((v) async {
+      v.forEach((vv) {
+        vv.SendUUID = AgentUUID;
+      });
+      return v;
+    });
+  }
+
+  Future<List<Event>> doWork({Event eventIn, List<Event> eventsIn}) async {
+    List<Event> eventResult = new List();
+
+    if (eventIn != null) {
+      eventResult.addAll(await _doOneWork(eventIn));
+    }
+    if (eventsIn != null)
+      for (var e in eventsIn) {
+        eventResult.addAll(await _doOneWork(e));
+      }
+
+    return eventResult;
   }
 
   void fromJson(Map<String, dynamic> json) {

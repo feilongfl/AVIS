@@ -2,8 +2,8 @@ import '../event/Event.dart';
 import 'BaseAgent.dart';
 
 class RegexpAgent extends BaseAgent {
-  static String name = "HttpAgent";
-  static String AgentUUID = "88ae4496-76cd-4c2d-a2e0-0955a391c97e";
+  final String name = "HttpAgent";
+  final String AgentUUID = "88ae4496-76cd-4c2d-a2e0-0955a391c97e";
 
   String _UUID = "";
   DateTime lastRun = BaseAgent.DefaultDateTime;
@@ -11,8 +11,9 @@ class RegexpAgent extends BaseAgent {
   String get UUID => _UUID;
 
   RegExp regexp;
+  List<String> matchGroups;
 
-  RegexpAgent() : super() ;
+  RegexpAgent(this.regexp, this.matchGroups) : super();
 
   @override //match eventIn.body
   Future<List<Event>> doRealWork(Event eventIn) async {
@@ -21,9 +22,20 @@ class RegexpAgent extends BaseAgent {
 
     this.lastRun = DateTime.now();
 
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['body'] = regexp.firstMatch(eventIn.Data['body']);
+    String matchBody = eventIn.Data['body'];
+    List<Event> eventResult = new List();
+    Iterable<Match> matcher = regexp.allMatches(matchBody);
 
-    return [Event(data, SendUUID: this._UUID, success: true)];
+    for (Match m in matcher) {
+      final Map<String, dynamic> data = new Map<String, dynamic>();
+      int i = 1;
+      for (String matchGroup in matchGroups) {
+        data[matchGroup] = m.group(i++);
+      }
+      eventResult.add(Event(data, success: true, SendUUID: this.UUID));
+    }
+
+//    return [Event(data, SendUUID: this._UUID, success: true)];
+    return eventResult;
   }
 }

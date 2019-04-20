@@ -2,8 +2,8 @@ import 'dart:io';
 
 import '../Agent/Agent.dart';
 import '../Agent/HttpAgent.dart';
+import '../Agent/RegexpAgent.dart';
 import '../common/AppEnums.dart';
-import '../core/HTTP.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
 import 'Parse.dart';
@@ -19,28 +19,35 @@ class DemoHttpParse implements Parse {
   HttpClient httpClient = new HttpClient();
 
   Agent domoAgent = HttpAgent("https://www.50mh.com/list/riben/");
+  Agent demoRegexAgent = RegexpAgent(
+      RegExp('<a class="comic_img" href="(.*?)"><img src="(.*?)" alt="(.*?)"'),
+      ["url", "cover", "title"]);
 
   Future<List<Media>> doWork(ParseType type, Map<String, dynamic> data) async {
     Event eventTrig = Event(data);
-    List<Event> events = await domoAgent.doWork(eventTrig);
+    List<Event> events = await domoAgent.doWork(eventIn: eventTrig);
+    List<Event> events2 = await demoRegexAgent.doWork(eventsIn: events);
 
-    ///////////////////////////////////////////////////////////////////
-    // fetch net data
-    HTTPResult netResult =
-        await HTTP.Get(httpClient, "https://www.50mh.com/list/riben/");
+    List<Media> media = new List();
 
-    if (netResult.status != HttpStatus.ok) return null;
+    for (var event in events) {
+      if (!event.success) continue;
+      var bodyText = event.Data['body'];
+      if (bodyText != null && bodyText != "") {
+        // match regex.
+        RegExp re = RegExp(
+            '<a class="comic_img" href="(.*?)"><img src="(.*?)" alt="(.*?)"');
 
-    // match regex.
-    RegExp re = RegExp(
-        '<a class="comic_img" href="(.*?)"><img src="(.*?)" alt="(.*?)"');
+        media.addAll(re.allMatches(bodyText).map((Match m) {
+          Media media = Media();
+          media.info.title = m.group(3);
+          media.info.cover = m.group(2);
+          media.info.url = m.group(1);
+          return media;
+        }).toList());
+      }
+    }
 
-    return re.allMatches(netResult.body).map((Match m) {
-      Media media = Media();
-      media.info.title = m.group(3);
-      media.info.cover = m.group(2);
-      media.info.url = m.group(1);
-      return media;
-    }).toList();
+    return media;
   }
 }

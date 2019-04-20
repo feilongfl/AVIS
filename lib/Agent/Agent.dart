@@ -18,7 +18,8 @@ class Agent {
 
   Future<List<Event>> doRealWork(Event eventIn) async {}
 
-  Future<List<Event>> doWork(Event eventIn) async {}
+  Future<List<Event>> doWork({Event eventIn,List<Event> eventsIn}) async {}
+//  Future<List<Event>> doWork(List<Event> eventIn) async {}
 
 //    this.$1 = json['$1'];
   void fromJson(Map<String, dynamic> json) {}
