@@ -7,7 +7,7 @@ import 'Agent/RegexpAgent.dart';
 import 'ResultFormatter/ResultFormatter.dart';
 import 'common/AppEnums.dart';
 import 'common/AppShareData.dart';
-import 'parse/DemoHttpParse.dart';
+import 'parse/BaseParse.dart';
 
 List<List<Agent>> GenExpAgents() {
   List<List<Agent>> agents = new List(ParseType.All.index);
@@ -31,7 +31,7 @@ void initAppParse() {
   List<List<Agent>> expagents = GenExpAgents();
 
   // for debug use
-  AppShareData.AppParse[MediaType.Image.index].add(DemoHttpParse(expagents));
+  AppShareData.AppParse[MediaType.Image.index].add(BaseParse(expagents));
 }
 
 void init() {
