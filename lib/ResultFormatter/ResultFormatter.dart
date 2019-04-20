@@ -33,17 +33,29 @@ class ResultFormatter {
     return medias;
   }
 
-  static Media InfoEventFormat(Event event) {}
+  static Media InfoEventFormat(Event event) {
+    return null;
+  }
 
-  static Media EpisodeEventFormat(Event event) {}
+  static Media EpisodeEventFormat(Event event) {
+    return null;
+  }
 
-  static Media ChapterEventFormat(Event event) {}
+  static Media ChapterEventFormat(Event event) {
+    return null;
+  }
 
-  static Media SourceEventFormat(Event event) {}
+  static Media SourceEventFormat(Event event) {
+    return null;
+  }
 
-  static Media SourceLazyEventFormat(Event event) {}
+  static Media SourceLazyEventFormat(Event event) {
+    return null;
+  }
 
-  static List<Media> HomepageEventFormat(List<Event> events) {}
+  static List<Media> HomepageEventFormat(List<Event> events) {
+    return null;
+  }
 
   static void LoginEventFormat(Event event) {}
 }

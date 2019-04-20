@@ -8,12 +8,16 @@ class UnknownPage extends StatefulWidget {
   _UnknownPageState createState() => _UnknownPageState();
 }
 
-class _UnknownPageState extends StateMVC{
+class _UnknownPageState extends StateMVC {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("404"),),
-      body: Center(child: Text("404"),),
+      appBar: AppBar(
+        title: Text("404"),
+      ),
+      body: Center(
+        child: Text("404"),
+      ),
     );
   }
 }

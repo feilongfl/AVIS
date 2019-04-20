@@ -20,6 +20,5 @@ enum MediaType {
   Video,
   Image,
   Sound,
-
   All,
 }

@@ -15,30 +15,30 @@ class _SearchBarState extends StateMVC {
 //        color: Colors.amber,
 //        padding: EdgeInsets.only(left: 10) ,
         child: Row(
-          children: <Widget>[
+      children: <Widget>[
 //            IconButton(
 //                icon:
 //                Icon(_SearchBarControl.isInput ? Icons.arrow_back : Icons.dehaze),
 //                onPressed: _SearchBarControl.isInput
 //                    ? _SearchBarControl.CancleInput
 //                    : _SearchBarControl.ShowNav),
-            Flexible(
-              child: TextField(
-                onTap: () {
-                  setState(_SearchBarControl.StartInput);
-                },
-                onEditingComplete: () {
-                  setState(_SearchBarControl.FinishInput);
-                },
-                controller: _SearchBarControl.controller,
-                decoration: new InputDecoration(
-                  hintText: _SearchBarControl.defaultInputString,
-                ),
-              ),
+        Flexible(
+          child: TextField(
+            onTap: () {
+              setState(_SearchBarControl.StartInput);
+            },
+            onEditingComplete: () {
+              setState(_SearchBarControl.FinishInput);
+            },
+            controller: _SearchBarControl.controller,
+            decoration: new InputDecoration(
+              hintText: _SearchBarControl.defaultInputString,
             ),
-            IconButton(icon: Icon(Icons.keyboard_voice), onPressed: null),
-          ],
-        ));
+          ),
+        ),
+        IconButton(icon: Icon(Icons.keyboard_voice), onPressed: null),
+      ],
+    ));
   }
 }
 
@@ -61,7 +61,5 @@ class _SearchBarControl extends ControllerMVC {
 
   static void ShowNav() {}
 
-  static void CancleInput() {
-
-  }
+  static void CancleInput() {}
 }

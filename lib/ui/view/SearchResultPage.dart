@@ -7,8 +7,8 @@ import '../../common/AppShareData.dart';
 import '../../media/Media.dart';
 
 class SearchResultPage extends StatefulWidget {
-  MediaType type;
-  String keyword;
+  final MediaType type;
+  final String keyword;
 
   SearchResultPage(this.type, this.keyword, {Key key}) : super(key: key);
 
@@ -34,8 +34,7 @@ class _SearchResultPageState extends StateMVC {
 //  }
 
   Widget _searchItem(BuildContext context, Media media) {
-    if(media == null)
-      return Text("load failed");
+    if (media == null) return Text("load failed");
 
     final image_width = MediaQuery.of(context).size.width / 3;
     final image_height = image_width * 0.75;
