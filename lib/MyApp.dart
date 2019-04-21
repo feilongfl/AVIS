@@ -40,7 +40,7 @@ class MyAppController extends ControllerMVC {
   Route<dynamic> _unknowRoute(RouteSettings settings) {
     return MaterialPageRoute<void>(
       settings: settings,
-      builder: (BuildContext context) => UnknownPage(),
+      builder: (BuildContext context) => UnknownPage(settings.name),
     );
   }
 

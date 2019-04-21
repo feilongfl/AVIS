@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
 
 class UnknownPage extends StatefulWidget {
-  UnknownPage({Key key}) : super(key: key);
+  String name;
+
+  UnknownPage(this.name, {Key key}) : super(key: key);
 
   @override
-  _UnknownPageState createState() => _UnknownPageState();
+  _UnknownPageState createState() => _UnknownPageState(this.name);
 }
 
-class _UnknownPageState extends StateMVC {
+class _UnknownPageState extends State<UnknownPage> {
+  String name;
+
+  _UnknownPageState(this.name) : super();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +21,7 @@ class _UnknownPageState extends StateMVC {
         title: Text("404"),
       ),
       body: Center(
-        child: Text("404"),
+        child: Text(this.name),
       ),
     );
   }

@@ -25,6 +25,13 @@ class AppRoutes {
   static const String SearchResult = "/SearchResult";
   static const String SearchResultArg_type = "type";
   static const String SearchResultArg_keyword = "keyword";
+  static const String Histroy = "/History";
+  static const String Favorite = "/Favorite";
+  static const String Backup = "/Backup";
+  static const String SourceSetting = "/SourceSetting";
+  static const String Setting = "/Setting";
+  static const String Donate = "/Donate";
+  static const String About = "/About";
 }
 
 class HttpUserAgent {

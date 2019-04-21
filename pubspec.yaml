@@ -25,7 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   mvc_pattern: 3.3.5
   rxdart: 0.21.0
-#  gbk2utf8: ^1.0.0
+  #  gbk2utf8: ^1.0.0
+  simple_gravatar: ^1.0.3
 
 dev_dependencies:
   flutter_test:
