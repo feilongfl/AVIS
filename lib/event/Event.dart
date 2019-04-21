@@ -17,6 +17,7 @@ class Event {
   static const String Useragent = "useragent";
   static const String Cookies = "cookies";
   static const String HttpMethod = "httpmethod";
+  static const String SearchKeyword = "\$searchkeyword";
 
 
   Event(this.Data,

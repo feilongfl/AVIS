@@ -2,6 +2,7 @@ import 'package:avis/MyApp.dart';
 import 'package:flutter/material.dart';
 
 import 'Agent/Agent.dart';
+import 'Agent/EventAgent.dart';
 import 'Agent/HttpAgent.dart';
 import 'Agent/RegexpAgent.dart';
 import 'common/AppEnums.dart';
@@ -12,7 +13,9 @@ import 'parse/BaseParse.dart';
 List<List<Agent>> GenExpAgents() {
   List<List<Agent>> agents = new List(ParseType.All.index);
 
-  Agent domoAgent = HttpAgent("https://www.50mh.com/list/riben/");
+  List<String> replaceList = [Event.SearchKeyword];
+  Agent demoEventAgent = EventAgent(replaceList);
+  Agent domoAgent = HttpAgent(url: "https://www.50mh.com/list/riben/");
   Agent demoRegexAgent = RegexpAgent(
       RegExp('<a class="comic_img" href="(.*?)"><img src="(.*?)" alt="(.*?)"'),
       [Event.Url, Event.Cover, Event.Title]);
@@ -31,6 +34,7 @@ void initAppParse() async {
   List<List<Agent>> expagents = GenExpAgents();
 
   // for debug use
+  AppShareData.AppParse[MediaType.Image.index].add(BaseParse(expagents));
   AppShareData.AppParse[MediaType.Image.index].add(BaseParse(expagents));
 }
 

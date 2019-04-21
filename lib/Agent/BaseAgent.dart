@@ -15,8 +15,10 @@ class BaseAgent implements Agent {
 
   String get UUID => _UUID;
 
+  List<String> replaces = new List();
+
   //  this.$1,
-  BaseAgent() {
+  BaseAgent({this.replaces}) {
     _UUID = ""; // todo generate UUID here
   }
 
@@ -36,9 +38,23 @@ class BaseAgent implements Agent {
     return [Event(data, SendUUID: this._UUID, success: true)];
   }
 
+  Event ReplaceVal(Event eventIn){
+    eventIn.Data.forEach((key, val) {
+      this.replaces.forEach((replace) {
+        if (val.runtimeType == String)
+          eventIn.Data[key] =
+              (val as String).replaceAll(replace, eventIn.Data[replace] ?? "");
+      });
+    });
+
+    return eventIn;
+  }
+
   Future<List<Event>> _doOneWork(Event eventIn) async {
     if (this.checkEventIn(eventIn))
       return [Event(null, SendUUID: this._UUID, success: false)];
+
+    eventIn = ReplaceVal(eventIn);
 
     return doRealWork(eventIn).then((v) async {
       v.forEach((vv) {

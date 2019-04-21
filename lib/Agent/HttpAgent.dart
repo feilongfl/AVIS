@@ -23,8 +23,8 @@ class HttpAgent extends BaseAgent {
 
   String get UUID => _UUID;
 
-  HttpAgent(this.url,
-      {this.lastRun,
+  HttpAgent({this.url,
+      this.lastRun,
       this.cookies,
       this.method,
       this.postData,
@@ -35,6 +35,8 @@ class HttpAgent extends BaseAgent {
   @override
   Future<List<Event>> doRealWork(Event eventIn) async {
     List<Event> eventOut = await super.doRealWork(eventIn);
+//    String url = eventIn.Data[Event.Url] ?? this.url;
+//    url.replaceAll(Event.SearchKeyword, eventIn.Data[Event.SearchKeyword])
 
     //todo http post
     HTTPResult httpResult = await HTTP.work(

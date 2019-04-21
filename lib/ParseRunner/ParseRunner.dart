@@ -1,12 +1,13 @@
 import '../common/AppEnums.dart';
 import '../common/AppShareData.dart';
+import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/Parse.dart';
 
 class ParseRunner {
   static Future<List<Media>> _SearchOne(Parse parse, String keyword) async {
     Map<String, dynamic> data = new Map();
-    data['SearchKeywors'] = keyword;
+    data[Event.SearchKeyword] = keyword;
     return parse.doWork(ParseType.Search, data);
   }
 
