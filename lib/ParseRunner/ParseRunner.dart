@@ -14,12 +14,32 @@ class ParseRunner {
   static Future<List<Media>> Search(String keyword, MediaType type) async {
     List<Media> medias = new List();
     for (Parse parse in AppShareData.AppParse[type.index]) {
-      medias.addAll(await _SearchOne(parse, keyword));
+      medias.addAll(await _SearchOne(parse, keyword).then((vals) {
+        vals.forEach((m) {
+          m.ParseUUID = parse.ParseUUID;
+        });
+        return vals;
+      }));
     }
     return medias;
   }
 
+  static Parse findParse(Media media) {
+    for (List<Parse> appparse in AppShareData.AppParse) {
+      for (Parse parse in appparse) {
+        if (parse.ParseUUID == media.ParseUUID) return parse;
+      }
+    }
+    return null;
+  }
+
   static Future<Media> Info(Media media) async {
+    Parse parse = findParse(media);
+    if (parse == null) return media;
+
+    //todo fix here
+//    parse.doWork(ParseType.info, argv);
+
     return media..info.intro = "test";
   }
 

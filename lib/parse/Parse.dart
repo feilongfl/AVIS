@@ -3,8 +3,8 @@ import '../common/AppEnums.dart';
 import '../media/Media.dart';
 
 class Parse {
-  static String ParseUUID;
-  static String name;
+  String ParseUUID;
+  String name;
 
   List<List<Agent>> agents;
 
