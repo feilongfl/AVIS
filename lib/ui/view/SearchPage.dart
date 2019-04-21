@@ -56,8 +56,8 @@ class _SearchPageState extends StateMVC {
       child: Container(
         child: Column(
           children: <Widget>[]
-            ..add(Image.network(
-                "http://www.baidu.com/img/bd_logo1.png")) //todo change image
+//            ..add(Image.network(
+//                "http://www.baidu.com/img/bd_logo1.png")) //todo change image
             ..add(Padding(
               padding: EdgeInsets.only(left: 20, right: 20),
               child: Row(

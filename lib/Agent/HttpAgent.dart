@@ -23,13 +23,17 @@ class HttpAgent extends BaseAgent {
 
   String get UUID => _UUID;
 
-  HttpAgent({this.url,
+  List<String> replaces = new List();
+
+  HttpAgent(
+      {this.url,
       this.lastRun,
       this.cookies,
       this.method,
       this.postData,
       this.referer,
-      this.userAgent})
+      this.userAgent,
+      this.replaces})
       : super();
 
   @override
@@ -52,6 +56,20 @@ class HttpAgent extends BaseAgent {
     eventOut[0].success = httpResult.status == HttpStatus.ok;
 
     return eventOut;
+  }
+
+  Event ReplaceVal(Event eventIn) {
+    eventIn = super.ReplaceVal(eventIn);
+    if (this.replaces == null) return eventIn;
+
+    this.url = this.ReplaceOneVal(this.url, eventIn);
+//    this.cookies = this.ReplaceOneVal(this.cookies, eventIn);
+//    this.method = this.ReplaceOneVal(this.method, eventIn);
+    this.postData = this.ReplaceOneVal(this.postData, eventIn);
+//    this.referer = this.ReplaceOneVal(this.referer, eventIn);
+//    this.userAgent = this.ReplaceOneVal(this.userAgent, eventIn);
+
+    return eventIn;
   }
 
   @override

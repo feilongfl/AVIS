@@ -38,13 +38,24 @@ class BaseAgent implements Agent {
     return [Event(data, SendUUID: this._UUID, success: true)];
   }
 
-  Event ReplaceVal(Event eventIn){
+  String ReplaceOneVal(String val, Event event) {
+    if(val == null) return val;
+    if(event == null) return val;
+    if(val == "") return val;
+    if(this.replaces == null) return val;
+
+    this.replaces.forEach((replace) {
+      val = val.replaceAll(replace, event.Data[replace] ?? "");
+    });
+    return val;
+  }
+
+  Event ReplaceVal(Event eventIn) {
+    if (this.replaces == null) return eventIn;
+
     eventIn.Data.forEach((key, val) {
-      this.replaces.forEach((replace) {
-        if (val.runtimeType == String)
-          eventIn.Data[key] =
-              (val as String).replaceAll(replace, eventIn.Data[replace] ?? "");
-      });
+      if (val.runtimeType == String)
+        eventIn.Data[key] = ReplaceOneVal(val, eventIn);
     });
 
     return eventIn;

@@ -1,4 +1,3 @@
-import '../ResultFormatter/ResultFormatter.dart';
 import '../event/Event.dart';
 import 'BaseAgent.dart';
 
@@ -12,9 +11,11 @@ class RegexpAgent extends BaseAgent {
   String get UUID => _UUID;
 
   RegExp regexp;
-  List<String> matchGroups;
+  List<String> matchGroups = new List();
 
-  RegexpAgent(this.regexp, this.matchGroups) : super();
+  List<String> replaces = new List();
+
+  RegexpAgent(this.regexp, this.matchGroups, {this.replaces}) : super();
 
   @override //match eventIn.body
   Future<List<Event>> doRealWork(Event eventIn) async {

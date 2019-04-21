@@ -2,7 +2,6 @@ import 'package:avis/MyApp.dart';
 import 'package:flutter/material.dart';
 
 import 'Agent/Agent.dart';
-import 'Agent/EventAgent.dart';
 import 'Agent/HttpAgent.dart';
 import 'Agent/RegexpAgent.dart';
 import 'common/AppEnums.dart';
@@ -13,12 +12,12 @@ import 'parse/BaseParse.dart';
 List<List<Agent>> GenExpAgents() {
   List<List<Agent>> agents = new List(ParseType.All.index);
 
-  List<String> replaceList = [Event.SearchKeyword];
-  Agent demoEventAgent = EventAgent(replaceList);
-  Agent domoAgent = HttpAgent(url: "https://www.50mh.com/list/riben/");
+  Agent domoAgent = HttpAgent(
+      url: "https://www.50mh.com/search/?keywords=" + Event.SearchKeyword,
+      replaces: [Event.SearchKeyword]);
   Agent demoRegexAgent = RegexpAgent(
-      RegExp('<a class="comic_img" href="(.*?)"><img src="(.*?)" alt="(.*?)"'),
-      [Event.Url, Event.Cover, Event.Title]);
+      RegExp('<a class="image-link" href="(.*?)" title="(.*?)"><img src="(.*?)" width="\\d+" height="\\d+" alt="" default="(?:.*?)">'),
+      [Event.Url, Event.Title, Event.Cover]);
 
   agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
 
