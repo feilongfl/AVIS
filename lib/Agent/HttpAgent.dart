@@ -39,37 +39,22 @@ class HttpAgent extends BaseAgent {
   @override
   Future<List<Event>> doRealWork(Event eventIn) async {
     List<Event> eventOut = await super.doRealWork(eventIn);
-//    String url = eventIn.Data[Event.Url] ?? this.url;
-//    url.replaceAll(Event.SearchKeyword, eventIn.Data[Event.SearchKeyword])
 
     //todo http post
     HTTPResult httpResult = await HTTP.work(
       httpClient,
-      eventIn.Data[Event.Url] ?? url,
+      this.ReplaceOneVal(eventIn.Data[Event.Url] ?? this.url, eventIn), //url
       referer: eventIn.Data[Event.Referer] ?? this.referer,
       useragent: eventIn.Data[Event.Useragent] ?? this.userAgent,
       cookies: eventIn.Data[Event.Cookies] ?? this.cookies,
       method: eventIn.Data[Event.HttpMethod] ?? this.method,
+      data: this.ReplaceOneVal(this.postData, eventIn),
     );
 
     eventOut[0].Data[Event.Body] = httpResult.body;
     eventOut[0].success = httpResult.status == HttpStatus.ok;
 
     return eventOut;
-  }
-
-  Event ReplaceVal(Event eventIn) {
-    eventIn = super.ReplaceVal(eventIn);
-    if (this.replaces == null) return eventIn;
-
-    this.url = this.ReplaceOneVal(this.url, eventIn);
-//    this.cookies = this.ReplaceOneVal(this.cookies, eventIn);
-//    this.method = this.ReplaceOneVal(this.method, eventIn);
-    this.postData = this.ReplaceOneVal(this.postData, eventIn);
-//    this.referer = this.ReplaceOneVal(this.referer, eventIn);
-//    this.userAgent = this.ReplaceOneVal(this.userAgent, eventIn);
-
-    return eventIn;
   }
 
   @override
