@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../common/AppEnums.dart';
+import '../view/HomepageBody.dart';
+
 class WidgetTab {
   String text;
   Icon icon;
@@ -32,10 +35,16 @@ class HomePageModel {
   static String title = "Media Center";
 
   static List<WidgetTab> widgetTabs = [
-    WidgetTab("Home", icon: Icon(Icons.home), child: null),
-    WidgetTab("Novel", icon: Icon(Icons.account_balance_wallet), child: null),
-    WidgetTab("Video", icon: Icon(Icons.video_library), child: null),
-    WidgetTab("Comic", icon: Icon(Icons.image), child: null),
-    WidgetTab("Music", icon: Icon(Icons.voicemail), child: null),
+    WidgetTab("Home",
+        icon: Icon(Icons.home), child: HomepageBody(HomePages.Home)),
+    WidgetTab("Novel",
+        icon: Icon(Icons.account_balance_wallet),
+        child: HomepageBody(HomePages.Novel)),
+    WidgetTab("Video",
+        icon: Icon(Icons.video_library), child: HomepageBody(HomePages.Video)),
+    WidgetTab("Comic",
+        icon: Icon(Icons.image), child: HomepageBody(HomePages.Comic)),
+    WidgetTab("Music",
+        icon: Icon(Icons.voicemail), child: HomepageBody(HomePages.Music)),
   ];
 }

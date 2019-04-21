@@ -54,7 +54,16 @@ class ResultFormatter {
   }
 
   static List<Media> HomepageEventFormat(List<Event> events) {
-    return null;
+    List<Media> medias = new List();
+    for (var event in events) {
+      Map<String, dynamic> data = event.Data;
+      Media media = Media();
+      media.info.title = data[Event.Title];
+      media.info.cover = data[Event.Cover];
+      media.info.url = data[Event.Url];
+      medias.add(media);
+    }
+    return medias;
   }
 
   static void LoginEventFormat(Event event) {}

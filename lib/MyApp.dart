@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'common/AppShareData.dart';
+import 'media/Media.dart';
+import 'ui/view/MediaInfoPage.dart';
 import 'ui/view/SearchPage.dart';
 import 'ui/view/SearchResultPage.dart';
 import 'ui/view/UnknownPage.dart';
@@ -52,6 +54,13 @@ class MyAppController extends ControllerMVC {
         builder: (BuildContext context) => SearchResultPage(
             argv[AppRoutes.SearchResultArg_type],
             argv[AppRoutes.SearchResultArg_keyword]),
+      );
+    }
+    if (settings.name == AppRoutes.MediaInfo) {
+      final Media media = settings.arguments;
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (BuildContext context) => MediaInfoPage(media),
       );
     }
     return null;

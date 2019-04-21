@@ -5,7 +5,7 @@ class Event {
   String SendUUID;
 
 //  String RecvUUID;
-  Map<String, dynamic> Data;
+  Map<String, dynamic> Data = new Map();
   bool success = true;
 
   //const strings
@@ -26,6 +26,7 @@ class Event {
       this.SendUUID}) {
     this.Time = DateTime.now();
     this.success = this.success ?? true;
+    this.Data = this.Data?? new Map();
   }
 
   @override

@@ -38,4 +38,19 @@ class ParseRunner {
   static Media SourceLazy(Parse parse, Media media) {
     return null;
   }
+
+  static MediaType HomePagesToMediaTypes(HomePages page_type){
+    switch (page_type){
+      default:
+        return MediaType.Image;
+    }
+  }
+
+  static Future<List<Media>> Homepage(HomePages page_type) async {
+    List<Media> medias = new List();
+    for (Parse parse in AppShareData.AppParse[HomePagesToMediaTypes(page_type).index]) {
+      medias.addAll(await parse.doWork(ParseType.Search, null));
+    }
+    return medias;
+  }
 }

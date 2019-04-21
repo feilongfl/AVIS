@@ -52,6 +52,7 @@ class BaseAgent implements Agent {
 
   Event ReplaceVal(Event eventIn) {
     if (this.replaces == null) return eventIn;
+    if (eventIn.Data == null) return eventIn;
 
     eventIn.Data.forEach((key, val) {
       if (val.runtimeType == String)

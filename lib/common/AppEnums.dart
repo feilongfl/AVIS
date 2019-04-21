@@ -22,3 +22,12 @@ enum MediaType {
   Sound,
   All,
 }
+
+enum HomePages {
+  Home,
+  Novel,
+  Video,
+  Comic,
+  Music,
+  All,
+}
