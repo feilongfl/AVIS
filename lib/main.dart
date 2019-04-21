@@ -22,10 +22,19 @@ List<List<Agent>> GenExpAgents() {
 
   Agent domohAgent = HttpAgent(url: "https://www.50mh.com/list/riben/");
   Agent demohRegexAgent = RegexpAgent(
-      RegExp('<a class="comic_img" href="(.*?)"><img src="(.*?)" alt="(.*?)"'),
-      [Event.Url, Event.Cover, Event.Title]);
+      RegExp(
+          '<a class="comic_img" href="(http.*?manhua\\/(.*?)\\/)"><img src="(.*?)" alt="(.*?)"'),
+      [Event.Url, Event.MediaId, Event.Cover, Event.Title]);
+
+  Agent domoinfoAgent = HttpAgent(
+      url: "https://www.50mh.com/manhua/${Event.MediaId}/",
+      replaces: [Event.MediaId]);
+  Agent demoinfoRegexAgent = RegexpAgent(
+      RegExp(r'<meta name="description" content="(.*?)">'), [Event.Intro]);
+
   agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
   agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
+  agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];
 
   return agents;
 }
@@ -39,7 +48,8 @@ void initAppParse() async {
   List<List<Agent>> expagents = GenExpAgents();
 
   // for debug use
-  AppShareData.AppParse[MediaType.Image.index].add(BaseParse(expagents, ParseUUID: "testuuid"));
+  AppShareData.AppParse[MediaType.Image.index]
+      .add(BaseParse(expagents, ParseUUID: "testuuid"));
 }
 
 void init() {

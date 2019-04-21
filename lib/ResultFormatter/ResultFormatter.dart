@@ -20,21 +20,36 @@ class ResultFormatter {
     LoginEventFormat,
   ];
 
+  static String _selectData(String priStr, String secStr, String defaultStr) {
+    return priStr ?? secStr ?? defaultStr;
+  }
+
+  static Media EventToMedia(Event event, Media media) {
+    Map<String, dynamic> data = event.Data;
+    media = media ?? Media();
+    media.info.title =
+        _selectData(data[Event.Title], media.info.title, "title");
+    media.info.cover =
+        _selectData(data[Event.Cover], media.info.cover, "cover");
+    media.info.url = _selectData(data[Event.Url], media.info.url, "url");
+    media.info.MediaId =
+        _selectData(data[Event.MediaId], media.info.MediaId, "MediaId");
+    media.info.intro =
+        _selectData(data[Event.Intro], media.info.intro, "eventIntro");
+
+    return media;
+  }
+
   static List<Media> SearchEventFormat(List<Event> events) {
     List<Media> medias = new List();
     for (var event in events) {
-      Map<String, dynamic> data = event.Data;
-      Media media = Media();
-      media.info.title = data[Event.Title];
-      media.info.cover = data[Event.Cover];
-      media.info.url = data[Event.Url];
-      medias.add(media);
+      medias.add(EventToMedia(event, null));
     }
     return medias;
   }
 
-  static Media InfoEventFormat(Event event) {
-    return null;
+  static Media InfoEventFormat(Event event, Media media) {
+    return EventToMedia(event, media);
   }
 
   static Media EpisodeEventFormat(Event event) {
@@ -56,12 +71,7 @@ class ResultFormatter {
   static List<Media> HomepageEventFormat(List<Event> events) {
     List<Media> medias = new List();
     for (var event in events) {
-      Map<String, dynamic> data = event.Data;
-      Media media = Media();
-      media.info.title = data[Event.Title];
-      media.info.cover = data[Event.Cover];
-      media.info.url = data[Event.Url];
-      medias.add(media);
+      medias.add(EventToMedia(event, null));
     }
     return medias;
   }

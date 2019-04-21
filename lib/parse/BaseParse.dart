@@ -17,7 +17,8 @@ class BaseParse implements Parse {
 
   BaseParse(this.agents, {this.name, this.type, this.ParseUUID});
 
-  Future<List<Media>> doWork(ParseType type, Map<String, dynamic> data) async {
+  Future<List<Media>> doSearchHome(
+      ParseType type, Map<String, dynamic> data) async {
     List<Event> events = [Event(data)];
 
     for (var agent in agents[type.index]) {
@@ -25,7 +26,34 @@ class BaseParse implements Parse {
     }
 
     List<Media> media = ResultFormatter.ResultFromatter[type.index](events);
-
     return media;
+  }
+
+  Map<String, dynamic> MapData = new Map();
+
+  Future<Media> doInfo(ParseType type, Media media) async {
+    MapData[Event.MediaId] = media.info.MediaId;
+    List<Event> events = [Event(MapData)];
+
+    for (var agent in agents[type.index]) {
+      events = await agent.doWork(eventsIn: events);
+    }
+
+    return ResultFormatter.ResultFromatter[type.index](events[0], media);
+  }
+
+  Future<List<Media>> doWork(ParseType type, dynamic data) async {
+    switch (type) {
+      case ParseType.homepage:
+      case ParseType.Search:
+        return doSearchHome(type, data);
+        break;
+
+      case ParseType.info:
+        return [await doInfo(type, data)];
+
+      default:
+        break;
+    }
   }
 }

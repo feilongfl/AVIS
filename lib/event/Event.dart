@@ -18,6 +18,8 @@ class Event {
   static const String Cookies = "cookies";
   static const String HttpMethod = "httpmethod";
   static const String SearchKeyword = "\$searchkeyword";
+  static const String MediaId = "\$mediaid";
+  static const String Intro = "intro";
 
 
   Event(this.Data,

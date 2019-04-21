@@ -9,7 +9,7 @@ class Parse {
 
   List<List<Agent>> agents;
 
-  Future<List<Media>> doWork(ParseType type, Map<String, dynamic> argv) async {
+  Future<List<Media>> doWork(ParseType type, dynamic argv) async {
     return null;
   }
 }

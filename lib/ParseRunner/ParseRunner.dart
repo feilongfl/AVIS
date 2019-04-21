@@ -39,9 +39,9 @@ class ParseRunner {
     if (parse == null) return media;
 
     //todo fix here
-//    parse.doWork(ParseType.info, argv);
+    media = (await parse.doWork(ParseType.info, media))[0];
 
-    return media..info.intro = "test";
+    return media;
   }
 
   static Media Episode(Parse parse, Media media) {
@@ -71,7 +71,7 @@ class ParseRunner {
     List<Media> medias = new List();
     for (Parse parse
         in AppShareData.AppParse[HomePagesToMediaTypes(page_type).index]) {
-      medias.addAll(await parse.doWork(ParseType.Search, null).then((ms) {
+      medias.addAll(await parse.doWork(ParseType.homepage, null).then((ms) {
         ms.forEach((val) {
           val.ParseUUID = parse.ParseUUID;
         });
