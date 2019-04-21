@@ -5,6 +5,7 @@ import '../media/Media.dart';
 class Parse {
   String ParseUUID;
   String name;
+  MediaType type;
 
   List<List<Agent>> agents;
 

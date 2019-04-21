@@ -26,9 +26,10 @@ class ParseRunner {
 
   static Parse findParse(Media media) {
     for (List<Parse> appparse in AppShareData.AppParse) {
-      for (Parse parse in appparse) {
-        if (parse.ParseUUID == media.ParseUUID) return parse;
-      }
+      if (appparse != null)
+        for (Parse parse in appparse) {
+          if (parse.ParseUUID == media.ParseUUID) return parse;
+        }
     }
     return null;
   }
@@ -70,8 +71,13 @@ class ParseRunner {
     List<Media> medias = new List();
     for (Parse parse
         in AppShareData.AppParse[HomePagesToMediaTypes(page_type).index]) {
-      medias.addAll(await parse.doWork(ParseType.Search, null));
+      medias.addAll(await parse.doWork(ParseType.Search, null).then((ms) {
+        ms.forEach((val) {
+          val.ParseUUID = parse.ParseUUID;
+        });
+        return ms;
+      }));
+      return medias;
     }
-    return medias;
   }
 }

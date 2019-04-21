@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import '../Agent/Agent.dart';
 import '../ResultFormatter/ResultFormatter.dart';
 import '../common/AppEnums.dart';
@@ -8,16 +6,16 @@ import '../media/Media.dart';
 import 'Parse.dart';
 
 class BaseParse implements Parse {
-  static const String ParseUUID = "76c1ae48-81b8-42e3-a868-d69cf2f2ea5d";
-  static const String name = "BaseParse";
+  String ParseUUID = "76c1ae48-81b8-42e3-a868-d69cf2f2ea5d";
+  String name = "BaseParse";
 
-  static MediaType type = MediaType.Image;
+  MediaType type = MediaType.Image;
 
   List<List<Agent>> agents = new List(ParseType.All.index);
 
-  HttpClient httpClient = new HttpClient();
+//  HttpClient httpClient = new HttpClient();
 
-  BaseParse(this.agents);
+  BaseParse(this.agents, {this.name, this.type, this.ParseUUID});
 
   Future<List<Media>> doWork(ParseType type, Map<String, dynamic> data) async {
     List<Event> events = [Event(data)];

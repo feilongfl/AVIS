@@ -39,7 +39,7 @@ void initAppParse() async {
   List<List<Agent>> expagents = GenExpAgents();
 
   // for debug use
-  AppShareData.AppParse[MediaType.Image.index].add(BaseParse(expagents));
+  AppShareData.AppParse[MediaType.Image.index].add(BaseParse(expagents, ParseUUID: "testuuid"));
 }
 
 void init() {
