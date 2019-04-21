@@ -23,7 +23,7 @@ class RegexpAgent extends BaseAgent {
 
     this.lastRun = DateTime.now();
 
-    String matchBody = eventIn.Data[ResultFormatter.body];
+    String matchBody = eventIn.Data[Event.Body];
     List<Event> eventResult = new List();
     Iterable<Match> matcher = regexp.allMatches(matchBody);
 

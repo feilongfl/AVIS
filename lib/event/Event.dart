@@ -8,6 +8,17 @@ class Event {
   Map<String, dynamic> Data;
   bool success = true;
 
+  //const strings
+  static const String Title = "title";
+  static const String Cover = "cover";
+  static const String Url = "url";
+  static const String Body = "body";
+  static const String Referer = "referer";
+  static const String Useragent = "useragent";
+  static const String Cookies = "cookies";
+  static const String HttpMethod = "httpmethod";
+
+
   Event(this.Data,
       {this.success,
 //    this.RecvUUID,

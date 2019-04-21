@@ -39,14 +39,14 @@ class HttpAgent extends BaseAgent {
     //todo http post
     HTTPResult httpResult = await HTTP.work(
       httpClient,
-      eventIn.Data['url'] ?? url,
-      referer: eventIn.Data['referer'] ?? this.referer,
-      useragent: eventIn.Data['useragent'] ?? this.userAgent,
-      cookies: eventIn.Data['cookies'] ?? this.cookies,
-      method: eventIn.Data['cookies'] ?? this.method,
+      eventIn.Data[Event.Url] ?? url,
+      referer: eventIn.Data[Event.Referer] ?? this.referer,
+      useragent: eventIn.Data[Event.Useragent] ?? this.userAgent,
+      cookies: eventIn.Data[Event.Cookies] ?? this.cookies,
+      method: eventIn.Data[Event.HttpMethod] ?? this.method,
     );
 
-    eventOut[0].Data['body'] = httpResult.body;
+    eventOut[0].Data[Event.Body] = httpResult.body;
     eventOut[0].success = httpResult.status == HttpStatus.ok;
 
     return eventOut;

@@ -4,10 +4,10 @@ import '../event/Event.dart';
 import '../media/Media.dart';
 
 class ResultFormatter {
-  static const String title = "title";
-  static const String cover = "cover";
-  static const String url = "url";
-  static const String body = "body";
+//  static const String title = "title";
+//  static const String cover = "cover";
+//  static const String url = "url";
+//  static const String body = "body";
 
   static List<dynamic> ResultFromatter = [
     SearchEventFormat,
@@ -25,9 +25,9 @@ class ResultFormatter {
     for (var event in events) {
       Map<String, dynamic> data = event.Data;
       Media media = Media();
-      media.info.title = data[title];
-      media.info.cover = data[cover];
-      media.info.url = data[url];
+      media.info.title = data[Event.Title];
+      media.info.cover = data[Event.Cover];
+      media.info.url = data[Event.Url];
       medias.add(media);
     }
     return medias;
