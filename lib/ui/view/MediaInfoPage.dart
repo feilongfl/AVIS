@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../../ParseRunner/ParseRunner.dart';
 import '../../media/Media.dart';
 
 class MediaInfoPage extends StatefulWidget {
@@ -62,12 +63,25 @@ class MediaInfoPageState extends StateMVC {
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
 //              mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
               media.info.title,
               style: TextStyle(fontSize: 28),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              media.info.author ?? "loading author ...",
+              textAlign: TextAlign.center,
+            ),
+            Divider(),
+            Padding(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: Text(
+                media.info.intro ?? "loading intro ...",
+                textAlign: TextAlign.left,
+              ),
             ),
             Divider(),
             _mediaList(context),
@@ -102,18 +116,23 @@ class MediaInfoPageState extends StateMVC {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    ParseRunner.Info(media).then((m) {
+      setState(() {
+        this.media = m;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(media.info.title)),
       body: BackdropFilter(
         filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
         child: Container(
-//          decoration: BoxDecoration(
-//              image: DecorationImage(
-//                  fit: BoxFit.cover,
-//                  image: NetworkImage(
-//                    media.info.cover,
-//                  ))),
           child: MediaQuery.of(context).orientation == Orientation.landscape
               ? land(context)
               : port(context),

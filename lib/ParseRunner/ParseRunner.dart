@@ -19,28 +19,28 @@ class ParseRunner {
     return medias;
   }
 
-  static Media Info(Parse parse, Media media) {
-    return null;
+  static Future<Media> Info(Media media) async {
+    return media..info.intro = "test";
   }
 
   static Media Episode(Parse parse, Media media) {
-    return null;
+    return media;
   }
 
   static Media Chapter(Parse parse, Media media) {
-    return null;
+    return media;
   }
 
   static Media Source(Parse parse, Media media) {
-    return null;
+    return media;
   }
 
   static Media SourceLazy(Parse parse, Media media) {
-    return null;
+    return media;
   }
 
-  static MediaType HomePagesToMediaTypes(HomePages page_type){
-    switch (page_type){
+  static MediaType HomePagesToMediaTypes(HomePages page_type) {
+    switch (page_type) {
       default:
         return MediaType.Image;
     }
@@ -48,7 +48,8 @@ class ParseRunner {
 
   static Future<List<Media>> Homepage(HomePages page_type) async {
     List<Media> medias = new List();
-    for (Parse parse in AppShareData.AppParse[HomePagesToMediaTypes(page_type).index]) {
+    for (Parse parse
+        in AppShareData.AppParse[HomePagesToMediaTypes(page_type).index]) {
       medias.addAll(await parse.doWork(ParseType.Search, null));
     }
     return medias;
