@@ -5,6 +5,7 @@ import 'package:simple_gravatar/simple_gravatar.dart';
 
 import '../../common/AppShareData.dart';
 import '../controller/HomePageConTroller.dart';
+import '../widget/RouteButton.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -13,41 +14,27 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class DrawerRouteList {
-  String name = "";
-  IconData icon = Icons.texture;
-  String route = "/";
-  bool devide = false;
-
-  DrawerRouteList({this.name, this.icon, this.route, this.devide});
-
-  void nav(BuildContext context) {
-    Navigator.of(context).pushNamed(this.route);
-  }
-}
-
 class _HomePageState extends StateMVC with TickerProviderStateMixin {
   final String title = "AVIS";
   HomePageController homePageController = new HomePageController();
 
-  final List<DrawerRouteList> drawerRouteLists = [
-    DrawerRouteList(
+  final List<RouteButton> drawerRouteLists = [
+    RouteButton(
         name: "History", icon: Icons.history, route: AppRoutes.Histroy),
-    DrawerRouteList(
+    RouteButton(
         name: "Favorite", icon: Icons.favorite, route: AppRoutes.Favorite),
-    DrawerRouteList(devide: true),
-    DrawerRouteList(
-        name: "Backup", icon: Icons.backup, route: AppRoutes.Backup),
-    DrawerRouteList(
+    RouteButton(devide: true),
+    RouteButton(name: "Backup", icon: Icons.backup, route: AppRoutes.Backup),
+    RouteButton(
         name: "Source Settings",
         icon: Icons.settings_input_component,
         route: AppRoutes.SourceSetting),
-    DrawerRouteList(
+    RouteButton(
         name: "Settings", icon: Icons.settings, route: AppRoutes.Setting),
-    DrawerRouteList(devide: true),
-    DrawerRouteList(
+    RouteButton(devide: true),
+    RouteButton(
         name: "Donate", icon: Icons.attach_money, route: AppRoutes.Donate),
-    DrawerRouteList(
+    RouteButton(
         name: "About", icon: Icons.account_box, route: AppRoutes.About),
   ];
 

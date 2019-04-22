@@ -5,7 +5,9 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../ParseRunner/ParseRunner.dart';
+import '../../common/AppShareData.dart';
 import '../../media/Media.dart';
+import '../widget/ActionButton.dart';
 
 class MediaInfoPage extends StatefulWidget {
   Media media;
@@ -177,10 +179,64 @@ class MediaInfoPageState extends StateMVC {
     });
   }
 
+  List<ActionButton> appBarActions = [
+    ActionButton(
+        name: "Search title",
+        icon: Icons.search,
+        action: (BuildContext context, Media media) {
+          Navigator.of(context).pushNamed(AppRoutes.SearchResult, arguments: {
+            AppRoutes.SearchResultArg_type: media.type,
+            AppRoutes.SearchResultArg_keyword: media.info.title
+          });
+        }),
+    ActionButton(name: "Share", icon: Icons.share, action: () {}),
+    ActionButton(
+        name: "Download", icon: Icons.file_download, hide: true, action: () {}),
+    ActionButton(
+        name: "Search Author",
+        icon: Icons.people,
+        hide: true,
+        action: (BuildContext context, Media media) {
+          Navigator.of(context).pushNamed(AppRoutes.SearchResult, arguments: {
+            AppRoutes.SearchResultArg_type: media.type,
+            AppRoutes.SearchResultArg_keyword: media.info.author
+          });
+        }),
+  ];
+
+  List<Widget> _genActions(BuildContext context) {
+    List<Widget> w = <Widget>[]..addAll(appBarActions
+        .where((action) => (!action.hide ||
+            MediaQuery.of(context).orientation == Orientation.landscape))
+        .map((action) => IconButton(
+              icon: Icon(action.icon),
+              tooltip: action.name,
+              onPressed: () => action.action(context, media),
+            ))
+        .toList());
+    if (MediaQuery.of(context).orientation == Orientation.portrait)
+      w.add(
+        PopupMenuButton(
+            itemBuilder: (context) => appBarActions
+                .where((action) => action.hide)
+                .map((action) => PopupMenuItem(
+                        child: ListTile(
+                      leading: Icon(action.icon),
+                      title: Text(action.name),
+                      onTap: () => action.action(context, media),
+                    )))
+                .toList()),
+      );
+    return w;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(media.info.title)),
+      appBar: AppBar(
+        title: Text(media.info.title),
+        actions: _genActions(context),
+      ),
       body: BackdropFilter(
         filter: ui.ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
         child: Container(
@@ -189,6 +245,8 @@ class MediaInfoPageState extends StateMVC {
               : port(context),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.favorite_border), onPressed: () {}),
     );
   }
 }
