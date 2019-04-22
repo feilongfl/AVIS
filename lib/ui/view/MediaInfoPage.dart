@@ -46,10 +46,10 @@ class MediaInfoPageState extends StateMVC {
     );
   }
 
-  List<Widget> _mediaList(BuildContext context) {
+  List<Widget> _mediaList(BuildContext context, Media media) {
     List<Widget> widgets = new List();
 
-    this.media.episode.forEach((e) {
+    media.episode.forEach((e) {
       widgets.add(SliverToBoxAdapter(
           child: Text(
         e.info.title,
@@ -129,85 +129,127 @@ class MediaInfoPageState extends StateMVC {
         _CoverView(context),
 //        Flexible(child: SingleChildScrollView(child: _MediaInfoLists(context))),
         Flexible(
-          child: CustomScrollView(
-            shrinkWrap: false,
-            slivers: [
-              SliverPadding(
-                padding: const EdgeInsets.only(top: 10),
-              ),
-              SliverToBoxAdapter(
-                child: _MediaInfoLists(context),
-              ),
-            ]
-              ..addAll(
-                _mediaList(context),
-              )
-              ..add(SliverPadding(
-                padding: const EdgeInsets.only(bottom: 20.0),
-              )),
-          ),
+          child: FutureBuilder(
+              future: getMediaFuture(),
+              builder: (context, snapshot) {
+                return snapshot.hasData
+                    ? CustomScrollView(
+                        shrinkWrap: false,
+                        slivers: [
+                          SliverPadding(
+                            padding: const EdgeInsets.only(top: 10),
+                          ),
+                          SliverToBoxAdapter(
+                            child: _MediaInfoLists(context),
+                          ),
+                        ]
+                          ..addAll(
+                            _mediaList(context, snapshot.data),
+                          )
+                          ..add(SliverPadding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                          )),
+                      )
+                    : CustomScrollView(
+                        shrinkWrap: false,
+                        slivers: [
+                          SliverPadding(
+                            padding: const EdgeInsets.only(top: 10),
+                          ),
+                          SliverToBoxAdapter(
+                            child: _MediaInfoLists(context),
+                          ),
+                        ]
+//                          ..addAll(
+//                            _mediaList(context, snapshot.data),
+//                          )
+                          ..add(SliverToBoxAdapter(
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          ))
+                          ..add(SliverPadding(
+                            padding: const EdgeInsets.only(bottom: 20.0),
+                          )),
+                      );
+              }),
         ),
       ],
     );
   }
 
   Widget port(BuildContext context) {
-    return CustomScrollView(
-      shrinkWrap: false,
-      slivers: [
-        SliverToBoxAdapter(
-            child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _CoverView(context),
-          ],
-        )),
-        SliverPadding(
-          padding: const EdgeInsets.only(top: 10),
-        ),
-        SliverToBoxAdapter(
-          child: _MediaInfoLists(context),
-        ),
-      ]
-        ..addAll(
-          _mediaList(context),
-        )
-        ..add(SliverPadding(
-          padding: const EdgeInsets.only(bottom: 20.0),
-        )),
+    return FutureBuilder(
+      future: getMediaFuture(),
+      builder: (context, snapshot) {
+        return snapshot.hasData
+            ? CustomScrollView(
+                shrinkWrap: false,
+                slivers: [
+                  SliverToBoxAdapter(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _CoverView(context),
+                    ],
+                  )),
+                  SliverPadding(
+                    padding: const EdgeInsets.only(top: 10),
+                  ),
+                  SliverToBoxAdapter(
+                    child: _MediaInfoLists(context),
+                  ),
+                ]
+                  ..addAll(
+                    _mediaList(context, snapshot.data),
+                  )
+                  ..add(SliverPadding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                  )),
+              )
+            : CustomScrollView(
+                shrinkWrap: false,
+                slivers: [
+                  SliverToBoxAdapter(
+                      child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      _CoverView(context),
+                    ],
+                  )),
+                  SliverPadding(
+                    padding: const EdgeInsets.only(top: 10),
+                  ),
+                  SliverToBoxAdapter(
+                    child: _MediaInfoLists(context),
+                  ),
+                ]
+                  ..add(
+                    SliverToBoxAdapter(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ),
+                  )
+                  ..add(SliverPadding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                  )),
+              );
+      },
     );
+  }
+
+  Future<Media> getMediaFuture() async {
+    Media mediaResult = await ParseRunner.Info(this.media);
+    mediaResult = await ParseRunner.Episode(mediaResult);
+    mediaResult = await ParseRunner.Chapter(mediaResult);
+
+    return mediaResult;
   }
 
   @override
   void initState() {
     super.initState();
-
-//    ParseRunner.Info(media).then((m) {
-//      setState(() {
-//        this.media = m;
-//      });
-//    });
-
-    ParseRunner.Info(media).then((m) {
-      setState(() {
-        this.media = m;
-      });
-      return m;
-    }).then((m) {
-      ParseRunner.Episode(media).then((m) {
-        setState(() {
-          this.media = m;
-        });
-        return m;
-      }).then((m) {
-        ParseRunner.Chapter(media).then((m) {
-          setState(() {
-            this.media = m;
-          });
-          return m;
-        });
-      });
-    });
   }
 
   List<ActionButton> appBarActions = [
