@@ -27,6 +27,8 @@ dependencies:
   rxdart: 0.21.0
   #  gbk2utf8: ^1.0.0
   simple_gravatar: ^1.0.3
+  flutter_cache_manager: 0.3.2
+  cached_network_image: 0.7.0
 
 dev_dependencies:
   flutter_test:

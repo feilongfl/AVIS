@@ -112,9 +112,9 @@ class MediaInfoPageState extends StateMVC {
                   childCount: 32,
                 ),
               ),
-//              SliverPadding(
-//                padding: const EdgeInsets.only(bottom: 80.0),
-//              )
+              SliverPadding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+              )
             ],
           ),
         ),
@@ -155,9 +155,9 @@ class MediaInfoPageState extends StateMVC {
             childCount: 31,
           ),
         ),
-//              SliverPadding(
-//                padding: const EdgeInsets.only(bottom: 80.0),
-//              )
+        SliverPadding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+        )
       ],
     );
   }
