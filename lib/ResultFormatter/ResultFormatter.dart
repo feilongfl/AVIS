@@ -2,6 +2,7 @@
 
 import '../event/Event.dart';
 import '../media/Media.dart';
+import '../media/MediaChapter.dart';
 import '../media/MediaEpisode.dart';
 import '../media/MediaInfo.dart';
 
@@ -67,8 +68,22 @@ class ResultFormatter {
     return media;
   }
 
-  static Media ChapterEventFormat(Event event) {
-    return null;
+  static Media ChapterEventFormat(List<Event> events, Media media) {
+    for (Event event in events) {
+      Map<String, dynamic> data = event.Data;
+
+      MediaInfo chapterInfo = MediaInfo();
+      chapterInfo.title = data[Event.Title];
+
+      media.episode
+//          .where((e) => e.info.title == data[Event.Group])
+          .forEach((e) {
+        e.chapter.add(MediaChapter(info: chapterInfo));
+      });
+    }
+
+    return media;
+    ;
   }
 
   static Media SourceEventFormat(Event event) {

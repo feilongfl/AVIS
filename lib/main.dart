@@ -38,10 +38,15 @@ List<List<Agent>> GenExpAgents() {
   Agent demoepiinfoRegexAgent =
       RegexpAgent(RegExp(r'<em class="c_3">(.*?)列表<\/em>'), [Event.Title]);
 
+  Agent democpiinfoRegexAgent = RegexpAgent(
+      RegExp(r'<li>\s+<a href="(.*\/(\d+).*?)" title="(.*?)"'),
+      [Event.Url, Event.ChapterId, Event.Title]);
+
   agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
   agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
   agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];
   agents[ParseType.Episode.index] = [domoepiinfoAgent, demoepiinfoRegexAgent];
+  agents[ParseType.Chapter.index] = [domoepiinfoAgent, democpiinfoRegexAgent];
 
   return agents;
 }

@@ -46,13 +46,18 @@ class ParseRunner {
   static Future<Media> Episode(Media media) async {
     Parse parse = findParse(media);
     if (parse == null) return media;
-    //todo fix here
+
     media = (await parse.doWork(ParseType.Episode, media))[0];
 
     return media;
   }
 
-  static Media Chapter(Parse parse, Media media) {
+  static Future<Media> Chapter(Media media) async {
+    Parse parse = findParse(media);
+    if (parse == null) return media;
+    //todo fix here
+    media = (await parse.doWork(ParseType.Chapter, media))[0];
+
     return media;
   }
 

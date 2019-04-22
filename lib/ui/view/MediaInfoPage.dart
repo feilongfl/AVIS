@@ -37,11 +37,11 @@ class MediaInfoPageState extends StateMVC {
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           return Text(
-            index.toString(),
+            episode.chapter[index].info.title,
             textAlign: TextAlign.center,
           );
         },
-        childCount: 32,
+        childCount: episode.chapter.length,
       ),
     );
   }
@@ -199,6 +199,13 @@ class MediaInfoPageState extends StateMVC {
           this.media = m;
         });
         return m;
+      }).then((m) {
+        ParseRunner.Chapter(media).then((m) {
+          setState(() {
+            this.media = m;
+          });
+          return m;
+        });
       });
     });
   }
