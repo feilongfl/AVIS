@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
 
 import '../../common/AppShareData.dart';
 import '../../media/Media.dart';
@@ -26,8 +27,11 @@ class HomeCardView extends StatelessWidget {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: NetworkImage(
+                            image: AdvancedNetworkImage(
                               media.info.cover,
+                              useDiskCache: true,
+                              cacheRule:
+                                  CacheRule(maxAge: const Duration(days: 7)),
                             )))),
                 Row(
                   children: <Widget>[

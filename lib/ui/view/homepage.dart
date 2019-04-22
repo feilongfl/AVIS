@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:simple_gravatar/simple_gravatar.dart';
 
@@ -71,11 +72,16 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
               borderRadius: BorderRadius.circular(50),
             ),
             child: Container(
-              child: Image.network(gravatar.imageUrl(
-                size: 100,
-                defaultImage: GravatarImage.retro,
-                rating: GravatarRating.pg,
-                fileExtension: true,
+              child: Image(
+                  image: AdvancedNetworkImage(
+                gravatar.imageUrl(
+                  size: 100,
+                  defaultImage: GravatarImage.retro,
+                  rating: GravatarRating.pg,
+                  fileExtension: true,
+                ),
+                useDiskCache: true,
+                cacheRule: CacheRule(maxAge: const Duration(days: 7)),
               )),
             ),
           ),

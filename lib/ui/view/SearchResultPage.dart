@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../ParseRunner/ParseRunner.dart';
@@ -48,8 +49,12 @@ class _SearchResultPageState extends StateMVC {
           child: Container(
               height: image_height,
               width: image_width,
-              child: Image.network(
-                media.info.cover,
+              child: Image(
+                image: AdvancedNetworkImage(
+                  media.info.cover,
+                  useDiskCache: true,
+                  cacheRule: CacheRule(maxAge: const Duration(days: 7)),
+                ),
                 fit: BoxFit.cover,
               )),
         ),

@@ -29,6 +29,7 @@ dependencies:
   simple_gravatar: ^1.0.3
   flutter_cache_manager: 0.3.2
   cached_network_image: 0.7.0
+  flutter_advanced_networkimage: 0.4.15
 
 dev_dependencies:
   flutter_test:

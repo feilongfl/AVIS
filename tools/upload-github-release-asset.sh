@@ -48,6 +48,9 @@ fi
 # Validate token.
 curl -o /dev/null -sH "$AUTH" $GH_REPO || { echo "Error: Invalid repo, token or network issue!";  exit 1; }
 
+# create release
+# response=$(curl -sH "$AUTH" $GH_TAGS)
+
 # Read asset tags.
 response=$(curl -sH "$AUTH" $GH_TAGS)
 
