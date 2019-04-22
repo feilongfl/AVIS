@@ -1,11 +1,44 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 
 import '../common/AppEnums.dart';
 
 class HTTPResult {
   String body;
   int status = HttpStatus.notFound;
+}
+
+class _HttpCacheManager extends BaseCacheManager {
+  static const key = "httpcache";
+
+  static _HttpCacheManager _instance;
+
+  /// The DefaultCacheManager that can be easily used directly. The code of
+  /// this implementation can be used as inspiration for more complex cache
+  /// managers.
+  factory _HttpCacheManager() {
+    if (_instance == null) {
+      _instance = new _HttpCacheManager._();
+    }
+    return _instance;
+  }
+
+  _HttpCacheManager._()
+      : super(
+          key,
+          maxAgeCacheObject: Duration(minutes: 60),
+          maxNrOfCacheObjects: 200,
+        );
+
+  Future<String> getFilePath() async {
+    var directory = await getTemporaryDirectory();
+    return p.join(directory.path, key);
+  }
 }
 
 class HTTP {
@@ -16,6 +49,14 @@ class HTTP {
       {String useragent, String referer, String cookies, String data}) async {
     HTTPResult result = new HTTPResult();
 
+    var file = await _HttpCacheManager().getFileFromCache(url);
+    if (file != null) {
+      HTTPResult hr = HTTPResult();
+      hr.body = utf8.decode(file.file.readAsBytesSync());
+      hr.status = HttpStatus.ok;
+      return hr;
+    }
+
     try {
       var request = await httpClient
           .getUrl(Uri.parse(data == null ? "$url" : "$url?$data"));
@@ -24,6 +65,8 @@ class HTTP {
       result.status = response.statusCode;
       if (response.statusCode == HttpStatus.ok) {
         result.body = await response.transform(utf8.decoder).join();
+        await _HttpCacheManager()
+            .putFile(url, utf8.encode(result.body));
       } else {
         result.body = HttpERRORCode;
       }
