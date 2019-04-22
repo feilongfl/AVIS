@@ -17,8 +17,8 @@ List<List<Agent>> GenExpAgents() {
       replaces: [Event.SearchKeyword]);
   Agent demoRegexAgent = RegexpAgent(
       RegExp(
-          '<a class="image-link" href="(.*?)" title="(.*?)"><img src="(.*?)" width="\\d+" height="\\d+" alt="" default="(?:.*?)">'),
-      [Event.Url, Event.Title, Event.Cover]);
+          r'<a class="image-link" href="(https.*?manhua\/(.*?)\/?)" title="(.*?)"><img src="(.*?)" width="\d+" height="\d+" alt="" default="(?:.*?)">'),
+      [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
 
   Agent domohAgent = HttpAgent(url: "https://www.50mh.com/list/riben/");
   Agent demohRegexAgent = RegexpAgent(
@@ -35,9 +35,8 @@ List<List<Agent>> GenExpAgents() {
   Agent domoepiinfoAgent = HttpAgent(
       url: "https://www.50mh.com/manhua/${Event.MediaId}/",
       replaces: [Event.MediaId]);
-  Agent demoepiinfoRegexAgent = RegexpAgent(
-      RegExp(r'<em class="c_3">(.*?)列表<\/em>'), [Event.Episode]);
-
+  Agent demoepiinfoRegexAgent =
+      RegexpAgent(RegExp(r'<em class="c_3">(.*?)列表<\/em>'), [Event.Episode]);
 
   agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
   agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];

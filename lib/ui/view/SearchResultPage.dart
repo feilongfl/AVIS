@@ -39,49 +39,53 @@ class _SearchResultPageState extends StateMVC {
 
     final image_width = MediaQuery.of(context).size.width / 3;
     final image_height = image_width * 0.75;
-    return Row(
-      children: <Widget>[
-        Card(
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+    return GestureDetector(
+      onTap: () => Navigator.of(context)
+          .pushNamed(AppRoutes.MediaInfo, arguments: media),
+      child: Row(
+        children: <Widget>[
+          Card(
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            child: Container(
+                height: image_height,
+                width: image_width,
+                child: Image(
+                  image: AdvancedNetworkImage(
+                    media.info.cover,
+                    useDiskCache: true,
+                    cacheRule: CacheRule(maxAge: const Duration(days: 7)),
+                  ),
+                  fit: BoxFit.cover,
+                )),
           ),
-          child: Container(
-              height: image_height,
-              width: image_width,
-              child: Image(
-                image: AdvancedNetworkImage(
-                  media.info.cover,
-                  useDiskCache: true,
-                  cacheRule: CacheRule(maxAge: const Duration(days: 7)),
-                ),
-                fit: BoxFit.cover,
-              )),
-        ),
-        Expanded(
-          child: Container(
-            padding: EdgeInsets.only(right: 5),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Text(
-                  media.info.title,
-                  style: TextStyle(fontSize: 30),
-                ),
-                Text(media.info.isFinished
-                    ? AppShareData.finishTip_isFin
-                    : AppShareData.finishTip_notFin),
-                Padding(
-                  padding: EdgeInsets.only(top: 30),
-                ),
-                Text(media.info.author),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(right: 5),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Text(
+                    media.info.title,
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  Text(media.info.isFinished
+                      ? AppShareData.finishTip_isFin
+                      : AppShareData.finishTip_notFin),
+                  Padding(
+                    padding: EdgeInsets.only(top: 30),
+                  ),
+                  Text(media.info.author),
 //                Text(media.info.date.toString()),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
