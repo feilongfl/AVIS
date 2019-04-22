@@ -7,10 +7,6 @@ import '../media/MediaEpisode.dart';
 import '../media/MediaInfo.dart';
 
 class ResultFormatter {
-//  static const String title = "title";
-//  static const String cover = "cover";
-//  static const String url = "url";
-//  static const String body = "body";
 
   static List<dynamic> ResultFromatter = [
     SearchEventFormat,
