@@ -39,10 +39,10 @@ class BaseAgent implements Agent {
   }
 
   String ReplaceOneVal(String val, Event event) {
-    if(val == null) return val;
-    if(event == null) return val;
-    if(val == "") return val;
-    if(this.replaces == null) return val;
+    if (val == null) return val;
+    if (event == null) return val;
+    if (val == "") return val;
+    if (this.replaces == null) return val;
 
     this.replaces.forEach((replace) {
       val = val.replaceAll(replace, event.Data[replace] ?? "");

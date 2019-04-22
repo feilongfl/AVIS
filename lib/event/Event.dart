@@ -22,14 +22,13 @@ class Event {
   static const String Intro = "intro";
   static const String Episode = "episode";
 
-
   Event(this.Data,
       {this.success,
 //    this.RecvUUID,
       this.SendUUID}) {
     this.Time = DateTime.now();
     this.success = this.success ?? true;
-    this.Data = this.Data?? new Map();
+    this.Data = this.Data ?? new Map();
   }
 
   @override

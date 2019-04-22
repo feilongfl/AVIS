@@ -12,7 +12,7 @@ class ActionButton {
       @required this.icon,
       this.action,
       this.devide,
-      this.hide}){
-    this.hide = this.hide?? false;
+      this.hide}) {
+    this.hide = this.hide ?? false;
   }
 }

@@ -19,8 +19,7 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
   HomePageController homePageController = new HomePageController();
 
   final List<RouteButton> drawerRouteLists = [
-    RouteButton(
-        name: "History", icon: Icons.history, route: AppRoutes.Histroy),
+    RouteButton(name: "History", icon: Icons.history, route: AppRoutes.Histroy),
     RouteButton(
         name: "Favorite", icon: Icons.favorite, route: AppRoutes.Favorite),
     RouteButton(devide: true),
@@ -34,8 +33,7 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
     RouteButton(devide: true),
     RouteButton(
         name: "Donate", icon: Icons.attach_money, route: AppRoutes.Donate),
-    RouteButton(
-        name: "About", icon: Icons.account_box, route: AppRoutes.About),
+    RouteButton(name: "About", icon: Icons.account_box, route: AppRoutes.About),
   ];
 
   @override

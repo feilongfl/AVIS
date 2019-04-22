@@ -2,6 +2,8 @@
 
 import '../event/Event.dart';
 import '../media/Media.dart';
+import '../media/MediaEpisode.dart';
+import '../media/MediaInfo.dart';
 
 class ResultFormatter {
 //  static const String title = "title";
@@ -52,8 +54,17 @@ class ResultFormatter {
     return EventToMedia(event, media);
   }
 
-  static Media EpisodeEventFormat(Event event) {
-    return null;
+  static Media EpisodeEventFormat(List<Event> events, Media media) {
+    for (Event event in events) {
+      Map<String, dynamic> data = event.Data;
+
+      MediaInfo episodeInfo = MediaInfo();
+      episodeInfo.title = data[Event.Title];
+
+      media.episode.add(MediaEpisode(info: episodeInfo));
+    }
+
+    return media;
   }
 
   static Media ChapterEventFormat(Event event) {

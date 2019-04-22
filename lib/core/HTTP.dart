@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:path/path.dart' as p;
@@ -65,8 +64,7 @@ class HTTP {
       result.status = response.statusCode;
       if (response.statusCode == HttpStatus.ok) {
         result.body = await response.transform(utf8.decoder).join();
-        await _HttpCacheManager()
-            .putFile(url, utf8.encode(result.body));
+        await _HttpCacheManager().putFile(url, utf8.encode(result.body));
       } else {
         result.body = HttpERRORCode;
       }

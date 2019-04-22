@@ -1,5 +1,5 @@
 import '../common/AppEnums.dart';
-import 'MediaEposide.dart';
+import 'MediaEpisode.dart';
 import 'MediaInfo.dart';
 
 class Media {
@@ -7,5 +7,5 @@ class Media {
   MediaType type = MediaType.All;
   String ParseUUID = "";
 
-  List<MediaEposide> eposide = new List();
+  List<MediaEpisode> episode = new List();
 }

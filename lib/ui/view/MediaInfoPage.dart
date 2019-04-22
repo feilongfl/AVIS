@@ -7,6 +7,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../ParseRunner/ParseRunner.dart';
 import '../../common/AppShareData.dart';
 import '../../media/Media.dart';
+import '../../media/MediaEpisode.dart';
 import '../widget/ActionButton.dart';
 
 class MediaInfoPage extends StatefulWidget {
@@ -23,11 +24,46 @@ class MediaInfoPageState extends StateMVC {
 
   MediaInfoPageState(this.media) : super();
 
-  Widget _mediaList(BuildContext context, int index) {
-    return Text(
-      index.toString(),
-      textAlign: TextAlign.center,
+  Widget _EpisodeList(BuildContext context, MediaEpisode episode) {
+    return SliverGrid(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount:
+              MediaQuery.of(context).orientation == Orientation.landscape
+                  ? 3
+                  : 2,
+          childAspectRatio: 5.0,
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 10.0),
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          return Text(
+            index.toString(),
+            textAlign: TextAlign.center,
+          );
+        },
+        childCount: 32,
+      ),
     );
+  }
+
+  List<Widget> _mediaList(BuildContext context) {
+    List<Widget> widgets = new List();
+
+    this.media.episode.forEach((e) {
+      widgets.add(SliverToBoxAdapter(
+          child: Text(
+        e.info.title,
+        textAlign: TextAlign.center,
+      )));
+      widgets.add(
+        SliverPadding(
+          padding: const EdgeInsets.only(bottom: 10),
+        ),
+      );
+      widgets.add(_EpisodeList(context, e));
+    });
+
+    return widgets;
   }
 
   Widget _CoverView(BuildContext context) {
@@ -102,26 +138,13 @@ class MediaInfoPageState extends StateMVC {
               SliverToBoxAdapter(
                 child: _MediaInfoLists(context),
               ),
-              SliverGrid(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: MediaQuery.of(context).orientation ==
-                            Orientation.landscape
-                        ? 3
-                        : 2,
-                    childAspectRatio: 5.0,
-                    mainAxisSpacing: 10.0,
-                    crossAxisSpacing: 10.0),
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    return _mediaList(context, index);
-                  },
-                  childCount: 32,
-                ),
-              ),
-              SliverPadding(
-                padding: const EdgeInsets.only(bottom: 20.0),
+            ]
+              ..addAll(
+                _mediaList(context),
               )
-            ],
+              ..add(SliverPadding(
+                padding: const EdgeInsets.only(bottom: 20.0),
+              )),
           ),
         ),
       ],
@@ -145,26 +168,13 @@ class MediaInfoPageState extends StateMVC {
         SliverToBoxAdapter(
           child: _MediaInfoLists(context),
         ),
-        SliverGrid(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount:
-                  MediaQuery.of(context).orientation == Orientation.landscape
-                      ? 3
-                      : 2,
-              childAspectRatio: 5.0,
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0),
-          delegate: SliverChildBuilderDelegate(
-            (context, index) {
-              return _mediaList(context, index);
-            },
-            childCount: 31,
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.only(bottom: 20.0),
+      ]
+        ..addAll(
+          _mediaList(context),
         )
-      ],
+        ..add(SliverPadding(
+          padding: const EdgeInsets.only(bottom: 20.0),
+        )),
     );
   }
 
@@ -172,9 +182,23 @@ class MediaInfoPageState extends StateMVC {
   void initState() {
     super.initState();
 
+//    ParseRunner.Info(media).then((m) {
+//      setState(() {
+//        this.media = m;
+//      });
+//    });
+
     ParseRunner.Info(media).then((m) {
       setState(() {
         this.media = m;
+      });
+      return m;
+    }).then((m) {
+      ParseRunner.Episode(media).then((m) {
+        setState(() {
+          this.media = m;
+        });
+        return m;
       });
     });
   }
