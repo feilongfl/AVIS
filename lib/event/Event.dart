@@ -20,6 +20,7 @@ class Event {
   static const String SearchKeyword = "\$searchkeyword";
   static const String MediaId = "\$mediaid";
   static const String Intro = "intro";
+  static const String Episode = "episode";
 
 
   Event(this.Data,

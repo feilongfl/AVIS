@@ -32,6 +32,13 @@ List<List<Agent>> GenExpAgents() {
   Agent demoinfoRegexAgent = RegexpAgent(
       RegExp(r'<meta name="description" content="(.*?)">'), [Event.Intro]);
 
+  Agent domoepiinfoAgent = HttpAgent(
+      url: "https://www.50mh.com/manhua/${Event.MediaId}/",
+      replaces: [Event.MediaId]);
+  Agent demoepiinfoRegexAgent = RegexpAgent(
+      RegExp(r'<em class="c_3">(.*?)列表<\/em>'), [Event.Episode]);
+
+
   agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
   agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
   agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];

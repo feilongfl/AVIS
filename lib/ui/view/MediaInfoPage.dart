@@ -20,19 +20,10 @@ class MediaInfoPageState extends StateMVC {
 
   MediaInfoPageState(this.media) : super();
 
-  Widget _mediaList(BuildContext context) {
-    return GridView.count(
-      shrinkWrap: true,
-      primary: true,
-      crossAxisCount:
-          MediaQuery.of(context).orientation == Orientation.landscape ? 3 : 2,
-      childAspectRatio: 5,
-      children: ["01", "02", "03", "04", "05"]
-          .map((v) => Text(
-                v,
-                textAlign: TextAlign.center,
-              ))
-          .toList(),
+  Widget _mediaList(BuildContext context, int index) {
+    return Text(
+      index.toString(),
+      textAlign: TextAlign.center,
     );
   }
 
@@ -59,35 +50,31 @@ class MediaInfoPageState extends StateMVC {
   }
 
   Widget _MediaInfoLists(BuildContext context) {
-    return Flexible(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
 //              mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Text(
-              media.info.title,
-              style: TextStyle(fontSize: 28),
-              textAlign: TextAlign.center,
-            ),
-            Text(
-              media.info.author ?? "loading author ...",
-              textAlign: TextAlign.center,
-            ),
-            Divider(),
-            Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              child: Text(
-                media.info.intro ?? "loading intro ...",
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Divider(),
-            _mediaList(context),
-          ],
+      children: <Widget>[
+        Text(
+          media.info.title,
+          style: TextStyle(fontSize: 28),
+          textAlign: TextAlign.center,
         ),
-      ),
+        Text(
+          media.info.author ?? "loading author ...",
+          textAlign: TextAlign.center,
+        ),
+        Divider(),
+        Padding(
+          padding: EdgeInsets.only(left: 10, right: 10),
+          child: Text(
+            media.info.intro ?? "loading intro ...",
+            textAlign: TextAlign.left,
+          ),
+        ),
+        Divider(),
+//        _mediaList(context),
+      ],
     );
   }
 
@@ -98,19 +85,79 @@ class MediaInfoPageState extends StateMVC {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         _CoverView(context),
-        _MediaInfoLists(context),
+//        Flexible(child: SingleChildScrollView(child: _MediaInfoLists(context))),
+        Flexible(
+          child: CustomScrollView(
+            shrinkWrap: false,
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.only(top: 10),
+              ),
+              SliverToBoxAdapter(
+                child: _MediaInfoLists(context),
+              ),
+              SliverGrid(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: MediaQuery.of(context).orientation ==
+                            Orientation.landscape
+                        ? 3
+                        : 2,
+                    childAspectRatio: 5.0,
+                    mainAxisSpacing: 10.0,
+                    crossAxisSpacing: 10.0),
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                    return _mediaList(context, index);
+                  },
+                  childCount: 32,
+                ),
+              ),
+//              SliverPadding(
+//                padding: const EdgeInsets.only(bottom: 80.0),
+//              )
+            ],
+          ),
+        ),
       ],
     );
   }
 
   Widget port(BuildContext context) {
-    return Column(
-//      crossAxisAlignment: CrossAxisAlignment.start,
-//      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        _CoverView(context),
-        _MediaInfoLists(context),
+    return CustomScrollView(
+      shrinkWrap: false,
+      slivers: [
+        SliverToBoxAdapter(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            _CoverView(context),
+          ],
+        )),
+        SliverPadding(
+          padding: const EdgeInsets.only(top: 10),
+        ),
+        SliverToBoxAdapter(
+          child: _MediaInfoLists(context),
+        ),
+        SliverGrid(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount:
+                  MediaQuery.of(context).orientation == Orientation.landscape
+                      ? 3
+                      : 2,
+              childAspectRatio: 5.0,
+              mainAxisSpacing: 10.0,
+              crossAxisSpacing: 10.0),
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return _mediaList(context, index);
+            },
+            childCount: 31,
+          ),
+        ),
+//              SliverPadding(
+//                padding: const EdgeInsets.only(bottom: 80.0),
+//              )
       ],
     );
   }
