@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
+import '../../common/AppShareData.dart';
 import '../../parse/Parse.dart';
 import '../model/SourceEditPageModel.dart';
 
@@ -14,6 +15,7 @@ class SourceEditPage extends StatefulWidget {
 
 class SourceEditState extends StateMVC {
   SourceEditController controller;
+  var _formKey = GlobalKey<FormState>();
 
   SourceEditState() : super() {
     controller = SourceEditController();
@@ -46,7 +48,32 @@ class SourceEditState extends StateMVC {
         title: Text("Source Edit"),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.help), onPressed: () {}),
-          IconButton(icon: Icon(Icons.save), onPressed: () {}),
+          IconButton(
+              icon: Icon(Icons.save),
+              onPressed: () {
+                if(!_formKey.currentState.validate())
+                  return;
+
+                _formKey.currentState.save();
+
+                Parse p = SourceEditPageModel.of(context);
+                bool match = false;
+
+                //replace old
+                for (int i = 0; i < AppShareData.of(context).AppParse[p.type.index].length; i++) {
+                  if (AppShareData.of(context).AppParse[p.type.index][i].ParseUUID == p.ParseUUID) {
+                    match = true;
+                    setState(() => AppShareData.of(context).AppParse[p.type.index][i] = p);
+                    break;
+                  }
+                }
+
+                //add new
+                if (!match)
+                  AppShareData.of(context).AppParse[p.type.index].add(p);
+
+                Navigator.of(context).pop();
+              }),
         ],
       ),
 //      floatingActionButton: FloatingActionButton(
@@ -56,6 +83,7 @@ class SourceEditState extends StateMVC {
 //        child: Icon(Icons.save),
 //      ),
       body: Form(
+        key: _formKey,
         child: ListView(
             children: <Widget>[]
               ..add(_divideText("Base Info"))
@@ -149,16 +177,16 @@ class SourceEditController extends ControllerMVC {
     ParseType.Source,
     ParseType.SourceLazy,
     ParseType.homepage,
-    ParseType.login,
+//    ParseType.login,
   ];
 
   static const List<IconData> ParseTypeIcons = [
     Icons.search,
-    Icons.texture,
-    Icons.texture,
-    Icons.texture,
-    Icons.texture,
-    Icons.texture,
+    Icons.info,
+    Icons.filter,
+    Icons.image,
+    Icons.file_download,
+    Icons.keyboard_arrow_down,
     Icons.home,
     Icons.texture,
   ];

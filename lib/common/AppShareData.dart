@@ -79,7 +79,7 @@ class AppShareData extends InheritedWidget {
   }) : super(child: child) {
     //read from storage here
     for (int i = 0; i < MediaType.All.index; i++) {
-      this.AppParse[MediaType.Image.index] = new List();
+      this.AppParse[i] = new List();
     }
 
     //exp agents
