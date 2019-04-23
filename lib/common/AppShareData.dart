@@ -33,6 +33,10 @@ class AppRoutes {
   static const String Donate = "/Donate";
   static const String About = "/About";
   static const String MediaInfo = "/MediaInfo";
+  static const String MediaView = "/MediaView";
+  static const String MediaViewArg_Media = "media";
+  static const String MediaViewArg_EposideId = "eposide";
+  static const String MediaViewArg_ChapterId = "chapter";
 }
 
 class HttpUserAgent {

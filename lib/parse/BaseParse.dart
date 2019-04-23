@@ -32,7 +32,7 @@ class BaseParse implements Parse {
   Map<String, dynamic> MapData = new Map();
 
   Future<Media> doInfo(ParseType type, Media media) async {
-    MapData[Event.MediaId] = media.info.MediaId;
+    MapData[Event.MediaId] = media.info.ID;
     List<Event> events = [Event(MapData)];
 
     for (var agent in agents[type.index]) {
@@ -43,7 +43,7 @@ class BaseParse implements Parse {
   }
 
   Future<Media> doEpisode(ParseType type, Media media) async {
-    MapData[Event.MediaId] = media.info.MediaId;
+    MapData[Event.MediaId] = media.info.ID;
     List<Event> events = [Event(MapData)];
 
     for (var agent in agents[type.index]) {
@@ -54,7 +54,7 @@ class BaseParse implements Parse {
   }
 
   Future<Media> doChapter(ParseType type, Media media) async {
-    MapData[Event.MediaId] = media.info.MediaId;
+    MapData[Event.MediaId] = media.info.ID;
     List<Event> events = [Event(MapData)];
 
     for (var agent in agents[type.index]) {

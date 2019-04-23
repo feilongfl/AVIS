@@ -5,6 +5,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'common/AppShareData.dart';
 import 'media/Media.dart';
 import 'ui/view/MediaInfoPage.dart';
+import 'ui/view/MediaViewPage.dart';
 import 'ui/view/SearchPage.dart';
 import 'ui/view/SearchResultPage.dart';
 import 'ui/view/UnknownPage.dart';
@@ -61,6 +62,16 @@ class MyAppController extends ControllerMVC {
       return MaterialPageRoute<void>(
         settings: settings,
         builder: (BuildContext context) => MediaInfoPage(media),
+      );
+    }
+    if (settings.name == AppRoutes.MediaView) {
+      final Map<String, dynamic> argv = settings.arguments;
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (BuildContext context) => MediaViewPage(
+            argv[AppRoutes.MediaViewArg_Media],
+            argv[AppRoutes.MediaViewArg_EposideId],
+            argv[AppRoutes.MediaViewArg_ChapterId]),
       );
     }
     return null;

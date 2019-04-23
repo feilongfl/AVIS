@@ -24,7 +24,7 @@ class MediaInfoPageState extends StateMVC {
 
   MediaInfoPageState(this.media) : super();
 
-  Widget _EpisodeList(BuildContext context, MediaEpisode episode) {
+  Widget _EpisodeList(BuildContext context, MediaEpisode episode, Media media) {
     return SliverGrid(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount:
@@ -36,9 +36,21 @@ class MediaInfoPageState extends StateMVC {
           crossAxisSpacing: 10.0),
       delegate: SliverChildBuilderDelegate(
         (context, index) {
-          return Text(
-            episode.chapter[index].info.title,
-            textAlign: TextAlign.center,
+          final chapter = episode.chapter[index];
+          return OutlineButton(
+            child: Text(
+              chapter.info.title,
+//              textAlign: TextAlign.center,
+            ),
+            onPressed: () {
+              Map<String, dynamic> data = new Map();
+              data[AppRoutes.MediaViewArg_Media] = media;
+              data[AppRoutes.MediaViewArg_EposideId] = episode.info.ID;
+              data[AppRoutes.MediaViewArg_ChapterId] = chapter.info.ID;
+
+              Navigator.of(context)
+                  .pushNamed(AppRoutes.MediaView, arguments: data);
+            },
           );
         },
         childCount: episode.chapter.length,
@@ -60,7 +72,7 @@ class MediaInfoPageState extends StateMVC {
           padding: const EdgeInsets.only(bottom: 10),
         ),
       );
-      widgets.add(_EpisodeList(context, e));
+      widgets.add(_EpisodeList(context, e, media));
     });
 
     return widgets;
@@ -160,9 +172,6 @@ class MediaInfoPageState extends StateMVC {
                             child: _MediaInfoLists(context),
                           ),
                         ]
-//                          ..addAll(
-//                            _mediaList(context, snapshot.data),
-//                          )
                           ..add(SliverToBoxAdapter(
                             child: Center(
                               child: CircularProgressIndicator(),

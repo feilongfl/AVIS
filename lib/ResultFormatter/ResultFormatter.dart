@@ -1,5 +1,3 @@
-//import '../parse/Parse.dart';
-
 import '../event/Event.dart';
 import '../media/Media.dart';
 import '../media/MediaChapter.dart';
@@ -7,7 +5,6 @@ import '../media/MediaEpisode.dart';
 import '../media/MediaInfo.dart';
 
 class ResultFormatter {
-
   static List<dynamic> ResultFromatter = [
     SearchEventFormat,
     InfoEventFormat,
@@ -31,8 +28,7 @@ class ResultFormatter {
     media.info.cover =
         _selectData(data[Event.Cover], media.info.cover, "cover");
     media.info.url = _selectData(data[Event.Url], media.info.url, "url");
-    media.info.MediaId =
-        _selectData(data[Event.MediaId], media.info.MediaId, "MediaId");
+    media.info.ID = _selectData(data[Event.MediaId], media.info.ID, "MediaId");
     media.info.intro =
         _selectData(data[Event.Intro], media.info.intro, "eventIntro");
 
@@ -57,6 +53,8 @@ class ResultFormatter {
 
       MediaInfo episodeInfo = MediaInfo();
       episodeInfo.title = data[Event.Title];
+      episodeInfo.ID = data[Event.EpisodeId] ?? "";
+      episodeInfo.url = data[Event.Url] ?? "";
 
       media.episode.add(MediaEpisode(info: episodeInfo));
     }
@@ -70,6 +68,8 @@ class ResultFormatter {
 
       MediaInfo chapterInfo = MediaInfo();
       chapterInfo.title = data[Event.Title];
+      chapterInfo.ID = data[Event.ChapterId] ?? "";
+      chapterInfo.url = data[Event.Url] ?? "";
 
       media.episode
 //          .where((e) => e.info.title == data[Event.Group])

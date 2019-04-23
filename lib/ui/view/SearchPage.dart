@@ -59,7 +59,13 @@ class _SearchPageState extends StateMVC {
 //            ..add(Image.network(
 //                "http://www.baidu.com/img/bd_logo1.png")) //todo change image
             ..add(Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).orientation ==
+                          Orientation.landscape
+                      ? 100
+                      : 300,
+                  left: 20,
+                  right: 20),
               child: Row(
                 children: <Widget>[
                   Flexible(

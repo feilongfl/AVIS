@@ -21,7 +21,7 @@ class Event {
   static const String MediaId = "\$mediaid";
   static const String ChapterId = "\$chapterid";
   static const String Intro = "intro";
-  static const String Episode = "episode";
+  static const String EpisodeId = "\$episodeid";
   static const String Group = "group";
 
   Event(this.Data,

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:uuid/uuid.dart';
+
 import '../event/Event.dart';
 import 'Agent.dart';
 
@@ -19,7 +21,8 @@ class BaseAgent implements Agent {
 
   //  this.$1,
   BaseAgent({this.replaces}) {
-    _UUID = ""; // todo generate UUID here
+    var uuid = new Uuid();
+    _UUID = uuid.v4();
   }
 
   bool checkEventIn(Event eventIn) {

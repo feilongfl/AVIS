@@ -5,10 +5,11 @@ class MediaInfo {
   String url = "";
 
   //save parse data
-  String MediaId = "";
-  String eid = "";
-  String cid = "";
-  String pid = "";
+//  String MediaId = "";
+//  String eid = "";
+//  String cid = "";
+//  String pid = "";
+  String ID = "";
 }
 
 class MediaInfoFull extends MediaInfo {

@@ -40,7 +40,6 @@ class HttpAgent extends BaseAgent {
   Future<List<Event>> doRealWork(Event eventIn) async {
     List<Event> eventOut = await super.doRealWork(eventIn);
 
-    //todo http post
     HTTPResult httpResult = await HTTP.work(
       httpClient,
       this.ReplaceOneVal(eventIn.Data[Event.Url] ?? this.url, eventIn), //url
