@@ -29,7 +29,34 @@ class SourceSettingState extends StateMVC {
           IconButton(
             icon: Icon(Icons.delete),
             tooltip: "Delete",
-            onPressed: () => setState(() => parses.remove(parse)),
+            onPressed: () {
+              showDialog<String>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text("Confirm Delete ${parse.name}"),
+                        content: Text("UUID: " + parse.ParseUUID),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () =>
+                                Navigator.of(context).pop("Cancle"),
+                            child: Text("Cancle"),
+                          ),
+                          FlatButton(
+                            onPressed: () => Navigator.of(context).pop("OK"),
+                            child: Text("Delete"),
+                          ),
+                        ],
+                      )).then((returnValue) {
+                switch (returnValue) {
+                  case "OK":
+                    setState(() => parses.remove(parse));
+                    break;
+
+                  default:
+                    break;
+                }
+              });
+            },
           ),
           IconButton(
             icon: Icon(Icons.account_circle),
