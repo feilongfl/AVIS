@@ -1,3 +1,5 @@
+import 'package:url_launcher/url_launcher.dart';
+
 import '../media/Media.dart';
 import '../parse/Parse.dart';
 import 'AppEnums.dart';
@@ -5,6 +7,12 @@ import 'AppEnums.dart';
 class AppShareData {
   static const String AppName = "AVIS";
   static const String defaultKeywords = "UnknowKeywords";
+
+  static const String FEILONG = "FeiLong";
+  static const String FEILONGBLOG = "https://feilong.home.blog";
+  static const String GITHUB = "https://github.com/feilongfl/AVIS";
+  static const String GITHUBRELEASE = "$GITHUB/releases";
+
 
   static const String finishTip_isFin = "Finish";
   static const String finishTip_notFin = "not Finish";
@@ -37,6 +45,14 @@ class AppRoutes {
   static const String MediaViewArg_Media = "media";
   static const String MediaViewArg_EposideId = "eposide";
   static const String MediaViewArg_ChapterId = "chapter";
+
+  static LaunchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }
 
 class HttpUserAgent {

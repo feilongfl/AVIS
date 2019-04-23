@@ -4,6 +4,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'common/AppShareData.dart';
 import 'media/Media.dart';
+import 'ui/view/AboutPage.dart';
 import 'ui/view/MediaInfoPage.dart';
 import 'ui/view/MediaViewPage.dart';
 import 'ui/view/SearchPage.dart';
@@ -38,6 +39,7 @@ class MyAppController extends ControllerMVC {
   final Map<String, WidgetBuilder> _routes = {
     AppRoutes.Home: (BuildContext context) => HomePage(),
     AppRoutes.Search: (BuildContext context) => SearchPage(),
+    AppRoutes.About: (BuildContext context) => AboutPage(),
   };
 
   Route<dynamic> _unknowRoute(RouteSettings settings) {
