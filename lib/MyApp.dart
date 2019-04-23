@@ -5,6 +5,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'common/AppShareData.dart';
 import 'media/Media.dart';
 import 'ui/view/AboutPage.dart';
+import 'ui/view/BackupPage.dart';
 import 'ui/view/MediaInfoPage.dart';
 import 'ui/view/MediaViewPage.dart';
 import 'ui/view/SearchPage.dart';
@@ -40,6 +41,7 @@ class MyAppController extends ControllerMVC {
     AppRoutes.Home: (BuildContext context) => HomePage(),
     AppRoutes.Search: (BuildContext context) => SearchPage(),
     AppRoutes.About: (BuildContext context) => AboutPage(),
+    AppRoutes.Backup: (BuildContext context) => BackupPage(),
   };
 
   Route<dynamic> _unknowRoute(RouteSettings settings) {
