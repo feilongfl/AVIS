@@ -90,12 +90,12 @@ class SourceSettingState extends StateMVC {
           ))
           ..addAll(_group(context, "Article",
               AppShareData.of(context).AppParse[MediaType.Article.index]))
-          ..addAll(_group(
-              context, "Video", AppShareData.of(context).AppParse[MediaType.Video.index]))
-          ..addAll(_group(
-              context, "Image", AppShareData.of(context).AppParse[MediaType.Image.index]))
-          ..addAll(_group(
-              context, "Sound", AppShareData.of(context).AppParse[MediaType.Sound.index])),
+          ..addAll(_group(context, "Video",
+              AppShareData.of(context).AppParse[MediaType.Video.index]))
+          ..addAll(_group(context, "Image",
+              AppShareData.of(context).AppParse[MediaType.Image.index]))
+          ..addAll(_group(context, "Sound",
+              AppShareData.of(context).AppParse[MediaType.Sound.index])),
       ),
     );
   }
