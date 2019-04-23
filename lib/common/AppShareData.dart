@@ -1,10 +1,55 @@
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../Agent/Agent.dart';
+import '../Agent/HttpAgent.dart';
+import '../Agent/RegexpAgent.dart';
+import '../event/Event.dart';
 import '../media/Media.dart';
+import '../parse/BaseParse.dart';
 import '../parse/Parse.dart';
 import 'AppEnums.dart';
 
-class AppShareData {
+List<List<Agent>> GenExpAgents() {
+  List<List<Agent>> agents = new List(ParseType.All.index);
+
+  Agent domoAgent = HttpAgent(
+      url: "https://www.50mh.com/search/?keywords=" + Event.SearchKeyword,
+      replaces: [Event.SearchKeyword]);
+  Agent demoRegexAgent = RegexpAgent(
+      RegExp(
+          r'<a class="image-link" href="(https.*?manhua\/(.*?)\/?)" title="(.*?)"><img src="(.*?)" width="\d+" height="\d+" alt="" default="(?:.*?)">'),
+      [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
+
+  Agent domohAgent = HttpAgent(url: "https://www.50mh.com/list/riben/");
+  Agent demohRegexAgent = RegexpAgent(
+      RegExp(
+          '<a class="comic_img" href="(http.*?manhua\\/(.*?)\\/)"><img src="(.*?)" alt="(.*?)"'),
+      [Event.Url, Event.MediaId, Event.Cover, Event.Title]);
+
+  Agent domoinfoAgent = HttpAgent(
+      url: "https://www.50mh.com/manhua/${Event.MediaId}/",
+      replaces: [Event.MediaId]);
+  Agent demoinfoRegexAgent = RegexpAgent(
+      RegExp(r'<meta name="description" content="(.*?)">'), [Event.Intro]);
+
+  Agent demoepiinfoRegexAgent =
+      RegexpAgent(RegExp(r'<em class="c_3">(.*?)列表<\/em>'), [Event.Title]);
+
+  Agent democpiinfoRegexAgent = RegexpAgent(
+      RegExp(r'<li>\s+<a href="(.*\/(\d+).*?)" title="(.*?)"'),
+      [Event.Url, Event.ChapterId, Event.Title]);
+
+  agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
+  agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
+  agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];
+  agents[ParseType.Episode.index] = [domoinfoAgent, demoepiinfoRegexAgent];
+  agents[ParseType.Chapter.index] = [domoinfoAgent, democpiinfoRegexAgent];
+
+  return agents;
+}
+
+class AppShareData extends InheritedWidget {
   static const String AppName = "AVIS";
   static const String defaultKeywords = "UnknowKeywords";
 
@@ -12,7 +57,6 @@ class AppShareData {
   static const String FEILONGBLOG = "https://feilong.home.blog";
   static const String GITHUB = "https://github.com/feilongfl/AVIS";
   static const String GITHUBRELEASE = "$GITHUB/releases";
-
 
   static const String finishTip_isFin = "Finish";
   static const String finishTip_notFin = "not Finish";
@@ -24,7 +68,37 @@ class AppShareData {
   static List<List<Media>> History = new List(MediaType.All.index);
 
   //parse config
-  static List<List<Parse>> AppParse = new List(MediaType.All.index);
+  List<List<Parse>> AppParse = new List(MediaType.All.index);
+
+  static AppShareData of(BuildContext context) {
+    return context.inheritFromWidgetOfExactType(AppShareData);
+  }
+
+  AppShareData({
+    @required Widget child,
+  }) : super(child: child) {
+    //read from storage here
+    for (int i = 0; i < MediaType.All.index; i++) {
+      this.AppParse[MediaType.Image.index] = new List();
+    }
+
+    //exp agents
+    List<List<Agent>> expagents = GenExpAgents();
+
+    // for debug use
+    this.AppParse[MediaType.Image.index].add(
+        BaseParse(expagents, ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
+          ..name = "50manhua"
+          ..url = "https://50mh.com"
+          ..type = MediaType.Image);
+  }
+
+  @override
+  bool updateShouldNotify(AppShareData oldWidget) =>
+      oldWidget.AppParse != AppParse ||
+//      oldWidget.History != History ||
+//      oldWidget.Favorite != Favorite ||
+      false; //debug use
 }
 
 class AppRoutes {
@@ -46,7 +120,6 @@ class AppRoutes {
   static const String MediaViewArg_EposideId = "eposide";
   static const String MediaViewArg_ChapterId = "chapter";
   static const String SourceEdit = "/SourceEdit";
-
 
   static LaunchURL(String url) async {
     if (await canLaunch(url)) {

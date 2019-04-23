@@ -4,7 +4,9 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'common/AppShareData.dart';
 import 'media/Media.dart';
+import 'parse/BaseParse.dart';
 import 'parse/Parse.dart';
+import 'ui/model/SourceEditPageModel.dart';
 import 'ui/view/AboutPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/MediaInfoPage.dart';
@@ -86,7 +88,10 @@ class MyAppController extends ControllerMVC {
       final Parse argv = settings.arguments;
       return MaterialPageRoute<void>(
         settings: settings,
-        builder: (BuildContext context) => SourceEditPage(argv),
+        builder: (BuildContext context) => SourceEditPageModel(
+              parse: argv ?? BaseParse(List()),
+              child: SourceEditPage(),
+            ),
       );
     }
     return null;

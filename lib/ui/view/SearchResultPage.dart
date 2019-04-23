@@ -120,7 +120,7 @@ class _SearchResultPageState extends StateMVC {
 //            return _searchItem(context, position);
 //          }),
       body: FutureBuilder<List<Media>>(
-          future: searchResultPageController.doSearch(),
+          future: searchResultPageController.doSearch(context),
           builder: (context, futureData) {
             return futureData.hasData && futureData.data.length != 0
                 ? ListView.builder(
@@ -146,7 +146,7 @@ class SearchResultPageController extends ControllerMVC {
     this.keyword = keyword;
   }
 
-  Future<List<Media>> doSearch() async {
-    return ParseRunner.Search(this.keyword, this.type);
+  Future<List<Media>> doSearch(BuildContext context) async {
+    return ParseRunner.Search(context, this.keyword, this.type);
   }
 }

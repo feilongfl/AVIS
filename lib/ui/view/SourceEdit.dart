@@ -2,89 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
-import '../../parse/BaseParse.dart';
 import '../../parse/Parse.dart';
+import '../model/SourceEditPageModel.dart';
 
 class SourceEditPage extends StatefulWidget {
-  Parse parse;
-
-  SourceEditPage(this.parse, {Key key}) : super(key: key);
+  SourceEditPage({Key key}) : super(key: key);
 
   @override
-  SourceEditState createState() => SourceEditState(this.parse);
-}
-
-class SettingForm {
-  IconData icon;
-  String label;
-  String hint;
-  bool editable;
-  List<String> choiceStrings;
-  List<dynamic> choiceValues;
-  dynamic bindValue;
-
-  ValueChanged<dynamic> onChanged;
-
-  SettingFormType type;
-
-  SettingForm(this.label,
-      {this.icon = Icons.label,
-      this.hint = "",
-      this.editable = true,
-      this.type = SettingFormType.Input,
-      this.choiceStrings,
-      this.choiceValues,
-      this.bindValue,
-      this.onChanged});
+  SourceEditState createState() => SourceEditState();
 }
 
 class SourceEditState extends StateMVC {
   SourceEditController controller;
 
-  SourceEditState(Parse parse) : super() {
-    controller = SourceEditController(parse);
+  SourceEditState() : super() {
+    controller = SourceEditController();
   }
 
-  Widget _formInput({IconData icon, String label, String hint, bool editable}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-      child: TextFormField(
-        enabled: editable ?? true,
-        maxLines: 1,
-        decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            icon: Icon(icon ?? Icons.label),
-            labelText: label ?? "label",
-            hintText: hint ?? "hint"),
-      ),
-    );
+  List<Widget> _agentSettingButton(BuildContext context) {
+    return SourceEditController.ParseTypeLists.map((p) => ListTile(
+          leading: Icon(SourceEditController.ParseTypeIcons[p.index]),
+          title:
+              Text(SourceEditController.ParseTypeStrings[p.index] + " Agents"),
+          trailing: Icon(Icons.keyboard_arrow_right),
+        )).toList();
   }
 
-  Widget _formSelect(String name, List<String> strings, List<dynamic> values,
-      dynamic defaultValue, ValueChanged<dynamic> onChanged) {
+  Widget _divideText(String title) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-        child: ListTile(
-          title: Text(name),
-          trailing: DropdownButton(
-              value: defaultValue,
-              items: values
-                  .map((v) => DropdownMenuItem<MediaType>(
-                        value: v,
-                        child: Text(strings[v.index]),
-                      ))
-                  .toList(),
-              onChanged: (v) => controller.update()),
-        ));
-  }
-
-  Widget _formDevide(String name) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 3, bottom: 3, top: 3),
-      child: Text(
-        name,
-        textAlign: TextAlign.center,
-      ),
+      padding: EdgeInsets.only(top: 10),
+      child: Center(
+          child: Text(
+        title,
+        style: TextStyle(color: Theme.of(context).primaryColor),
+      )),
     );
   }
 
@@ -93,106 +44,74 @@ class SourceEditState extends StateMVC {
     return Scaffold(
       appBar: AppBar(
         title: Text("Source Edit"),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.help), onPressed: () {}),
+          IconButton(icon: Icon(Icons.save), onPressed: () {}),
+        ],
       ),
 //      floatingActionButton: FloatingActionButton(
-//        onPressed: () {},
+//        onPressed: () {
+//          setState(() => SourceEditPageModel.of(context).name = "feilong");
+//        },
 //        child: Icon(Icons.save),
 //      ),
-      body: ListView(
-          children: []
-            ..add(Container(
-              color: Theme.of(context).primaryColorLight,
-              padding:
-                  MediaQuery.of(context).orientation == Orientation.landscape
-                      ? EdgeInsets.only(top: 30, bottom: 20)
-                      : EdgeInsets.only(top: 160, bottom: 130),
-              child: Column(
-                children: <Widget>[
-                  Text(
-                    "Sources Edit",
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ],
-              ),
-            ))
-            ..add(Padding(padding: EdgeInsets.only(top: 10)))
-            ..add(_formDevide("Base Info"))
-            ..add(Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              child: TextFormField(
-                initialValue: controller.parse.name,
-                onSaved: (v) => setState(() => controller.parse.name = v),
-                maxLines: 1,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    icon: Icon(Icons.label),
-                    labelText: "Source Name",
-                    hintText: "Input source name."),
-              ),
-            ))
-            ..add(Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              child: TextFormField(
-                maxLines: 1,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    icon: Icon(Icons.label),
-                    labelText: "Source Url",
-                    hintText: "Input source web url."),
-              ),
-            ))
-            ..add(Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-              child: TextFormField(
-                maxLines: 1,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    icon: Icon(Icons.label),
-                    labelText: "Source UUID",
-                    hintText: "UUID for source."),
-              ),
-            ))
-            ..add(Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+      body: Form(
+        child: ListView(
+            children: <Widget>[]
+              ..add(_divideText("Base Info"))
+              ..add(Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                child: TextFormField(
+                  initialValue: SourceEditPageModel.of(context).name,
+                  decoration: InputDecoration(
+                      labelText: "Source Name", hintText: "Input source name."),
+                  onSaved: (v) => SourceEditPageModel.of(context).name = v,
+                ),
+              ))
+              ..add(Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                child: TextFormField(
+                  initialValue: SourceEditPageModel.of(context).url,
+                  decoration: InputDecoration(
+                      labelText: "Source Url",
+                      hintText: "Input source web url."),
+                  onSaved: (v) => SourceEditPageModel.of(context).url = v,
+                ),
+              ))
+              ..add(Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                child: TextFormField(
+                  initialValue: SourceEditPageModel.of(context).ParseUUID,
+                  decoration: InputDecoration(
+                      labelText: "Source UUID", hintText: "Source UUID."),
+                  onSaved: (v) => SourceEditPageModel.of(context).ParseUUID = v,
+                ),
+              ))
+              ..add(Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: ListTile(
                   title: Text("Media Type"),
-                  trailing: DropdownButton(
-                      value: controller.parse.type,
-                      items: SourceEditController.MediaTypeLists.map((v) =>
-                          DropdownMenuItem<MediaType>(
-                            value: v,
-                            child: Text(
-                                SourceEditController.MediaTypeStrings[v.index]),
-                          )).toList(),
-                      onChanged: (v) =>
-                          setState(() => controller.parse.type = v)),
-                )))
-            ..add(_formDevide("Agents"))
-//            ..addAll(controller.settingForms.map((s) {
-//              switch (s.type) {
-//                case SettingFormType.Devide:
-//                  return _formDevide(s.label);
-//
-//                case SettingFormType.Input:
-//                  return _formInput(
-//                      icon: s.icon,
-//                      label: s.label,
-//                      hint: s.hint,
-//                      editable: s.editable);
-//                  break;
-//
-//                case SettingFormType.Choice:
-//                  return _formSelect(s.label, s.choiceStrings, s.choiceValues,
-//                      s.bindValue, s.onChanged);
-//                  break;
-//
-//                default:
-//                  return Text("error");
-//                  break;
-//              }
-//            }))
-          ),
+                  trailing: Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: DropdownButtonFormField(
+                      items: SourceEditController.MediaTypeLists.map(
+                          (t) => DropdownMenuItem(
+                              value: t,
+                              child: Text(
+                                SourceEditController.MediaTypeStrings[t.index],
+                              ))).toList(),
+                      value: SourceEditPageModel.of(context).type,
+                      onChanged: (v) => setState(
+                          () => SourceEditPageModel.of(context).type = v),
+                    ),
+                  ),
+                ),
+              ))
+              ..add(_divideText("Agent Settings"))
+              ..addAll(_agentSettingButton(context))
+            //add,
+            ),
+      ),
     );
   }
 }
@@ -222,29 +141,40 @@ class SourceEditController extends ControllerMVC {
     "Sound",
   ];
 
-//  List<SettingForm> settingForms;
+  static const List<ParseType> ParseTypeLists = [
+    ParseType.Search,
+    ParseType.info,
+    ParseType.Episode,
+    ParseType.Chapter,
+    ParseType.Source,
+    ParseType.SourceLazy,
+    ParseType.homepage,
+    ParseType.login,
+  ];
 
-//  void update() {
-//    settingForms = [
-//      SettingForm("Base Info", type: SettingFormType.Devide),
-//      SettingForm("Source Name", hint: "Input source name.", icon: Icons.label),
-//      SettingForm("Source Url",
-//          hint: "Input source web url.", icon: Icons.link),
-//      SettingForm("Source UUID",
-//          hint: "Source UUID.", icon: Icons.code, editable: true),
-//      SettingForm("Agent", type: SettingFormType.Devide),
-//      SettingForm("Media Type",
-//          type: SettingFormType.Choice,
-//          choiceStrings: _mediaTypeStrings,
-//          choiceValues: _mediaTypeLists,
-//          bindValue: this.parse.type, onChanged: (v) {
-//        setState(() => this.parse.type = v);
-//      }),
-//    ];
-//  }
+  static const List<IconData> ParseTypeIcons = [
+    Icons.search,
+    Icons.texture,
+    Icons.texture,
+    Icons.texture,
+    Icons.texture,
+    Icons.texture,
+    Icons.home,
+    Icons.texture,
+  ];
 
-  SourceEditController(this.parse) {
-    this.parse = this.parse ?? BaseParse(List(ParseType.All.index));
-//    update();
+  static const List<String> ParseTypeStrings = [
+    "Search",
+    "info",
+    "Episode",
+    "Chapter",
+    "Source",
+    "SourceLazy",
+    "homepage",
+    "login",
+  ];
+
+  SourceEditController() {
+//    this.parse = this.parse ?? BaseParse(List(ParseType.All.index));
   }
 }

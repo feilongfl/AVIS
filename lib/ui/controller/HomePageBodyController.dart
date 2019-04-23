@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../ParseRunner/ParseRunner.dart';
@@ -9,7 +10,7 @@ class HomePageBodyController extends ControllerMVC {
 
   HomePageBodyController(this.page_type);
 
-  Future<List<Media>> getMedias() async {
-    return ParseRunner.Homepage(page_type);
+  Future<List<Media>> getMedias(BuildContext context) async {
+    return ParseRunner.Homepage(context, page_type);
   }
 }

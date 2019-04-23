@@ -142,7 +142,7 @@ class MediaInfoPageState extends StateMVC {
 //        Flexible(child: SingleChildScrollView(child: _MediaInfoLists(context))),
         Flexible(
           child: FutureBuilder(
-              future: getMediaFuture(),
+              future: getMediaFuture(context),
               builder: (context, snapshot) {
                 return snapshot.hasData
                     ? CustomScrollView(
@@ -189,7 +189,7 @@ class MediaInfoPageState extends StateMVC {
 
   Widget port(BuildContext context) {
     return FutureBuilder(
-      future: getMediaFuture(),
+      future: getMediaFuture(context),
       builder: (context, snapshot) {
         return snapshot.hasData
             ? CustomScrollView(
@@ -248,10 +248,10 @@ class MediaInfoPageState extends StateMVC {
     );
   }
 
-  Future<Media> getMediaFuture() async {
-    Media mediaResult = await ParseRunner.Info(this.media);
-    mediaResult = await ParseRunner.Episode(mediaResult);
-    mediaResult = await ParseRunner.Chapter(mediaResult);
+  Future<Media> getMediaFuture(BuildContext context) async {
+    Media mediaResult = await ParseRunner.Info(context, this.media);
+    mediaResult = await ParseRunner.Episode(context, mediaResult);
+    mediaResult = await ParseRunner.Chapter(context, mediaResult);
 
     return mediaResult;
   }

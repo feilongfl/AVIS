@@ -26,7 +26,7 @@ class HomepageBodyState extends StateMVC {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Media>>(
-        future: _controller.getMedias(),
+        future: _controller.getMedias(context),
         builder: (context, futureData) {
           return futureData.hasData && futureData.data.length != 0
               ? GridView.builder(

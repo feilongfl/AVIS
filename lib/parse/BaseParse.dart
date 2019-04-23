@@ -19,7 +19,9 @@ class BaseParse implements Parse {
 //  HttpClient httpClient = new HttpClient();
 
   BaseParse(this.agents,
-      {this.name = "No Name", this.type = MediaType.Article, this.ParseUUID}) {
+      {this.name = "New Source",
+      this.type = MediaType.Article,
+      this.ParseUUID}) {
     var uuid = new Uuid();
     this.ParseUUID = this.ParseUUID ?? uuid.v4();
     this.agents = this.agents ?? List(ParseType.All.index);
