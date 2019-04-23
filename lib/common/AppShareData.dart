@@ -45,6 +45,8 @@ class AppRoutes {
   static const String MediaViewArg_Media = "media";
   static const String MediaViewArg_EposideId = "eposide";
   static const String MediaViewArg_ChapterId = "chapter";
+  static const String SourceEdit = "/SourceEdit";
+
 
   static LaunchURL(String url) async {
     if (await canLaunch(url)) {

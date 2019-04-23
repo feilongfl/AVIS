@@ -1,3 +1,5 @@
+import 'package:uuid/uuid.dart';
+
 import '../Agent/Agent.dart';
 import '../ResultFormatter/ResultFormatter.dart';
 import '../common/AppEnums.dart';
@@ -8,14 +10,20 @@ import 'Parse.dart';
 class BaseParse implements Parse {
   String ParseUUID = "76c1ae48-81b8-42e3-a868-d69cf2f2ea5d";
   String name = "BaseParse";
+  String url = "";
 
-  MediaType type = MediaType.Image;
+  MediaType type;
 
-  List<List<Agent>> agents = new List(ParseType.All.index);
+  List<List<Agent>> agents;
 
 //  HttpClient httpClient = new HttpClient();
 
-  BaseParse(this.agents, {this.name, this.type, this.ParseUUID});
+  BaseParse(this.agents,
+      {this.name = "No Name", this.type = MediaType.Article, this.ParseUUID}) {
+    var uuid = new Uuid();
+    this.ParseUUID = this.ParseUUID ?? uuid.v4();
+    this.agents = this.agents ?? List(ParseType.All.index);
+  }
 
   Future<List<Media>> doSearchHome(
       ParseType type, Map<String, dynamic> data) async {

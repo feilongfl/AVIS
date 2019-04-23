@@ -58,7 +58,9 @@ void initAppParse() async {
 
   // for debug use
   AppShareData.AppParse[MediaType.Image.index]
-      .add(BaseParse(expagents, ParseUUID: "testuuid"));
+      .add(BaseParse(expagents, ParseUUID: "testuuid")
+        ..name = "50manhua"
+        ..url = "https://50mh.com");
 }
 
 void init() {
