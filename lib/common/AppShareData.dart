@@ -87,7 +87,7 @@ class AppShareData extends InheritedWidget {
 
     // for debug use
     this.AppParse[MediaType.Image.index].add(
-        BaseParse(expagents, ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
+        BaseParse(agents: expagents, ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
           ..name = "50manhua"
           ..url = "https://50mh.com"
           ..type = MediaType.Image);

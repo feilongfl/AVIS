@@ -49,29 +49,32 @@ class AgentEditPageState extends StateMVC {
                   Text(SourceEditPageModel.of(context).name),
                 ],
               )))
-          ..addAll(SourceEditPageModel.of(context)
-              .agents[parseType.index]
-              .map((agent) => ListTile(
-                    title: Text(agent.name),
-                    subtitle: Text(agent.UUID),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        IconButton(
-                          icon: Icon(Icons.info),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.edit),
-                          onPressed: () {},
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.delete),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  ))),
+          ..addAll(
+              SourceEditPageModel.of(context).agents[parseType.index].length > 0
+                  ? SourceEditPageModel.of(context)
+                      .agents[parseType.index]
+                      .map((agent) => ListTile(
+                            title: Text(agent.name),
+                            subtitle: Text(agent.UUID),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.info),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.edit),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.delete),
+                                  onPressed: () {},
+                                ),
+                              ],
+                            ),
+                          ))
+                  : [ListTile(title: Text("No Agents"))]),
       ),
     );
   }

@@ -144,43 +144,46 @@ class MediaInfoPageState extends StateMVC {
           child: FutureBuilder(
               future: getMediaFuture(context),
               builder: (context, snapshot) {
-                return snapshot.hasData
-                    ? CustomScrollView(
-                        shrinkWrap: false,
-                        slivers: [
-                          SliverPadding(
-                            padding: const EdgeInsets.only(top: 10),
-                          ),
-                          SliverToBoxAdapter(
-                            child: _MediaInfoLists(context),
-                          ),
-                        ]
-                          ..addAll(
-                            _mediaList(context, snapshot.data),
-                          )
-                          ..add(SliverPadding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                          )),
-                      )
-                    : CustomScrollView(
-                        shrinkWrap: false,
-                        slivers: [
-                          SliverPadding(
-                            padding: const EdgeInsets.only(top: 10),
-                          ),
-                          SliverToBoxAdapter(
-                            child: _MediaInfoLists(context),
-                          ),
-                        ]
-                          ..add(SliverToBoxAdapter(
-                            child: Center(
-                              child: CircularProgressIndicator(),
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: snapshot.hasData
+                      ? CustomScrollView(
+                          shrinkWrap: false,
+                          slivers: [
+                            SliverPadding(
+                              padding: const EdgeInsets.only(top: 10),
                             ),
-                          ))
-                          ..add(SliverPadding(
-                            padding: const EdgeInsets.only(bottom: 20.0),
-                          )),
-                      );
+                            SliverToBoxAdapter(
+                              child: _MediaInfoLists(context),
+                            ),
+                          ]
+                            ..addAll(
+                              _mediaList(context, snapshot.data),
+                            )
+                            ..add(SliverPadding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                            )),
+                        )
+                      : CustomScrollView(
+                          shrinkWrap: false,
+                          slivers: [
+                            SliverPadding(
+                              padding: const EdgeInsets.only(top: 10),
+                            ),
+                            SliverToBoxAdapter(
+                              child: _MediaInfoLists(context),
+                            ),
+                          ]
+                            ..add(SliverToBoxAdapter(
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ))
+                            ..add(SliverPadding(
+                              padding: const EdgeInsets.only(bottom: 20.0),
+                            )),
+                        ),
+                );
               }),
         ),
       ],
@@ -191,59 +194,62 @@ class MediaInfoPageState extends StateMVC {
     return FutureBuilder(
       future: getMediaFuture(context),
       builder: (context, snapshot) {
-        return snapshot.hasData
-            ? CustomScrollView(
-                shrinkWrap: false,
-                slivers: [
-                  SliverToBoxAdapter(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      _CoverView(context),
-                    ],
-                  )),
-                  SliverPadding(
-                    padding: const EdgeInsets.only(top: 10),
-                  ),
-                  SliverToBoxAdapter(
-                    child: _MediaInfoLists(context),
-                  ),
-                ]
-                  ..addAll(
-                    _mediaList(context, snapshot.data),
-                  )
-                  ..add(SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                  )),
-              )
-            : CustomScrollView(
-                shrinkWrap: false,
-                slivers: [
-                  SliverToBoxAdapter(
-                      child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      _CoverView(context),
-                    ],
-                  )),
-                  SliverPadding(
-                    padding: const EdgeInsets.only(top: 10),
-                  ),
-                  SliverToBoxAdapter(
-                    child: _MediaInfoLists(context),
-                  ),
-                ]
-                  ..add(
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: snapshot.hasData
+              ? CustomScrollView(
+                  shrinkWrap: false,
+                  slivers: [
                     SliverToBoxAdapter(
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        _CoverView(context),
+                      ],
+                    )),
+                    SliverPadding(
+                      padding: const EdgeInsets.only(top: 10),
                     ),
-                  )
-                  ..add(SliverPadding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                  )),
-              );
+                    SliverToBoxAdapter(
+                      child: _MediaInfoLists(context),
+                    ),
+                  ]
+                    ..addAll(
+                      _mediaList(context, snapshot.data),
+                    )
+                    ..add(SliverPadding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                    )),
+                )
+              : CustomScrollView(
+                  shrinkWrap: false,
+                  slivers: [
+                    SliverToBoxAdapter(
+                        child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        _CoverView(context),
+                      ],
+                    )),
+                    SliverPadding(
+                      padding: const EdgeInsets.only(top: 10),
+                    ),
+                    SliverToBoxAdapter(
+                      child: _MediaInfoLists(context),
+                    ),
+                  ]
+                    ..add(
+                      SliverToBoxAdapter(
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    )
+                    ..add(SliverPadding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                    )),
+                ),
+        );
       },
     );
   }

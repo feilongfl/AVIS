@@ -26,8 +26,7 @@ class SourceEditState extends StateMVC {
           onTap: () => Navigator.of(context)
               .pushNamed(AppRoutes.AgentsEdit, arguments: p),
           leading: Icon(Parse.ParseTypeIcons[p.index]),
-          title:
-              Text(Parse.ParseTypeStrings[p.index] + " Agents"),
+          title: Text(Parse.ParseTypeStrings[p.index] + " Agents"),
           trailing: Icon(Icons.keyboard_arrow_right),
         )).toList();
   }
@@ -74,6 +73,23 @@ class SourceEditState extends StateMVC {
                     break;
                   }
                 }
+
+                //move agent
+                if (!match)
+                  for (int j = 0; j < MediaType.All.index; j++)
+                    if (j != p.type.index)
+                      for (int i = 0;
+                          i < AppShareData.of(context).AppParse[j].length;
+                          i++) {
+                        if (AppShareData.of(context).AppParse[j][i].ParseUUID ==
+                            p.ParseUUID) {
+//                          match = true;
+                          setState(() => AppShareData.of(context)
+                              .AppParse[j]
+                              .remove(AppShareData.of(context).AppParse[j][i]));
+                          break;
+                        }
+                      }
 
                 //add new
                 if (!match)

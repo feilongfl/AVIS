@@ -17,14 +17,22 @@ class BaseParse implements Parse {
   List<List<Agent>> agents;
 
 //  HttpClient httpClient = new HttpClient();
+  static List<List<Agent>> _agentInit() {
+    List<List<Agent>> agents = List(ParseType.All.index);
 
-  BaseParse(this.agents,
-      {this.name = "New Source",
+    for (int i = 0; i < ParseType.All.index; i++) agents[i] = new List();
+
+    return agents;
+  }
+
+  BaseParse(
+      {this.agents,
+      this.name = "New Source",
       this.type = MediaType.Article,
       this.ParseUUID}) {
     var uuid = new Uuid();
     this.ParseUUID = this.ParseUUID ?? uuid.v4();
-    this.agents = this.agents ?? List(ParseType.All.index);
+    this.agents = this.agents ?? _agentInit();
   }
 
   Future<List<Media>> doSearchHome(

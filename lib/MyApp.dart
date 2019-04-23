@@ -89,7 +89,8 @@ class MyAppController extends ControllerMVC {
       );
     }
     if (settings.name == AppRoutes.SourceEdit) {
-      _editingParse = settings.arguments ?? BaseParse(List());
+      _editingParse =
+          settings.arguments ?? BaseParse();
       return MaterialPageRoute<void>(
         settings: settings,
         builder: (BuildContext context) => SourceEditPageModel(
