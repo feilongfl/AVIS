@@ -2,18 +2,20 @@ import 'package:avis/ui/view/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import 'common/AppEnums.dart';
 import 'common/AppShareData.dart';
 import 'media/Media.dart';
 import 'parse/BaseParse.dart';
 import 'parse/Parse.dart';
 import 'ui/model/SourceEditPageModel.dart';
 import 'ui/view/AboutPage.dart';
+import 'ui/view/AgentEditPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/MediaInfoPage.dart';
 import 'ui/view/MediaViewPage.dart';
 import 'ui/view/SearchPage.dart';
 import 'ui/view/SearchResultPage.dart';
-import 'ui/view/SourceEdit.dart';
+import 'ui/view/SourceEditPage.dart';
 import 'ui/view/SourceSettingPage.dart';
 import 'ui/view/UnknownPage.dart';
 
@@ -57,6 +59,8 @@ class MyAppController extends ControllerMVC {
     );
   }
 
+  static Parse _editingParse;
+
   Route<dynamic> _getRoute(RouteSettings settings) {
     if (settings.name == AppRoutes.SearchResult) {
       final Map<String, dynamic> argv = settings.arguments;
@@ -85,12 +89,22 @@ class MyAppController extends ControllerMVC {
       );
     }
     if (settings.name == AppRoutes.SourceEdit) {
-      final Parse argv = settings.arguments;
+      _editingParse = settings.arguments ?? BaseParse(List());
       return MaterialPageRoute<void>(
         settings: settings,
         builder: (BuildContext context) => SourceEditPageModel(
-              parse: argv ?? BaseParse(List()),
+              parse: _editingParse,
               child: SourceEditPage(),
+            ),
+      );
+    }
+    if (settings.name == AppRoutes.AgentsEdit) {
+      ParseType argv = settings.arguments;
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (BuildContext context) => SourceEditPageModel(
+              parse: _editingParse,
+              child: AgentEditPage(argv),
             ),
       );
     }

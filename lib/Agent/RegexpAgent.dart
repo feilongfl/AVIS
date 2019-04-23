@@ -1,14 +1,15 @@
 import '../event/Event.dart';
+import 'Agent.dart';
 import 'BaseAgent.dart';
 
 class RegexpAgent extends BaseAgent {
-  final String name = "HttpAgent";
+  String name = "RegexAgent";
   final String AgentUUID = "88ae4496-76cd-4c2d-a2e0-0955a391c97e";
 
-  String _UUID = "";
-  DateTime lastRun = BaseAgent.DefaultDateTime;
+//  String _UUID = "";
+  DateTime lastRun = Agent.DefaultDateTime;
 
-  String get UUID => _UUID;
+  String get UUID => AgentUUID;
 
   RegExp regexp;
   List<String> matchGroups = new List();
@@ -20,7 +21,7 @@ class RegexpAgent extends BaseAgent {
   @override //match eventIn.body
   Future<List<Event>> doRealWork(Event eventIn) async {
     if (this.checkEventIn(eventIn))
-      return [Event(null, SendUUID: this._UUID, success: false)];
+      return [Event(null, SendUUID: this.UUID, success: false)];
 
     this.lastRun = DateTime.now();
 

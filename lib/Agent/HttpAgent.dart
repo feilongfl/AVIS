@@ -4,12 +4,13 @@ import '../common/AppEnums.dart';
 import '../common/AppShareData.dart';
 import '../core/HTTP.dart';
 import '../event/Event.dart';
+import 'Agent.dart';
 import 'BaseAgent.dart';
 
 class HttpAgent extends BaseAgent {
-  final String name = "HttpAgent";
-  String _UUID = "";
-  DateTime lastRun = BaseAgent.DefaultDateTime;
+  String name = "HttpAgent";
+//  String _UUID = "";
+  DateTime lastRun = Agent.DefaultDateTime;
   final String AgentUUID = "c8d639f3-fbf7-4575-bbd2-0a3945446ff9";
 
   HttpMethod method = HttpMethod.Get;
@@ -21,7 +22,7 @@ class HttpAgent extends BaseAgent {
 
   HttpClient httpClient = new HttpClient();
 
-  String get UUID => _UUID;
+  String get UUID => AgentUUID;
 
   List<String> replaces = new List();
 
@@ -60,7 +61,7 @@ class HttpAgent extends BaseAgent {
   void fromJson(Map<String, dynamic> json) {
     if (AgentUUID != json['AgentUUID']) return;
 
-    this._UUID = json['UUID'];
+//    this._UUID = json['UUID'];
     this.lastRun = json['lastRun'];
     this.method = json['method'];
     this.userAgent = json['userAgent'];

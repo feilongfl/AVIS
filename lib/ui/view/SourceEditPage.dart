@@ -22,10 +22,12 @@ class SourceEditState extends StateMVC {
   }
 
   List<Widget> _agentSettingButton(BuildContext context) {
-    return SourceEditController.ParseTypeLists.map((p) => ListTile(
-          leading: Icon(SourceEditController.ParseTypeIcons[p.index]),
+    return Parse.ParseTypeLists.map((p) => ListTile(
+          onTap: () => Navigator.of(context)
+              .pushNamed(AppRoutes.AgentsEdit, arguments: p),
+          leading: Icon(Parse.ParseTypeIcons[p.index]),
           title:
-              Text(SourceEditController.ParseTypeStrings[p.index] + " Agents"),
+              Text(Parse.ParseTypeStrings[p.index] + " Agents"),
           trailing: Icon(Icons.keyboard_arrow_right),
         )).toList();
   }
@@ -51,8 +53,7 @@ class SourceEditState extends StateMVC {
           IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
-                if(!_formKey.currentState.validate())
-                  return;
+                if (!_formKey.currentState.validate()) return;
 
                 _formKey.currentState.save();
 
@@ -60,10 +61,16 @@ class SourceEditState extends StateMVC {
                 bool match = false;
 
                 //replace old
-                for (int i = 0; i < AppShareData.of(context).AppParse[p.type.index].length; i++) {
-                  if (AppShareData.of(context).AppParse[p.type.index][i].ParseUUID == p.ParseUUID) {
+                for (int i = 0;
+                    i < AppShareData.of(context).AppParse[p.type.index].length;
+                    i++) {
+                  if (AppShareData.of(context)
+                          .AppParse[p.type.index][i]
+                          .ParseUUID ==
+                      p.ParseUUID) {
                     match = true;
-                    setState(() => AppShareData.of(context).AppParse[p.type.index][i] = p);
+                    setState(() =>
+                        AppShareData.of(context).AppParse[p.type.index][i] = p);
                     break;
                   }
                 }
@@ -167,39 +174,6 @@ class SourceEditController extends ControllerMVC {
     "Video",
     "Image",
     "Sound",
-  ];
-
-  static const List<ParseType> ParseTypeLists = [
-    ParseType.Search,
-    ParseType.info,
-    ParseType.Episode,
-    ParseType.Chapter,
-    ParseType.Source,
-    ParseType.SourceLazy,
-    ParseType.homepage,
-//    ParseType.login,
-  ];
-
-  static const List<IconData> ParseTypeIcons = [
-    Icons.search,
-    Icons.info,
-    Icons.filter,
-    Icons.image,
-    Icons.file_download,
-    Icons.keyboard_arrow_down,
-    Icons.home,
-    Icons.texture,
-  ];
-
-  static const List<String> ParseTypeStrings = [
-    "Search",
-    "info",
-    "Episode",
-    "Chapter",
-    "Source",
-    "SourceLazy",
-    "homepage",
-    "login",
   ];
 
   SourceEditController() {

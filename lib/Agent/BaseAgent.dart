@@ -7,11 +7,10 @@ import 'Agent.dart';
 
 class BaseAgent implements Agent {
 //  .*?\s+(\w+)(?:;|(?:\s+=.*;))
-  final String name = "BaseAgent";
-  static DateTime DefaultDateTime = DateTime(2010);
+  String name = "BaseAgent";
   String _UUID = "";
 
-  DateTime lastRun = DefaultDateTime;
+  DateTime lastRun = Agent.DefaultDateTime;
   final String AgentUUID =
       "36aee99f-5ce8-4726-802d-363308bb9054"; //https://www.uuidgenerator.net/
 

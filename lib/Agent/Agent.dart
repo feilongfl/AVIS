@@ -2,8 +2,8 @@ import '../event/Event.dart';
 
 class Agent {
 //  .*?\s+(\w+)(?:;|(?:\s+=.*;))
-  static String name;
-  static DateTime DefaultDateTime;
+  String name;
+  static DateTime DefaultDateTime = DateTime(2010);
   String _UUID;
 
   DateTime lastRun;
