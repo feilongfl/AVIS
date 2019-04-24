@@ -3,6 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../Agent/Agent.dart';
 import '../../Agent/AgentCreater.dart';
+import '../../common/AppShareData.dart';
 import '../widget/SettingDivideText.dart';
 
 class AgentConfigPage extends StatefulWidget {
@@ -34,7 +35,14 @@ class AgentConfigPageState extends StateMVC {
         title: Text("Agent Config"),
         actions: <Widget>[
           IconButton(
+            icon: Icon(Icons.refresh),
+            tooltip: "Dry Run",
+            onPressed: () => Navigator.of(context)
+                .pushNamed(AppRoutes.AgentDryRun, arguments: agent),
+          ),
+          IconButton(
             icon: Icon(Icons.save),
+            tooltip: "Save",
             onPressed: () => _saveAndPop(context),
           )
         ],

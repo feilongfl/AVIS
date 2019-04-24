@@ -3,6 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
+import '../ui/widget/SettingDivideText.dart';
 import 'Agent.dart';
 import 'BaseAgent.dart';
 
@@ -86,7 +87,7 @@ class RegexpAgent extends BaseAgent {
                 ),
               ),
             ]
-              ..add(Text("match group"))
+              ..add(SettingDevideText("Match Group"))
               ..addAll(matchGroups.length == 0
                   ? [Text("Null")]
                   : matchGroups

@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class SettingDevideText extends StatelessWidget {
   final String title;
+  final Color color;
 
-  SettingDevideText(this.title, {Key key})
+  SettingDevideText(this.title, {Key key, this.color})
       : assert(title != null),
         super(key: key);
 
@@ -14,7 +15,7 @@ class SettingDevideText extends StatelessWidget {
       child: Center(
           child: Text(
         title,
-        style: TextStyle(color: Theme.of(context).primaryColor),
+        style: TextStyle(color: this.color?? Theme.of(context).primaryColor),
       )),
     );
   }

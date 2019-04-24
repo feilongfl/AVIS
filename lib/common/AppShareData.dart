@@ -124,6 +124,7 @@ class AppRoutes {
   static const String AgentsEditArgs_Parse = "parse";
   static const String AgentsEditArgs_ParseType = "parsetype";
   static const String AgentConfig = "/AgentConfig";
+  static const String AgentDryRun = "/AgentDryRun";
 
   static LaunchURL(String url) async {
     if (await canLaunch(url)) {
