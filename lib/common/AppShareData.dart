@@ -123,6 +123,7 @@ class AppRoutes {
   static const String AgentsEdit = "/AgentsEdit";
   static const String AgentsEditArgs_Parse = "parse";
   static const String AgentsEditArgs_ParseType = "parsetype";
+  static const String AgentSelect = "/AgentSelect";
   static const String AgentConfig = "/AgentConfig";
   static const String AgentDryRun = "/AgentDryRun";
 

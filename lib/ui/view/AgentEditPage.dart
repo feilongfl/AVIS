@@ -55,7 +55,7 @@ class AgentEditPageState extends StateMVC {
 
   void _addAgent(BuildContext context) {
     Navigator.of(context)
-        .pushNamed<Agent>(AppRoutes.AgentConfig)
+        .pushNamed<Agent>(AppRoutes.AgentSelect)
         .then((Agent agent) {
       if (agent == null) return;
       setState(() =>
@@ -65,7 +65,7 @@ class AgentEditPageState extends StateMVC {
 
   Agent _editAgent(BuildContext context, Agent agent, int index) {
     Navigator.of(context)
-        .pushNamed<Agent>(AppRoutes.AgentConfig, arguments: agent)
+        .pushNamed<Agent>(AppRoutes.AgentSelect, arguments: agent)
         .then((Agent agentR) {
       if (agentR == null) return;
       setState(() => SourceEditPageModel.of(context).agents[parseType.index]

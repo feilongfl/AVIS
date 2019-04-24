@@ -11,7 +11,7 @@ import 'parse/BaseParse.dart';
 import 'parse/Parse.dart';
 import 'ui/model/SourceEditPageModel.dart';
 import 'ui/view/AboutPage.dart';
-import 'ui/view/AgentConfigPage.dart';
+import 'ui/view/AgentSelectPage.dart';
 import 'ui/view/AgentEditPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
@@ -113,11 +113,11 @@ class MyAppController extends ControllerMVC {
             ),
       );
     }
-    if (settings.name == AppRoutes.AgentConfig) {
+    if (settings.name == AppRoutes.AgentSelect) {
       Agent argv = settings.arguments;
       return MaterialPageRoute<Agent>(
           settings: settings,
-          builder: (BuildContext context) => AgentConfigPage(argv?? HttpAgent()));
+          builder: (BuildContext context) => AgentSelectPage(argv?? HttpAgent()));
     }
     return null;
   }

@@ -77,31 +77,29 @@ class RegexpAgent extends BaseAgent {
   Map<String, dynamic> configBody(BuildContext context,
       {Object argument, Key key, StateMVC parent}) {
     return {
-      Agent.AgentConfigBody_Widgets: <Widget>[]..add(Form(
-          key: key,
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                title: TextFormField(
-                  decoration: InputDecoration(labelText: "Regexp"),
-                ),
-              ),
-            ]
-              ..add(SettingDevideText("Match Group"))
-              ..addAll(matchGroups.length == 0
-                  ? [Text("Null")]
-                  : matchGroups
-                      .asMap()
-                      .map((i, m) => MapEntry(i, choice(context, i, m, parent)))
-                      .values)
-              ..add(ListTile(
-                title: Text("Add"),
-                leading: Icon(Icons.add),
-                onTap: () => parent
-                    .setState(() => matchGroups.add(Event.EventItemStrings[0])),
-              )),
+      Agent.AgentConfigBody_Widgets: <Widget>[]..add(Column(
+        children: <Widget>[
+          ListTile(
+            title: TextFormField(
+              decoration: InputDecoration(labelText: "Regexp"),
+              onSaved: (v) => parent.setState(() => regexp = RegExp(v)),
+            ),
           ),
-        )),
+        ]
+          ..add(SettingDevideText("Match Group"))
+          ..addAll(matchGroups.length == 0
+              ? [Text("Null")]
+              : matchGroups
+                  .asMap()
+                  .map((i, m) => MapEntry(i, choice(context, i, m, parent)))
+                  .values)
+          ..add(ListTile(
+            title: Text("Add"),
+            leading: Icon(Icons.add),
+            onTap: () => parent
+                .setState(() => matchGroups.add(Event.EventItemStrings[0])),
+          )),
+      )),
     };
   }
 }
