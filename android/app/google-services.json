@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "186606237538",
+    "firebase_url": "https://avis-c7ac2.firebaseio.com",
+    "project_id": "avis-c7ac2",
+    "storage_bucket": "avis-c7ac2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186606237538:android:9d87b2b9df6242d1",
+        "android_client_info": {
+          "package_name": "blog.home.feilong.avis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186606237538-britpchob85eu3jdda15o9bv8hud2qhe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZHPNcGJCLRSop6vBpHgBPj0S_BDXebwk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186606237538-britpchob85eu3jdda15o9bv8hud2qhe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
