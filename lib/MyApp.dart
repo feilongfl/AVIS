@@ -1,4 +1,6 @@
 import 'package:avis/ui/view/homepage.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -11,8 +13,8 @@ import 'parse/BaseParse.dart';
 import 'parse/Parse.dart';
 import 'ui/model/SourceEditPageModel.dart';
 import 'ui/view/AboutPage.dart';
-import 'ui/view/AgentSelectPage.dart';
 import 'ui/view/AgentEditPage.dart';
+import 'ui/view/AgentSelectPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
 import 'ui/view/MediaInfoPage.dart';
@@ -32,6 +34,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends StateMVC {
   MyAppController controller = new MyAppController();
+  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +46,9 @@ class _MyAppState extends StateMVC {
       routes: controller._routes,
       onGenerateRoute: controller._getRoute,
       onUnknownRoute: controller._unknowRoute,
+      navigatorObservers: [
+        FirebaseAnalyticsObserver(analytics: analytics),
+      ],
     );
   }
 }
@@ -117,7 +123,8 @@ class MyAppController extends ControllerMVC {
       Agent argv = settings.arguments;
       return MaterialPageRoute<Agent>(
           settings: settings,
-          builder: (BuildContext context) => AgentSelectPage(argv?? HttpAgent()));
+          builder: (BuildContext context) =>
+              AgentSelectPage(argv ?? HttpAgent()));
     }
     return null;
   }
