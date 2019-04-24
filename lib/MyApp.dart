@@ -11,6 +11,7 @@ import 'ui/model/SourceEditPageModel.dart';
 import 'ui/view/AboutPage.dart';
 import 'ui/view/AgentEditPage.dart';
 import 'ui/view/BackupPage.dart';
+import 'ui/view/DonatePage.dart';
 import 'ui/view/MediaInfoPage.dart';
 import 'ui/view/MediaViewPage.dart';
 import 'ui/view/SearchPage.dart';
@@ -50,6 +51,7 @@ class MyAppController extends ControllerMVC {
     AppRoutes.About: (BuildContext context) => AboutPage(),
     AppRoutes.Backup: (BuildContext context) => BackupPage(),
     AppRoutes.SourceSetting: (BuildContext context) => SourceSettingPage(),
+    AppRoutes.Donate: (BuildContext context) => DonatePage(),
   };
 
   Route<dynamic> _unknowRoute(RouteSettings settings) {
