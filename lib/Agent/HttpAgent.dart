@@ -13,6 +13,8 @@ class HttpAgent extends BaseAgent {
   DateTime lastRun = Agent.DefaultDateTime;
   final String AgentUUID = "c8d639f3-fbf7-4575-bbd2-0a3945446ff9";
 
+  final AgentLists agentType = AgentLists.HttpAgent;
+
   HttpMethod method = HttpMethod.Get;
   String userAgent = HttpUserAgent.Linux_Chrome;
   String postData;

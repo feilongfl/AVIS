@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../../Agent/Agent.dart';
 import '../../common/AppEnums.dart';
+import '../../common/AppShareData.dart';
 import '../../parse/Parse.dart';
 import '../model/SourceEditPageModel.dart';
 
@@ -21,6 +23,56 @@ class AgentEditPageState extends StateMVC {
 
   AgentEditPageState(this.parseType) : super();
 
+  void _removeAgent(BuildContext context, Agent agent) {
+    showDialog<String>(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text("Confirm Delete ${agent.name}"),
+              content: Text("UUID: " + agent.UUID),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop("Cancle"),
+                  child: Text("Cancle"),
+                ),
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop("OK"),
+                  child: Text("Delete"),
+                ),
+              ],
+            )).then((returnValue) {
+      switch (returnValue) {
+        case "OK":
+          setState(() => SourceEditPageModel.of(context)
+              .agents[parseType.index]
+              .remove(agent));
+          break;
+
+        default:
+          break;
+      }
+    });
+  }
+
+  void _addAgent(BuildContext context) {
+    Navigator.of(context)
+        .pushNamed<Agent>(AppRoutes.AgentConfig)
+        .then((Agent agent) {
+      if (agent == null) return;
+      setState(() =>
+          SourceEditPageModel.of(context).agents[parseType.index].add(agent));
+    });
+  }
+
+  Agent _editAgent(BuildContext context, Agent agent, int index) {
+    Navigator.of(context)
+        .pushNamed<Agent>(AppRoutes.AgentConfig, arguments: agent)
+        .then((Agent agentR) {
+      if (agentR == null) return;
+      setState(() => SourceEditPageModel.of(context).agents[parseType.index]
+          [index] = agentR);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -35,7 +87,7 @@ class AgentEditPageState extends StateMVC {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _addAgent(context),
         child: Icon(Icons.add),
       ),
       body: ListView(
@@ -53,7 +105,10 @@ class AgentEditPageState extends StateMVC {
               SourceEditPageModel.of(context).agents[parseType.index].length > 0
                   ? SourceEditPageModel.of(context)
                       .agents[parseType.index]
-                      .map((agent) => ListTile(
+                      .asMap()
+                      .map((index, agent) => MapEntry(
+                          index,
+                          ListTile(
                             title: Text(agent.name),
                             subtitle: Text(agent.UUID),
                             trailing: Row(
@@ -65,15 +120,17 @@ class AgentEditPageState extends StateMVC {
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.edit),
-                                  onPressed: () {},
+                                  onPressed: () =>
+                                      _editAgent(context, agent, index),
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.delete),
-                                  onPressed: () {},
+                                  onPressed: () => _removeAgent(context, agent),
                                 ),
                               ],
                             ),
-                          ))
+                          )))
+                      .values
                   : [ListTile(title: Text("No Agents"))]),
       ),
     );

@@ -31,3 +31,11 @@ enum HomePages {
   Music,
   All,
 }
+
+
+enum AgentLists{
+  HttpAgent,
+  RegexpAgent,
+  //all
+  All,
+}

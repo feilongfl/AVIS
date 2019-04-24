@@ -140,21 +140,19 @@ class SourceEditState extends StateMVC {
               ))
               ..add(Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                child: ListTile(
-                  title: Text("Media Type"),
-                  trailing: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: DropdownButtonFormField(
-                      items: SourceEditController.MediaTypeLists.map(
-                          (t) => DropdownMenuItem(
-                              value: t,
-                              child: Text(
-                                SourceEditController.MediaTypeStrings[t.index],
-                              ))).toList(),
-                      value: SourceEditPageModel.of(context).type,
-                      onChanged: (v) => setState(
-                          () => SourceEditPageModel.of(context).type = v),
-                    ),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(labelText: "Source Type"),
+                    items: SourceEditController.MediaTypeLists.map(
+                        (t) => DropdownMenuItem(
+                            value: t,
+                            child: Text(
+                              SourceEditController.MediaTypeStrings[t.index],
+                            ))).toList(),
+                    value: SourceEditPageModel.of(context).type,
+                    onChanged: (v) => setState(
+                        () => SourceEditPageModel.of(context).type = v),
                   ),
                 ),
               ))

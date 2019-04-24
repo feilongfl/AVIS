@@ -2,6 +2,8 @@ import 'package:avis/ui/view/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import 'Agent/Agent.dart';
+import 'Agent/HttpAgent.dart';
 import 'common/AppEnums.dart';
 import 'common/AppShareData.dart';
 import 'media/Media.dart';
@@ -9,6 +11,7 @@ import 'parse/BaseParse.dart';
 import 'parse/Parse.dart';
 import 'ui/model/SourceEditPageModel.dart';
 import 'ui/view/AboutPage.dart';
+import 'ui/view/AgentConfigPage.dart';
 import 'ui/view/AgentEditPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
@@ -91,8 +94,7 @@ class MyAppController extends ControllerMVC {
       );
     }
     if (settings.name == AppRoutes.SourceEdit) {
-      _editingParse =
-          settings.arguments ?? BaseParse();
+      _editingParse = settings.arguments ?? BaseParse();
       return MaterialPageRoute<void>(
         settings: settings,
         builder: (BuildContext context) => SourceEditPageModel(
@@ -110,6 +112,12 @@ class MyAppController extends ControllerMVC {
               child: AgentEditPage(argv),
             ),
       );
+    }
+    if (settings.name == AppRoutes.AgentConfig) {
+      Agent argv = settings.arguments;
+      return MaterialPageRoute<Agent>(
+          settings: settings,
+          builder: (BuildContext context) => AgentConfigPage(argv?? HttpAgent()));
     }
     return null;
   }

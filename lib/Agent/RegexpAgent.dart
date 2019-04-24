@@ -1,3 +1,4 @@
+import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import 'Agent.dart';
 import 'BaseAgent.dart';
@@ -5,6 +6,8 @@ import 'BaseAgent.dart';
 class RegexpAgent extends BaseAgent {
   String name = "RegexAgent";
   final String AgentUUID = "88ae4496-76cd-4c2d-a2e0-0955a391c97e";
+
+  final AgentLists agentType = AgentLists.RegexpAgent;
 
 //  String _UUID = "";
   DateTime lastRun = Agent.DefaultDateTime;

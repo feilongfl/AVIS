@@ -1,3 +1,4 @@
+import '../common/AppEnums.dart';
 import '../event/Event.dart';
 
 class Agent {
@@ -5,6 +6,7 @@ class Agent {
   String name;
   static DateTime DefaultDateTime = DateTime(2010);
   String _UUID;
+  AgentLists agentType;
 
   DateTime lastRun;
   static String AgentUUID;
@@ -42,4 +44,7 @@ class Agent {
   }
 
   void fromString(String str) {}
+
+  static const List<AgentLists> AgentItems = [AgentLists.HttpAgent, AgentLists.RegexpAgent];
+  static const List<String> AgentItemNames = ["Http Agent", "Regexp Agent"];
 }

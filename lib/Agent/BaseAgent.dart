@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:uuid/uuid.dart';
 
+import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import 'Agent.dart';
 
@@ -9,6 +10,8 @@ class BaseAgent implements Agent {
 //  .*?\s+(\w+)(?:;|(?:\s+=.*;))
   String name = "BaseAgent";
   String _UUID = "";
+
+  AgentLists agentType = AgentLists.All;
 
   DateTime lastRun = Agent.DefaultDateTime;
   final String AgentUUID =
