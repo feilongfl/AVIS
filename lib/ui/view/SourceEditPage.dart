@@ -5,6 +5,7 @@ import '../../common/AppEnums.dart';
 import '../../common/AppShareData.dart';
 import '../../parse/Parse.dart';
 import '../model/SourceEditPageModel.dart';
+import '../widget/SettingDivideText.dart';
 
 class SourceEditPage extends StatefulWidget {
   SourceEditPage({Key key}) : super(key: key);
@@ -29,17 +30,6 @@ class SourceEditState extends StateMVC {
           title: Text(Parse.ParseTypeStrings[p.index] + " Agents"),
           trailing: Icon(Icons.keyboard_arrow_right),
         )).toList();
-  }
-
-  Widget _divideText(String title) {
-    return Padding(
-      padding: EdgeInsets.only(top: 10),
-      child: Center(
-          child: Text(
-        title,
-        style: TextStyle(color: Theme.of(context).primaryColor),
-      )),
-    );
   }
 
   @override
@@ -109,7 +99,7 @@ class SourceEditState extends StateMVC {
         key: _formKey,
         child: ListView(
             children: <Widget>[]
-              ..add(_divideText("Base Info"))
+              ..add(SettingDevideText("Base Info"))
               ..add(Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: TextFormField(
@@ -156,7 +146,7 @@ class SourceEditState extends StateMVC {
                   ),
                 ),
               ))
-              ..add(_divideText("Agent Settings"))
+              ..add(SettingDevideText("Agent Settings"))
               ..addAll(_agentSettingButton(context))
             //add,
             ),

@@ -3,6 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../Agent/Agent.dart';
 import '../../Agent/AgentCreater.dart';
+import '../widget/SettingDivideText.dart';
 
 class AgentConfigPage extends StatefulWidget {
   final Agent agent;
@@ -26,6 +27,8 @@ class AgentConfigPageState extends StateMVC {
 
   @override
   Widget build(BuildContext context) {
+    var agentConfigBody = agent.configBody(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Agent Config"),
@@ -46,6 +49,7 @@ class AgentConfigPageState extends StateMVC {
                   textAlign: TextAlign.center,
                 ),
               ))
+              ..add(SettingDevideText("Normal Config"))
               ..add(Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),
                 child: DropdownButtonFormField(
@@ -60,6 +64,8 @@ class AgentConfigPageState extends StateMVC {
                       setState(() => agent = AgentCreater.newAgent(v)),
                 ),
               ))
+              ..add(SettingDevideText("Agent Config"))
+              ..addAll(agentConfigBody[Agent.AgentConfigBody_Widgets])
             //add end
             ,
       ),

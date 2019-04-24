@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
 
@@ -16,17 +18,18 @@ class Agent {
 //  this.$1,
   Agent();
 
-  bool checkEventIn(Event eventIn) {
-    return false;
-  }
+  bool checkEventIn(Event eventIn) => false;
 
-  Future<List<Event>> doRealWork(Event eventIn) async {
-    return null;
-  }
+  Future<List<Event>> doRealWork(Event eventIn) async => null;
 
-  Future<List<Event>> doWork({Event eventIn, List<Event> eventsIn}) async {
-    return null;
-  }
+  Future<List<Event>> doWork({Event eventIn, List<Event> eventsIn}) async =>
+      null;
+
+
+  static const String AgentConfigBody_Widgets = "widgets";
+ Map<String, dynamic> configBody(BuildContext context,
+          {Object argument, Key key}) =>
+      {AgentConfigBody_Widgets: [Text("agent config")]};
 
 //  Future<List<Event>> doWork(List<Event> eventIn) async {}
 
@@ -34,17 +37,16 @@ class Agent {
   void fromJson(Map<String, dynamic> json) {}
 
 //    data['$1'] = this.$1;
-  Map<String, dynamic> toJson() {
-    return null;
-  }
+  Map<String, dynamic> toJson() => null;
 
   @override
-  String toString() {
-    return null;
-  }
+  String toString() => null;
 
   void fromString(String str) {}
 
-  static const List<AgentLists> AgentItems = [AgentLists.HttpAgent, AgentLists.RegexpAgent];
+  static const List<AgentLists> AgentItems = [
+    AgentLists.HttpAgent,
+    AgentLists.RegexpAgent
+  ];
   static const List<String> AgentItemNames = ["Http Agent", "Regexp Agent"];
 }

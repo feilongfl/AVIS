@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import '../common/AppEnums.dart';
@@ -32,6 +33,16 @@ class BaseAgent implements Agent {
       return !eventIn.success;
     else
       return true;
+  }
+
+  Map<String, dynamic> configBody(BuildContext context,
+      {Object argument, Key key}) {
+    return {
+      Agent.AgentConfigBody_Widgets: <Widget>[]..add(TextFormField(
+          key: key,
+          decoration: InputDecoration(labelText: "name"),
+        )),
+    };
   }
 
   Future<List<Event>> doRealWork(Event eventIn) async {
