@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:uuid/uuid.dart' as UuidGen;
 
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
@@ -24,7 +25,7 @@ class BaseAgent implements Agent {
 
   //  this.$1,
   BaseAgent({this.replaces}) {
-    var uuid = new Uuid();
+    var uuid = new UuidGen.Uuid();
     _UUID = uuid.v4();
   }
 
@@ -36,7 +37,7 @@ class BaseAgent implements Agent {
   }
 
   Map<String, dynamic> configBody(BuildContext context,
-      {Object argument, Key key}) {
+      {Object argument, Key key, StateMVC parent}) {
     return {
       Agent.AgentConfigBody_Widgets: <Widget>[]..add(TextFormField(
           key: key,

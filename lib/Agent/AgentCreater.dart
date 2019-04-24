@@ -1,4 +1,5 @@
 import '../common/AppEnums.dart';
+import '../event/Event.dart';
 import 'Agent.dart';
 import 'BaseAgent.dart';
 import 'HttpAgent.dart';
@@ -11,7 +12,7 @@ class AgentCreater {
         return HttpAgent();
 
       case AgentLists.RegexpAgent:
-        return RegexpAgent(RegExp(""), List());
+        return RegexpAgent(RegExp(""), [Event.Title, Event.Url]);
 
       default:
         return BaseAgent();

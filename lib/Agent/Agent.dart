@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
@@ -25,11 +26,13 @@ class Agent {
   Future<List<Event>> doWork({Event eventIn, List<Event> eventsIn}) async =>
       null;
 
-
   static const String AgentConfigBody_Widgets = "widgets";
- Map<String, dynamic> configBody(BuildContext context,
-          {Object argument, Key key}) =>
-      {AgentConfigBody_Widgets: [Text("agent config")]};
+
+  Map<String, dynamic> configBody(BuildContext context,
+          {Object argument, Key key, StateMVC parent}) =>
+      {
+        AgentConfigBody_Widgets: [Text("agent config")]
+      };
 
 //  Future<List<Event>> doWork(List<Event> eventIn) async {}
 

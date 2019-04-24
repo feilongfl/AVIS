@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
+
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import 'Agent.dart';
@@ -43,5 +46,61 @@ class RegexpAgent extends BaseAgent {
 
 //    return [Event(data, SendUUID: this._UUID, success: true)];
     return eventResult;
+  }
+
+  Widget choice(
+      BuildContext context, int index, String matchGroup, StateMVC parent) {
+//    return Text("$index $matchGroup");
+    return ListTile(
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.delete),
+            onPressed: () => parent.setState(() => matchGroups.removeAt(index)),
+          )
+        ],
+      ),
+      leading: Text("\$$index:"),
+      title: DropdownButtonFormField<String>(
+          value: matchGroups[index],
+          onChanged: (v) => parent.setState(() => matchGroups[index] = v),
+          decoration: InputDecoration(labelText: "Group:"),
+          items: Event.EventItemStrings.map((v) => DropdownMenuItem<String>(
+                value: v,
+                child: Text(v),
+              )).toList()),
+    );
+  }
+
+  Map<String, dynamic> configBody(BuildContext context,
+      {Object argument, Key key, StateMVC parent}) {
+    return {
+      Agent.AgentConfigBody_Widgets: <Widget>[]..add(Form(
+          key: key,
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                title: TextFormField(
+                  decoration: InputDecoration(labelText: "Regexp"),
+                ),
+              ),
+            ]
+              ..add(Text("match group"))
+              ..addAll(matchGroups.length == 0
+                  ? [Text("Null")]
+                  : matchGroups
+                      .asMap()
+                      .map((i, m) => MapEntry(i, choice(context, i, m, parent)))
+                      .values)
+              ..add(ListTile(
+                title: Text("Add"),
+                leading: Icon(Icons.add),
+                onTap: () => parent
+                    .setState(() => matchGroups.add(Event.EventItemStrings[0])),
+              )),
+          ),
+        )),
+    };
   }
 }

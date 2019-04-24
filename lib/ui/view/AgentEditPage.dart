@@ -80,10 +80,10 @@ class AgentEditPageState extends StateMVC {
       appBar: AppBar(
         title: Text("${Parse.ParseTypeStrings[parseType.index]} Agents Edit"),
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {},
-          ),
+//          IconButton(
+//            icon: Icon(Icons.save),
+//            onPressed: () {},
+//          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

@@ -27,7 +27,7 @@ class AgentConfigPageState extends StateMVC {
 
   @override
   Widget build(BuildContext context) {
-    var agentConfigBody = agent.configBody(context);
+    var agentConfigBody = agent.configBody(context, parent: this);
 
     return Scaffold(
       appBar: AppBar(
@@ -50,9 +50,8 @@ class AgentConfigPageState extends StateMVC {
                 ),
               ))
               ..add(SettingDevideText("Normal Config"))
-              ..add(Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: DropdownButtonFormField(
+              ..add(ListTile(
+                title: DropdownButtonFormField(
                   decoration: InputDecoration(labelText: "Agent Type"),
                   items: Agent.AgentItems.map((t) => DropdownMenuItem(
                       value: t,

@@ -1,5 +1,22 @@
 import 'dart:convert';
 
+enum EventItems {
+  Title,
+  Cover,
+  Url,
+  Body,
+  Referer,
+  Useragent,
+  Cookies,
+  HttpMethod,
+  SearchKeyword,
+  MediaId,
+  ChapterId,
+  Intro,
+  EpisodeId,
+  Group,
+}
+
 class Event {
   DateTime Time;
   String SendUUID;
@@ -23,6 +40,23 @@ class Event {
   static const String Intro = "intro";
   static const String EpisodeId = "\$episodeid";
   static const String Group = "group";
+
+  static const List<String> EventItemStrings = [
+    Title,
+    Cover,
+    Url,
+    Body,
+    Referer,
+    Useragent,
+    Cookies,
+    HttpMethod,
+    SearchKeyword,
+    MediaId,
+    ChapterId,
+    Intro,
+    EpisodeId,
+    Group,
+  ];
 
   Event(this.Data,
       {this.success,
