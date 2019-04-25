@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../Agent/HttpAgent.dart';
 import '../Agent/RegexpAgent.dart';
 import '../Agent/common/Agent.dart';
+import '../Agent/common/AgentJsonFormatter.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/BaseParse.dart';
@@ -40,14 +41,19 @@ List<List<Agent>> GenExpAgents() {
       RegExp(r'<li>\s+<a href="(.*\/(\d+).*?)" title="(.*?)"'),
       [Event.Url, Event.ChapterId, Event.Title]);
 
-  agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
+  print(domoAgent.toString());
+  print(demoRegexAgent.toString());
+
+//  agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
+  agents[ParseType.homepage.index] = [
+    AgentJsonFormatter.loadAgent(domohAgent.toJson()),
+    AgentJsonFormatter.loadAgent(demohRegexAgent.toJson())
+  ];
+
   agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
   agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];
   agents[ParseType.Episode.index] = [domoinfoAgent, demoepiinfoRegexAgent];
   agents[ParseType.Chapter.index] = [domoinfoAgent, democpiinfoRegexAgent];
-
-  print(domoAgent.toString());
-  print(demoRegexAgent.toString());
 
   return agents;
 }

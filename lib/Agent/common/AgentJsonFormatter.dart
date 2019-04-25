@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import '../../common/AppEnums.dart';
 import '../HttpAgent.dart';
 import '../RegexpAgent.dart';
@@ -6,9 +8,15 @@ import 'AgentJsonKey.dart';
 import 'BaseAgent.dart';
 
 class AgentJsonFormatter {
+  static Agent loadStringToAgent(String str) {
+    var jsonObj = json.decode(str);
+    return loadAgent(jsonObj);
+  }
+
   // load Agent
   static Agent loadAgent(Map<String, dynamic> jsonObj) {
-    AgentLists agentType = jsonObj[AgentJsonKey.AgentJsonKey_TYPE];
+    AgentLists agentType =
+        AgentLists.values[jsonObj[AgentJsonKey.AgentJsonKey_TYPE]];
     switch (agentType) {
       case AgentLists.HttpAgent:
         return HttpAgent(
@@ -22,7 +30,7 @@ class AgentJsonFormatter {
         break;
 
       case AgentLists.RegexpAgent:
-        return RegexpAgent(jsonObj[AgentJsonKey.AgentJsonKey_REGEXP],
+        return RegexpAgent(RegExp(jsonObj[AgentJsonKey.AgentJsonKey_REGEXP]),
             jsonObj[AgentJsonKey.AgentJsonKey_MATCHGROUP]);
         break;
 
