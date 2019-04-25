@@ -4,7 +4,7 @@ import '../common/AppEnums.dart';
 import '../common/AppShareData.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
-import '../parse/Parse.dart';
+import '../parse/common/Parse.dart';
 
 class ParseRunner {
   static Future<List<Media>> _SearchOne(Parse parse, String keyword) async {

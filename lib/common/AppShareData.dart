@@ -8,7 +8,8 @@ import '../Agent/common/AgentJsonFormatter.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/BaseParse.dart';
-import '../parse/Parse.dart';
+import '../parse/common/Parse.dart';
+import '../parse/common/ParseCreator.dart';
 import 'AppEnums.dart';
 
 List<List<Agent>> GenExpAgents() {
@@ -44,11 +45,11 @@ List<List<Agent>> GenExpAgents() {
   print(domoAgent.toString());
   print(demoRegexAgent.toString());
 
-//  agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
-  agents[ParseType.homepage.index] = [
-    AgentJsonFormatter.loadAgent(domohAgent.toJson()),
-    AgentJsonFormatter.loadAgent(demohRegexAgent.toJson())
-  ];
+  agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
+//  agents[ParseType.homepage.index] = [
+//    AgentJsonFormatter.loadAgent(domohAgent.toJson()),
+//    AgentJsonFormatter.loadAgent(demohRegexAgent.toJson())
+//  ];
 
   agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
   agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];
@@ -100,6 +101,11 @@ class AppShareData extends InheritedWidget {
       ..name = "50manhua"
       ..url = "https://50mh.com"
       ..type = MediaType.Image);
+
+    var a = this.AppParse[MediaType.Image.index][0].toString();
+    this
+        .AppParse[MediaType.Image.index]
+        .add(ParseCreator.fromString(a)..name = "copy");
   }
 
   @override

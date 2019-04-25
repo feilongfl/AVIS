@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:uuid/uuid.dart';
 
 import '../Agent/common/Agent.dart';
@@ -5,7 +7,8 @@ import '../ResultFormatter/ResultFormatter.dart';
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
-import 'Parse.dart';
+import 'common/Parse.dart';
+import 'common/ParseJsonKey.dart';
 
 class BaseParse implements Parse {
   String ParseUUID;
@@ -22,7 +25,7 @@ class BaseParse implements Parse {
   List<List<Agent>> agents;
 
 //  HttpClient httpClient = new HttpClient();
-  static List<List<Agent>> _agentInit() {
+  static List<List<Agent>> ParseAgentInit() {
     List<List<Agent>> agents = List(ParseType.All.index);
 
     for (int i = 0; i < ParseType.All.index; i++) agents[i] = new List();
@@ -43,7 +46,7 @@ class BaseParse implements Parse {
       this.ParseUUID}) {
     var uuid = new Uuid();
     this.ParseUUID = this.ParseUUID ?? uuid.v4();
-    this.agents = this.agents ?? _agentInit();
+    this.agents = this.agents ?? ParseAgentInit();
   }
 
   Future<List<Media>> doSearchHome(
@@ -112,5 +115,33 @@ class BaseParse implements Parse {
       default:
         break;
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> jsonObj = new Map();
+
+    jsonObj[ParseJsonKey.UUID] = this.ParseUUID;
+    jsonObj[ParseJsonKey.NAME] = this.name;
+    jsonObj[ParseJsonKey.URL] = this.url;
+    jsonObj[ParseJsonKey.COMMENT] = this.comment;
+    jsonObj[ParseJsonKey.UPDATEURL] = this.updateUrl;
+    jsonObj[ParseJsonKey.TYPE] = this.type.index;
+    jsonObj[ParseJsonKey.AUTHOR] = this.author;
+    jsonObj[ParseJsonKey.AUTHOR_EMAIL] = this.author_email;
+    jsonObj[ParseJsonKey.AUTHOR_WEBSITE] = this.author_website;
+    // agent
+    assert(ParseType.All.index == ParseJsonKey.AGENT_JSONKEYS.length);
+    for (int i = 0; i < ParseType.All.index; i++) {
+      jsonObj[ParseJsonKey.AGENT_JSONKEYS[i]] = (this.agents[i] == null)
+          ? null
+          : this.agents[i].map((agent) => agent.toString()).toList();
+    }
+
+    return jsonObj;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
   }
 }

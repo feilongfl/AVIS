@@ -31,7 +31,7 @@ class AgentJsonFormatter {
 
       case AgentLists.RegexpAgent:
         return RegexpAgent(RegExp(jsonObj[AgentJsonKey.AgentJsonKey_REGEXP]),
-            jsonObj[AgentJsonKey.AgentJsonKey_MATCHGROUP]);
+            jsonObj[AgentJsonKey.AgentJsonKey_MATCHGROUP].cast<String>());
         break;
 
       default:

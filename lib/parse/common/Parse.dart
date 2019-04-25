@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../Agent/common/Agent.dart';
-import '../common/AppEnums.dart';
-import '../media/Media.dart';
+import '../../Agent/common/Agent.dart';
+import '../../common/AppEnums.dart';
+import '../../media/Media.dart';
 
 abstract class Parse {
   String ParseUUID; // source UUID
@@ -20,6 +20,11 @@ abstract class Parse {
   Future<List<Media>> doWork(ParseType type, dynamic argv) async {
     return null;
   }
+
+  Map<String, dynamic> toJson();
+
+  @override
+  String toString();
 
   static const List<ParseType> ParseTypeLists = [
     ParseType.Search,

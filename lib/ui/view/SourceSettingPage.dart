@@ -3,7 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
 import '../../common/AppShareData.dart';
-import '../../parse/Parse.dart';
+import '../../parse/common/Parse.dart';
 
 class SourceSettingPage extends StatefulWidget {
   @override
