@@ -1,11 +1,56 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:uuid/uuid.dart' as UuidGen;
 
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import 'Agent.dart';
+
+class _AgentConfigPage extends StatefulWidget {
+  final Agent agent;
+
+  _AgentConfigPage(this.agent, {Key key}) : super(key: key);
+
+  @override
+  _AgentConfigPageState createState() => _AgentConfigPageState(agent);
+}
+
+class _AgentConfigPageState extends StateMVC {
+  final Agent agent;
+
+  _AgentConfigPageState(this.agent) : super();
+
+  void _saveAndPop() {
+    Navigator.of(context).pop(agent);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${agent.name} Config"),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.save),
+            onPressed: _saveAndPop,
+          )
+        ],
+      ),
+      body: Form(
+          child: ListView(
+        children: <Widget>[]..add(ListTile(
+          title: TextFormField(
+              decoration: InputDecoration(labelText: "UUID"),
+              initialValue: agent.UUID,
+              enabled: false,
+            ),
+        )),
+      )),
+    );
+  }
+}
 
 class BaseAgent implements Agent {
 //  .*?\s+(\w+)(?:;|(?:\s+=.*;))
@@ -35,13 +80,7 @@ class BaseAgent implements Agent {
       return true;
   }
 
-  Widget AgentConfigPage(Agent agent) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("$name Config"),
-      ),
-    );
-  }
+  Widget AgentConfigPage(Agent agent) => _AgentConfigPage(agent);
 
   Future<List<Event>> doRealWork(Event eventIn) async {
     this.lastRun = DateTime.now();
