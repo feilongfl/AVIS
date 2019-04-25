@@ -65,7 +65,9 @@ class _AgentConfigPageState extends StateMVC {
   final RegexpAgent agent;
   var _formKey = GlobalKey<FormState>();
 
-  _AgentConfigPageState(this.agent) : super();
+  _AgentConfigPageState(this.agent)
+      : assert(agent.agentType == AgentLists.RegexpAgent),
+        super();
 
   void _saveAndPop() {
     _formKey.currentState.save();
@@ -111,6 +113,7 @@ class _AgentConfigPageState extends StateMVC {
         key: _formKey,
         child: ListView(
             children: <Widget>[]
+              ..add(SettingDevideText("Base Regexp"))
               ..add(
                 ListTile(
                   title: TextFormField(

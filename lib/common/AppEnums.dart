@@ -13,7 +13,12 @@ enum ParseType {
 enum HttpMethod {
   Get,
   Post,
+  Put,
+  Delete,
+  All,
 }
+
+
 
 enum MediaType {
   Article,
