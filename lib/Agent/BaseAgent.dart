@@ -65,10 +65,11 @@ class BaseAgent implements Agent {
 
   String get UUID => _UUID;
 
-  List<String> replaces = new List();
+  List<String> replaces = Event.EventItemStrings;
+
 
   //  this.$1,
-  BaseAgent({this.replaces}) {
+  BaseAgent() {
     var uuid = new UuidGen.Uuid();
     _UUID = uuid.v4();
   }

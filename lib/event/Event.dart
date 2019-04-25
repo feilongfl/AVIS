@@ -26,20 +26,20 @@ class Event {
   bool success = true;
 
   //const strings
-  static const String Title = "title";
-  static const String Cover = "cover";
-  static const String Url = "url";
-  static const String Body = "body";
-  static const String Referer = "referer";
-  static const String Useragent = "useragent";
-  static const String Cookies = "cookies";
-  static const String HttpMethod = "httpmethod";
-  static const String SearchKeyword = "\$searchkeyword";
-  static const String MediaId = "\$mediaid";
-  static const String ChapterId = "\$chapterid";
-  static const String Intro = "intro";
-  static const String EpisodeId = "\$episodeid";
-  static const String Group = "group";
+  static const String Title = "{{title}}";
+  static const String Cover = "{{cover}}";
+  static const String Url = "{{url}}";
+  static const String Body = "{{body}}";
+  static const String Referer = "{{referer}}";
+  static const String Useragent = "{{useragent}}";
+  static const String Cookies = "{{cookies}}";
+  static const String HttpMethod = "{{httpmethod}}";
+  static const String SearchKeyword = "{{searchkeyword}}";
+  static const String MediaId = "{{mediaid}}";
+  static const String ChapterId = "{{chapterid}}";
+  static const String Intro = "{{intro}}";
+  static const String EpisodeId = "{{episodeid}}";
+  static const String Group = "{{group}}";
 
   static const List<String> EventItemStrings = [
     Title,

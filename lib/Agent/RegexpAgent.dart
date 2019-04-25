@@ -21,7 +21,7 @@ class RegexpAgent extends BaseAgent {
   RegExp regexp;
   List<String> matchGroups = new List();
 
-  List<String> replaces = new List();
+  List<String> replaces = Event.EventItemStrings;
 
   RegexpAgent(this.regexp, this.matchGroups, {this.replaces}) : super();
 

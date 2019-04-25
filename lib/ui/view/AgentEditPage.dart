@@ -73,6 +73,17 @@ class AgentEditPageState extends StateMVC {
     });
   }
 
+  void _moveAgentUP(context, index, agent) {
+    if (index == 0) return;
+
+    setState(() {
+      SourceEditPageModel.of(context).agents[parseType.index][index] =
+          SourceEditPageModel.of(context).agents[parseType.index][index - 1];
+      SourceEditPageModel.of(context).agents[parseType.index][index - 1] =
+          agent;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -115,8 +126,10 @@ class AgentEditPageState extends StateMVC {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 IconButton(
-                                  icon: Icon(Icons.info),
-                                  onPressed: () {},
+                                  icon: Icon(Icons.arrow_upward),
+                                  tooltip: "Move UP",
+                                  onPressed: () =>
+                                      _moveAgentUP(context, index, agent),
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.edit),

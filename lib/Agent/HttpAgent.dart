@@ -29,7 +29,7 @@ class HttpAgent extends BaseAgent {
 
   static const List<HttpMethod> HttpMethods = [
     HttpMethod.Get,
-    HttpMethod.Post,
+//    HttpMethod.Post,
 //    HttpMethod.Put,
 //    HttpMethod.Delete,
   ];
@@ -45,7 +45,7 @@ class HttpAgent extends BaseAgent {
 
   String get UUID => AgentUUID;
 
-  List<String> replaces = new List();
+//  List<String> replaces = Event.EventItemStrings;
 
   HttpAgent(
       {this.url = "https://feilong.home.blog",
@@ -55,7 +55,8 @@ class HttpAgent extends BaseAgent {
       this.postData = "",
       this.referer,
       this.userAgent = HttpUserAgent.Linux_Chrome,
-      this.replaces})
+//      this.replaces
+      })
       : super();
 
   @override
@@ -188,15 +189,15 @@ class _AgentConfigPageState extends StateMVC {
                   ),
                 ),
               )
-              ..add(
-                ListTile(
-                  title: TextFormField(
-                    decoration: InputDecoration(labelText: "Post Data"),
-                    onSaved: (v) => setState(() => agent.postData = v),
-                    initialValue: agent.postData ?? "",
-                  ),
-                ),
-              )
+//              ..add(
+//                ListTile(
+//                  title: TextFormField(
+//                    decoration: InputDecoration(labelText: "Post Data"),
+//                    onSaved: (v) => setState(() => agent.postData = v),
+//                    initialValue: agent.postData ?? "",
+//                  ),
+//                ),
+//              )
               ..add(
                 ListTile(
                   title: TextFormField(
