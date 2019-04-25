@@ -41,7 +41,9 @@ class HomepageBodyState extends StateMVC {
                   },
                 )
               : Center(
-                  child: CircularProgressIndicator(),
+                  child: futureData.hasData
+                      ? Icon(Icons.cancel)
+                      : CircularProgressIndicator(),
                 );
         });
   }

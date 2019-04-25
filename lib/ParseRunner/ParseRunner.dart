@@ -92,6 +92,10 @@ class ParseRunner {
 
   static Future<List<Media>> Homepage(
       BuildContext context, HomePages page_type) async {
+    if (AppShareData.of(context)
+            .AppParse[HomePagesToMediaTypes(page_type).index]
+            .length ==
+        0) return List();
     List<Media> medias = new List();
     for (Parse parse in AppShareData.of(context)
         .AppParse[HomePagesToMediaTypes(page_type).index]) {
