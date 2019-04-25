@@ -74,6 +74,17 @@ class ParseRunner {
 
   static MediaType HomePagesToMediaTypes(HomePages page_type) {
     switch (page_type) {
+      case HomePages.Video:
+      case HomePages.Comic:
+      case HomePages.Novel:
+      case HomePages.Music:
+        return [
+          MediaType.Article,
+          MediaType.Video,
+          MediaType.Image,
+          MediaType.Sound,
+        ][page_type.index - 1];
+
       default:
         return MediaType.Image;
     }
