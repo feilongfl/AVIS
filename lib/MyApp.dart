@@ -126,6 +126,12 @@ class MyAppController extends ControllerMVC {
           builder: (BuildContext context) =>
               AgentSelectPage(argv ?? HttpAgent()));
     }
+    if (settings.name == AppRoutes.AgentConfig) {
+      Agent argv = settings.arguments;
+      return MaterialPageRoute<Agent>(
+          settings: settings,
+          builder: (BuildContext context) => argv.AgentConfigPage(argv));
+    }
     return null;
   }
 }

@@ -30,8 +30,6 @@ class AgentSelectPageState extends StateMVC {
   @override
   Widget build(BuildContext context) {
     var _formKey = GlobalKey<FormState>();
-    var agentConfigBody =
-        agent.configBody(context, parent: this, key: _formKey);
 
     return Scaffold(
       appBar: AppBar(
@@ -78,6 +76,14 @@ class AgentSelectPageState extends StateMVC {
                 ))
                 ..add(SettingDevideText("Agent Config"))
                 ..add(ListTile(
+                  onTap: () => Navigator.of(context)
+                          .pushNamed<Agent>(AppRoutes.AgentConfig,
+                              arguments: agent)
+                          .then((Agent agent) {
+                        if (agent != null) {
+                          this.agent = agent;
+                        }
+                      }),
                   leading: Icon(Icons.settings),
                   title: Text(
                       "${Agent.AgentItemNames[agent.agentType.index]} Config"),

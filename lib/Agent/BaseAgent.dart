@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:uuid/uuid.dart' as UuidGen;
 
 import '../common/AppEnums.dart';
@@ -36,14 +35,12 @@ class BaseAgent implements Agent {
       return true;
   }
 
-  Map<String, dynamic> configBody(BuildContext context,
-      {Object argument, Key key, StateMVC parent}) {
-    return {
-      Agent.AgentConfigBody_Widgets: <Widget>[]..add(TextFormField(
-          key: key,
-          decoration: InputDecoration(labelText: "name"),
-        )),
-    };
+  Widget AgentConfigPage(Agent agent) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("$name Config"),
+      ),
+    );
   }
 
   Future<List<Event>> doRealWork(Event eventIn) async {
