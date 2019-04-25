@@ -37,7 +37,12 @@ abstract class Agent {
 
   static const List<AgentLists> AgentItems = [
     AgentLists.HttpAgent,
-    AgentLists.RegexpAgent
+    AgentLists.RegexpAgent,
+    AgentLists.EventFormatAgent,
   ];
-  static const List<String> AgentItemNames = ["Http Agent", "Regexp Agent"];
+  static const List<String> AgentItemNames = [
+    "Http Agent",
+    "Regexp Agent",
+    "Event Format Agent"
+  ];
 }
