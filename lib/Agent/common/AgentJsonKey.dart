@@ -14,4 +14,9 @@ class AgentJsonKey {
   //regexp agent
   static const String AgentJsonKey_REGEXP = 'A_REGEXP';
   static const String AgentJsonKey_MATCHGROUP = 'A_MATCHGROUP';
+
+  //Event format agent
+  static const String AgentJsonKey_FindKey = 'A_FINDKEY';
+  static const String AgentJsonKey_REPLACETO = 'A_REPLACETO';
+
 }

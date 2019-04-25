@@ -1,5 +1,6 @@
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
+import 'common/AgentJsonKey.dart';
 import 'common/BaseAgent.dart';
 
 class EventFormatAgent extends BaseAgent {
@@ -10,9 +11,9 @@ class EventFormatAgent extends BaseAgent {
 
   final List<String> findKey;
 
-  final List<String> Replace;
+  final List<String> Replaces;
 
-  EventFormatAgent({this.findKey, this.Replace}) : super();
+  EventFormatAgent({this.findKey, this.Replaces}) : super();
 
   Future<List<Event>> doRealWork(Event eventIn) async {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -23,12 +24,22 @@ class EventFormatAgent extends BaseAgent {
     });
 
     // set replace key
-    assert(findKey.length == Replace.length);
+    assert(findKey.length == Replaces.length);
     for (int i = 0; i < findKey.length; i++) {
       var key = findKey[i];
-      data[key] = ReplaceOneVal(Replace[i], eventIn.Data);
+      data[key] = ReplaceOneVal(Replaces[i], eventIn.Data);
     }
 
     return [Event(data, SendUUID: this.AgentUUID, success: true)];
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    var jsonObj = super.toJson();
+
+    jsonObj[AgentJsonKey.AgentJsonKey_FindKey] = this.findKey;
+    jsonObj[AgentJsonKey.AgentJsonKey_REPLACETO] = this.Replaces;
+
+    return jsonObj;
   }
 }

@@ -97,7 +97,7 @@ List<List<Agent>> _GenAIXIA() {
 //  print(demoRegexAgent.toString());
 
   Agent domohformatAgent = EventFormatAgent(
-      findKey: [Event.Cover], Replace: ["http:${Event.Cover}"]);
+      findKey: [Event.Cover], Replaces: ["http:${Event.Cover}"]);
 
   agents[ParseType.homepage.index] = [
     domohAgent,
