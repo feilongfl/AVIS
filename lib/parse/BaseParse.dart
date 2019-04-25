@@ -8,9 +8,14 @@ import '../media/Media.dart';
 import 'Parse.dart';
 
 class BaseParse implements Parse {
-  String ParseUUID = "76c1ae48-81b8-42e3-a868-d69cf2f2ea5d";
-  String name = "BaseParse";
-  String url = "";
+  String ParseUUID;
+  String name;
+  String url;
+  String comment;
+  String updateUrl;
+  String author;
+  String author_email;
+  String author_website;
 
   MediaType type;
 
@@ -29,6 +34,12 @@ class BaseParse implements Parse {
       {this.agents,
       this.name = "New Source",
       this.type = MediaType.Article,
+      this.url = "https://feilong.home.blog",
+      this.author = "feilong",
+      this.author_email = "feilongphone@gmail.com",
+      this.author_website = "https://feilong.home.blog",
+      this.updateUrl,
+      this.comment,
       this.ParseUUID}) {
     var uuid = new Uuid();
     this.ParseUUID = this.ParseUUID ?? uuid.v4();

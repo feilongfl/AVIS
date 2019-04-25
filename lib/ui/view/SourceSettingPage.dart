@@ -61,7 +61,25 @@ class SourceSettingState extends StateMVC {
           IconButton(
             icon: Icon(Icons.account_circle),
             tooltip: "About",
-            onPressed: () {},
+            onPressed: () {
+              showDialog<void>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text(parse.author),
+                        content: Column(
+                          children: <Widget>[
+                            Text(parse.author_email),
+                            Text(parse.author_website),
+                          ],
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text("OK"),
+                          ),
+                        ],
+                      ));
+            },
           ),
         ],
       ),

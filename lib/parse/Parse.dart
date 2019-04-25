@@ -4,11 +4,16 @@ import '../Agent/Agent.dart';
 import '../common/AppEnums.dart';
 import '../media/Media.dart';
 
-class Parse {
-  String ParseUUID;
-  String name;
-  String url;
+abstract class Parse {
+  String ParseUUID;// source UUID
+  String name;// Source Name
+  String url;// Source URL
   MediaType type;
+  String comment; //Source intro
+  String updateUrl;// Source Parse Script Update URL
+  String author; //Author
+  String author_email; //Author e-mail
+  String author_website; //Author website or blog
 
   List<List<Agent>> agents;
 

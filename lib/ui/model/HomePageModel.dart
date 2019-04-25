@@ -35,8 +35,8 @@ class HomePageModel {
   static String title = "Media Center";
 
   static List<WidgetTab> widgetTabs = [
-    WidgetTab("Home",
-        icon: Icon(Icons.home), child: HomepageBody(HomePages.Home)),
+//    WidgetTab("Home",
+//        icon: Icon(Icons.home), child: HomepageBody(HomePages.Home)),
     WidgetTab("Novel",
         icon: Icon(Icons.account_balance_wallet),
         child: HomepageBody(HomePages.Novel)),
