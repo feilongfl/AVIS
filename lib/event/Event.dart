@@ -67,12 +67,14 @@ class Event {
     this.Data = this.Data ?? new Map();
   }
 
+  Map<String , dynamic> toJson(){
+    Data['time'] = this.Time;
+
+    return Data;
+  }
+
   @override
   String toString() {
-    Data['time'] = this.Time;
-//    Data['send'] = this.SendUUID;
-//    Data['recv'] = this.RecvUUID;
-
-    return json.encode(Data);
+    return json.encode(toJson());
   }
 }

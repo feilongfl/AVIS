@@ -3,6 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'Agent/HttpAgent.dart';
 import 'Agent/common/Agent.dart';
+import 'MediaViewer/common/ViewRoute.dart';
 import 'common/AppEnums.dart';
 import 'common/AppRoutes.dart';
 import 'common/AppShareData.dart';
@@ -16,7 +17,6 @@ import 'ui/view/AgentSelectPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
 import 'ui/view/MediaInfoPage.dart';
-import 'ui/view/MediaViewPage.dart';
 import 'ui/view/SearchPage.dart';
 import 'ui/view/SearchResultPage.dart';
 import 'ui/view/SourceEditPage.dart';
@@ -92,15 +92,23 @@ class MyAppController extends ControllerMVC {
         builder: (BuildContext context) => MediaInfoPage(media),
       );
     }
+//    if (settings.name == AppRoutes.MediaView) {
+//      final Map<String, dynamic> argv = settings.arguments;
+//      return MaterialPageRoute<void>(
+//        settings: settings,
+//        builder: (BuildContext context) => MediaViewPage(
+//            argv[AppRoutes.MediaViewArg_Media],
+//            argv[AppRoutes.MediaViewArg_EposideId],
+//            argv[AppRoutes.MediaViewArg_ChapterId]),
+//      );
+//    }
     if (settings.name == AppRoutes.MediaView) {
       final Map<String, dynamic> argv = settings.arguments;
-      return MaterialPageRoute<void>(
-        settings: settings,
-        builder: (BuildContext context) => MediaViewPage(
-            argv[AppRoutes.MediaViewArg_Media],
-            argv[AppRoutes.MediaViewArg_EposideId],
-            argv[AppRoutes.MediaViewArg_ChapterId]),
-      );
+      return ViewRoute.viewRoute(
+          settings,
+          argv[AppRoutes.MediaViewArg_Media],
+          argv[AppRoutes.MediaViewArg_EposideId],
+          argv[AppRoutes.MediaViewArg_ChapterId]);
     }
     if (settings.name == AppRoutes.SourceEdit) {
       _editingParse = settings.arguments ?? BaseParse();
