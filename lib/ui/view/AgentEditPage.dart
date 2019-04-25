@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../Agent/Agent.dart';
+import '../../Agent/common/Agent.dart';
 import '../../common/AppEnums.dart';
 import '../../common/AppShareData.dart';
 import '../../parse/Parse.dart';

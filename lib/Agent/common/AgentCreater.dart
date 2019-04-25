@@ -1,9 +1,9 @@
-import '../common/AppEnums.dart';
-import '../event/Event.dart';
+import '../../common/AppEnums.dart';
+import '../../event/Event.dart';
+import '../HttpAgent.dart';
+import '../RegexpAgent.dart';
 import 'Agent.dart';
 import 'BaseAgent.dart';
-import 'HttpAgent.dart';
-import 'RegexpAgent.dart';
 
 class AgentCreater {
   static Agent newAgent(AgentLists agentType) {

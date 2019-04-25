@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../Agent/Agent.dart';
-import '../../Agent/AgentCreater.dart';
+import 'package:avis/Agent/common/Agent.dart';
+import 'package:avis/Agent/common/AgentCreater.dart';
 import '../../common/AppShareData.dart';
 import '../widget/SettingDivideText.dart';
 

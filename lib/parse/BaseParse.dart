@@ -1,6 +1,6 @@
 import 'package:uuid/uuid.dart';
 
-import '../Agent/Agent.dart';
+import '../Agent/common/Agent.dart';
 import '../ResultFormatter/ResultFormatter.dart';
 import '../common/AppEnums.dart';
 import '../event/Event.dart';

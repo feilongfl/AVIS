@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../Agent/Agent.dart';
 import '../Agent/HttpAgent.dart';
 import '../Agent/RegexpAgent.dart';
+import '../Agent/common/Agent.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/BaseParse.dart';
@@ -45,6 +45,9 @@ List<List<Agent>> GenExpAgents() {
   agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];
   agents[ParseType.Episode.index] = [domoinfoAgent, demoepiinfoRegexAgent];
   agents[ParseType.Chapter.index] = [domoinfoAgent, democpiinfoRegexAgent];
+
+  print(domoAgent.toString());
+  print(demoRegexAgent.toString());
 
   return agents;
 }

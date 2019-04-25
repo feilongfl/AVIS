@@ -2,7 +2,7 @@ import 'package:avis/ui/view/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import 'Agent/Agent.dart';
+import 'package:avis/Agent/common/Agent.dart';
 import 'Agent/HttpAgent.dart';
 import 'common/AppEnums.dart';
 import 'common/AppShareData.dart';

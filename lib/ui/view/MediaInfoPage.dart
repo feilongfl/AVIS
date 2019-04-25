@@ -31,7 +31,7 @@ class MediaInfoPageState extends StateMVC {
               MediaQuery.of(context).orientation == Orientation.landscape
                   ? 3
                   : 2,
-          childAspectRatio: 5.0,
+          childAspectRatio: 3.0,
           mainAxisSpacing: 10.0,
           crossAxisSpacing: 10.0),
       delegate: SliverChildBuilderDelegate(
@@ -40,7 +40,10 @@ class MediaInfoPageState extends StateMVC {
           return OutlineButton(
             child: Text(
               chapter.info.title ?? "Loading Failed",
-//              textAlign: TextAlign.center,
+              softWrap: false,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
               Map<String, dynamic> data = new Map();

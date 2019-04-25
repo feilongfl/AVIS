@@ -8,14 +8,15 @@ import '../common/AppShareData.dart';
 import '../core/HTTP.dart';
 import '../event/Event.dart';
 import '../ui/widget/SettingDivideText.dart';
-import 'Agent.dart';
-import 'BaseAgent.dart';
+import 'common/Agent.dart';
+import 'common/AgentJsonKey.dart';
+import 'common/BaseAgent.dart';
 
 class HttpAgent extends BaseAgent {
   String name = "HttpAgent";
 
 //  String _UUID = "";
-  DateTime lastRun = Agent.DefaultDateTime;
+//  DateTime lastRun = Agent.DefaultDateTime;
   final String AgentUUID = "c8d639f3-fbf7-4575-bbd2-0a3945446ff9";
 
   final AgentLists agentType = AgentLists.HttpAgent;
@@ -47,17 +48,16 @@ class HttpAgent extends BaseAgent {
 
 //  List<String> replaces = Event.EventItemStrings;
 
-  HttpAgent(
-      {this.url = "https://feilong.home.blog",
-      this.lastRun,
-      this.cookies,
-      this.method = HttpMethod.Get,
-      this.postData = "",
-      this.referer,
-      this.userAgent = HttpUserAgent.Linux_Chrome,
+  HttpAgent({
+    this.url = "https://feilong.home.blog",
+//      this.lastRun,
+    this.cookies,
+    this.method = HttpMethod.Get,
+    this.postData,
+    this.referer,
+    this.userAgent = HttpUserAgent.Linux_Chrome,
 //      this.replaces
-      })
-      : super();
+  }) : super();
 
   @override
   Future<List<Event>> doRealWork(Event eventIn) async {
@@ -80,31 +80,15 @@ class HttpAgent extends BaseAgent {
   }
 
   @override
-  void fromJson(Map<String, dynamic> json) {
-    if (AgentUUID != json['AgentUUID']) return;
-
-//    this._UUID = json['UUID'];
-    this.lastRun = json['lastRun'];
-    this.method = json['method'];
-    this.userAgent = json['userAgent'];
-    this.postData = json['postData'];
-    this.cookies = json['cookies'];
-    this.referer = json['referer'];
-    this.url = json['url'];
-  }
-
-  @override
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = super.toJson();
 
-    data['UUID'] = this.UUID;
-    data['lastRun'] = this.lastRun;
-    data['cookies'] = this.cookies;
-    data['method'] = this.method;
-    data['postData'] = this.postData;
-    data['referer'] = this.referer;
-    data['userAgent'] = this.userAgent;
-    data['url'] = this.url;
+    data[AgentJsonKey.AgentJsonKey_COOKIES] = this.cookies;
+    data[AgentJsonKey.AgentJsonKey_METHOD] = this.method.index;
+    data[AgentJsonKey.AgentJsonKey_POSTDATA] = this.postData;
+    data[AgentJsonKey.AgentJsonKey_REFERER] = this.referer;
+    data[AgentJsonKey.AgentJsonKey_USERAGENT] = this.userAgent;
+    data[AgentJsonKey.AgentJsonKey_URL] = this.url;
 
     return data;
   }
