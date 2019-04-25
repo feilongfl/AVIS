@@ -37,7 +37,7 @@ dependencies:
   firebase_core: 0.3.4
   firebase_analytics: 2.1.1
   firebase_performance: 0.1.1
-  firebase_messaging: 4.0.0
+#  firebase_messaging: 4.0.0
   firebase_admob: 0.8.0
 
 dev_dependencies:
