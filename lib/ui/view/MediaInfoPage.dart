@@ -39,7 +39,7 @@ class MediaInfoPageState extends StateMVC {
           final chapter = episode.chapter[index];
           return OutlineButton(
             child: Text(
-              chapter.info.title,
+              chapter.info.title ?? "Loading Failed",
 //              textAlign: TextAlign.center,
             ),
             onPressed: () {
@@ -61,10 +61,15 @@ class MediaInfoPageState extends StateMVC {
   List<Widget> _mediaList(BuildContext context, Media media) {
     List<Widget> widgets = new List();
 
+    if (media.episode == null)
+      return []..add(SliverToBoxAdapter(
+          child: Text("Loading failed!"),
+        ));
+
     media.episode.forEach((e) {
       widgets.add(SliverToBoxAdapter(
           child: Text(
-        e.info.title,
+        e.info.title ?? "Loading Failed",
         textAlign: TextAlign.center,
       )));
       widgets.add(
@@ -158,7 +163,7 @@ class MediaInfoPageState extends StateMVC {
                             ),
                           ]
                             ..addAll(
-                              _mediaList(context, snapshot.data),
+                              _mediaList(context, snapshot.data ?? this.media),
                             )
                             ..add(SliverPadding(
                               padding: const EdgeInsets.only(bottom: 20.0),
