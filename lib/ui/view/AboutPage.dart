@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
+import '../../common/AppRoutes.dart';
 import '../../common/AppShareData.dart';
 
 class AboutPage extends StatelessWidget {

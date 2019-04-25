@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../Agent/HttpAgent.dart';
 import '../Agent/RegexpAgent.dart';
 import '../Agent/common/Agent.dart';
-import '../Agent/common/AgentJsonFormatter.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/BaseParse.dart';
@@ -12,7 +10,7 @@ import '../parse/common/Parse.dart';
 import '../parse/common/ParseCreator.dart';
 import 'AppEnums.dart';
 
-List<List<Agent>> GenExpAgents() {
+List<List<Agent>> _GenExpAgents() {
   List<List<Agent>> agents = new List(ParseType.All.index);
 
   Agent domoAgent = HttpAgent(
@@ -72,8 +70,8 @@ class AppShareData extends InheritedWidget {
   static const String finishTip_notFin = "not Finish";
 
   //Saved Media
-  static List<List<Media>> Rss =
-      new List(MediaType.All.index); //rss source for homepage
+//  static List<List<Media>> Rss =
+//      new List(MediaType.All.index); //rss source for homepage
   static List<List<Media>> Favorite = new List(MediaType.All.index);
   static List<List<Media>> History = new List(MediaType.All.index);
 
@@ -93,7 +91,7 @@ class AppShareData extends InheritedWidget {
     }
 
     //exp agents
-    List<List<Agent>> expagents = GenExpAgents();
+    List<List<Agent>> expagents = _GenExpAgents();
 
     // for debug use
     this.AppParse[MediaType.Image.index].add(BaseParse(
@@ -102,6 +100,7 @@ class AppShareData extends InheritedWidget {
       ..url = "https://50mh.com"
       ..type = MediaType.Image);
 
+    // copy test
     var a = this.AppParse[MediaType.Image.index][0].toString();
     this
         .AppParse[MediaType.Image.index]
@@ -114,44 +113,4 @@ class AppShareData extends InheritedWidget {
 //      oldWidget.History != History ||
 //      oldWidget.Favorite != Favorite ||
       false; //debug use
-}
-
-class AppRoutes {
-  static const String Home = "/";
-  static const String Search = "/Search";
-  static const String SearchResult = "/SearchResult";
-  static const String SearchResultArg_type = "type";
-  static const String SearchResultArg_keyword = "keyword";
-  static const String Histroy = "/History";
-  static const String Favorite = "/Favorite";
-  static const String Backup = "/Backup";
-  static const String SourceSetting = "/SourceSetting";
-  static const String Setting = "/Setting";
-  static const String Donate = "/Donate";
-  static const String About = "/About";
-  static const String MediaInfo = "/MediaInfo";
-  static const String MediaView = "/MediaView";
-  static const String MediaViewArg_Media = "media";
-  static const String MediaViewArg_EposideId = "eposide";
-  static const String MediaViewArg_ChapterId = "chapter";
-  static const String SourceEdit = "/SourceEdit";
-  static const String AgentsEdit = "/AgentsEdit";
-  static const String AgentsEditArgs_Parse = "parse";
-  static const String AgentsEditArgs_ParseType = "parsetype";
-  static const String AgentSelect = "/AgentSelect";
-  static const String AgentConfig = "/AgentConfig";
-  static const String AgentDryRun = "/AgentDryRun";
-
-  static LaunchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-}
-
-class HttpUserAgent {
-  static const String Linux_Chrome =
-      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36";
 }

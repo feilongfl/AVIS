@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 
-import '../../common/AppShareData.dart';
+import '../../common/AppRoutes.dart';
 import '../../media/Media.dart';
 
 class HomeCardView extends StatelessWidget {

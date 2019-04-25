@@ -3,7 +3,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:simple_gravatar/simple_gravatar.dart';
 
-import '../../common/AppShareData.dart';
+import '../../common/AppRoutes.dart';
 import '../controller/HomePageConTroller.dart';
 import '../widget/RouteButton.dart';
 

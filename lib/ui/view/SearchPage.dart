@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
-import '../../common/AppShareData.dart';
+import '../../common/AppRoutes.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);

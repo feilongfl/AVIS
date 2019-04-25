@@ -1,10 +1,10 @@
+import 'package:avis/parse/common/Parse.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../Agent/common/Agent.dart';
 import '../../common/AppEnums.dart';
-import '../../common/AppShareData.dart';
-import 'package:avis/parse/common/Parse.dart';
+import '../../common/AppRoutes.dart';
 import '../model/SourceEditPageModel.dart';
 
 class AgentEditPage extends StatefulWidget {

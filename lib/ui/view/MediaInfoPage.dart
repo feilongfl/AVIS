@@ -5,7 +5,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../ParseRunner/ParseRunner.dart';
-import '../../common/AppShareData.dart';
+import '../../common/AppRoutes.dart';
 import '../../media/Media.dart';
 import '../../media/MediaEpisode.dart';
 import '../widget/ActionButton.dart';

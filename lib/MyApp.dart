@@ -4,6 +4,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'Agent/HttpAgent.dart';
 import 'Agent/common/Agent.dart';
 import 'common/AppEnums.dart';
+import 'common/AppRoutes.dart';
 import 'common/AppShareData.dart';
 import 'media/Media.dart';
 import 'parse/BaseParse.dart';

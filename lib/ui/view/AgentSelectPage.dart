@@ -3,7 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../Agent/common/Agent.dart';
 import '../../Agent/common/AgentCreater.dart';
-import '../../common/AppShareData.dart';
+import '../../common/AppRoutes.dart';
 import '../widget/SettingDivideText.dart';
 
 class AgentSelectPage extends StatefulWidget {

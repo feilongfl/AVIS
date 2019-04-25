@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../common/AppShareData.dart';
+import '../../common/AppRoutes.dart';
 import '../model/HomePageModel.dart';
 
 class HomePageController extends ControllerMVC {

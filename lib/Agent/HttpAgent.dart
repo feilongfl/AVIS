@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../common/AppEnums.dart';
-import '../common/AppShareData.dart';
+import '../common/HttpUserAgent.dart';
 import '../core/HTTP.dart';
 import '../event/Event.dart';
 import '../ui/widget/SettingDivideText.dart';
