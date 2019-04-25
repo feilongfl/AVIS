@@ -41,6 +41,7 @@ enum HomePages {
 enum AgentLists{
   HttpAgent,
   RegexpAgent,
+  EventFormatAgent,
   //all
   All,
 }

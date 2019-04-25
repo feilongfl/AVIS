@@ -91,14 +91,14 @@ class BaseAgent implements Agent {
     return [Event(data, SendUUID: this._UUID, success: true)];
   }
 
-  String ReplaceOneVal(String val, Event event) {
+  String ReplaceOneVal(String val, Map<String, dynamic> data) {
     if (val == null) return val;
-    if (event == null) return val;
+    if (data == null) return val;
     if (val == "") return val;
     if (this.replaces == null) return val;
 
     this.replaces.forEach((replace) {
-      val = val.replaceAll(replace, event.Data[replace] ?? "");
+      val = val.replaceAll(replace, data[replace] ?? "");
     });
     return val;
   }
@@ -109,7 +109,7 @@ class BaseAgent implements Agent {
 
     eventIn.Data.forEach((key, val) {
       if (val.runtimeType == String)
-        eventIn.Data[key] = ReplaceOneVal(val, eventIn);
+        eventIn.Data[key] = ReplaceOneVal(val, eventIn.Data);
     });
 
     return eventIn;
