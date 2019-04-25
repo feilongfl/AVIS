@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../Agent/Agent.dart';
+import '../../Agent/common/Agent.dart';
 import '../../common/AppEnums.dart';
 import '../../common/AppShareData.dart';
-import '../../parse/Parse.dart';
+import 'package:avis/parse/common/Parse.dart';
 import '../model/SourceEditPageModel.dart';
 
 class AgentEditPage extends StatefulWidget {
@@ -73,6 +73,17 @@ class AgentEditPageState extends StateMVC {
     });
   }
 
+  void _moveAgentUP(context, index, agent) {
+    if (index == 0) return;
+
+    setState(() {
+      SourceEditPageModel.of(context).agents[parseType.index][index] =
+          SourceEditPageModel.of(context).agents[parseType.index][index - 1];
+      SourceEditPageModel.of(context).agents[parseType.index][index - 1] =
+          agent;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -115,8 +126,10 @@ class AgentEditPageState extends StateMVC {
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
                                 IconButton(
-                                  icon: Icon(Icons.info),
-                                  onPressed: () {},
+                                  icon: Icon(Icons.arrow_upward),
+                                  tooltip: "Move UP",
+                                  onPressed: () =>
+                                      _moveAgentUP(context, index, agent),
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.edit),

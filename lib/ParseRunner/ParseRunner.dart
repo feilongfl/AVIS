@@ -4,7 +4,7 @@ import '../common/AppEnums.dart';
 import '../common/AppShareData.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
-import '../parse/Parse.dart';
+import '../parse/common/Parse.dart';
 
 class ParseRunner {
   static Future<List<Media>> _SearchOne(Parse parse, String keyword) async {
@@ -74,6 +74,17 @@ class ParseRunner {
 
   static MediaType HomePagesToMediaTypes(HomePages page_type) {
     switch (page_type) {
+      case HomePages.Video:
+      case HomePages.Comic:
+      case HomePages.Novel:
+      case HomePages.Music:
+        return [
+          MediaType.Article,
+          MediaType.Video,
+          MediaType.Image,
+          MediaType.Sound,
+        ][page_type.index - 1];
+
       default:
         return MediaType.Image;
     }

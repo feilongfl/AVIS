@@ -1,23 +1,31 @@
+import 'dart:convert';
+
 import 'package:uuid/uuid.dart';
 
-import '../Agent/Agent.dart';
+import '../Agent/common/Agent.dart';
 import '../ResultFormatter/ResultFormatter.dart';
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
-import 'Parse.dart';
+import 'common/Parse.dart';
+import 'common/ParseJsonKey.dart';
 
 class BaseParse implements Parse {
-  String ParseUUID = "76c1ae48-81b8-42e3-a868-d69cf2f2ea5d";
-  String name = "BaseParse";
-  String url = "";
+  String ParseUUID;
+  String name;
+  String url;
+  String comment;
+  String updateUrl;
+  String author;
+  String author_email;
+  String author_website;
 
   MediaType type;
 
   List<List<Agent>> agents;
 
 //  HttpClient httpClient = new HttpClient();
-  static List<List<Agent>> _agentInit() {
+  static List<List<Agent>> ParseAgentInit() {
     List<List<Agent>> agents = List(ParseType.All.index);
 
     for (int i = 0; i < ParseType.All.index; i++) agents[i] = new List();
@@ -29,10 +37,16 @@ class BaseParse implements Parse {
       {this.agents,
       this.name = "New Source",
       this.type = MediaType.Article,
+      this.url = "https://feilong.home.blog",
+      this.author = "feilong",
+      this.author_email = "feilongphone@gmail.com",
+      this.author_website = "https://feilong.home.blog",
+      this.updateUrl,
+      this.comment,
       this.ParseUUID}) {
     var uuid = new Uuid();
     this.ParseUUID = this.ParseUUID ?? uuid.v4();
-    this.agents = this.agents ?? _agentInit();
+    this.agents = this.agents ?? ParseAgentInit();
   }
 
   Future<List<Media>> doSearchHome(
@@ -101,5 +115,33 @@ class BaseParse implements Parse {
       default:
         break;
     }
+  }
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> jsonObj = new Map();
+
+    jsonObj[ParseJsonKey.UUID] = this.ParseUUID;
+    jsonObj[ParseJsonKey.NAME] = this.name;
+    jsonObj[ParseJsonKey.URL] = this.url;
+    jsonObj[ParseJsonKey.COMMENT] = this.comment;
+    jsonObj[ParseJsonKey.UPDATEURL] = this.updateUrl;
+    jsonObj[ParseJsonKey.TYPE] = this.type.index;
+    jsonObj[ParseJsonKey.AUTHOR] = this.author;
+    jsonObj[ParseJsonKey.AUTHOR_EMAIL] = this.author_email;
+    jsonObj[ParseJsonKey.AUTHOR_WEBSITE] = this.author_website;
+    // agent
+    assert(ParseType.All.index == ParseJsonKey.AGENT_JSONKEYS.length);
+    for (int i = 0; i < ParseType.All.index; i++) {
+      jsonObj[ParseJsonKey.AGENT_JSONKEYS[i]] = (this.agents[i] == null)
+          ? null
+          : this.agents[i].map((agent) => agent.toString()).toList();
+    }
+
+    return jsonObj;
+  }
+
+  @override
+  String toString() {
+    return json.encode(toJson());
   }
 }

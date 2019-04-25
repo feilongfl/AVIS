@@ -48,6 +48,8 @@ class ResultFormatter {
   }
 
   static Media EpisodeEventFormat(List<Event> events, Media media) {
+    List<MediaEpisode> episode = List();
+
     for (Event event in events) {
       Map<String, dynamic> data = event.Data;
 
@@ -56,13 +58,16 @@ class ResultFormatter {
       episodeInfo.ID = data[Event.EpisodeId] ?? "";
       episodeInfo.url = data[Event.Url] ?? "";
 
-      media.episode.add(MediaEpisode(info: episodeInfo));
+      episode.add(MediaEpisode(info: episodeInfo));
     }
+    media.episode = episode;
 
     return media;
   }
 
   static Media ChapterEventFormat(List<Event> events, Media media) {
+    List<MediaChapter> chapter = List();
+
     for (Event event in events) {
       Map<String, dynamic> data = event.Data;
 
@@ -79,7 +84,6 @@ class ResultFormatter {
     }
 
     return media;
-    ;
   }
 
   static Media SourceEventFormat(Event event) {

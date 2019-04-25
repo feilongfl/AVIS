@@ -1,4 +1,4 @@
-import '../Agent/Agent.dart';
+import 'package:avis/Agent/common/Agent.dart';
 import '../common/AppEnums.dart';
 
 class DemoSource {

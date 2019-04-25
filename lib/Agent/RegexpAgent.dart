@@ -4,8 +4,9 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import '../ui/widget/SettingDivideText.dart';
-import 'Agent.dart';
-import 'BaseAgent.dart';
+import 'common/Agent.dart';
+import 'common/AgentJsonKey.dart';
+import 'common/BaseAgent.dart';
 
 class RegexpAgent extends BaseAgent {
   String name = "RegexAgent";
@@ -14,23 +15,33 @@ class RegexpAgent extends BaseAgent {
   final AgentLists agentType = AgentLists.RegexpAgent;
 
 //  String _UUID = "";
-  DateTime lastRun = Agent.DefaultDateTime;
+//  DateTime lastRun = Agent.DefaultDateTime;
 
   String get UUID => AgentUUID;
 
   RegExp regexp;
   List<String> matchGroups = new List();
 
-  List<String> replaces = new List();
+  List<String> replaces = Event.EventItemStrings;
 
   RegexpAgent(this.regexp, this.matchGroups, {this.replaces}) : super();
+
+  @override
+  Map<String, dynamic> toJson() {
+    var jsonObj = super.toJson();
+
+    jsonObj[AgentJsonKey.AgentJsonKey_REGEXP] = this.regexp.pattern;
+    jsonObj[AgentJsonKey.AgentJsonKey_MATCHGROUP] = this.matchGroups;
+
+    return jsonObj;
+  }
 
   @override //match eventIn.body
   Future<List<Event>> doRealWork(Event eventIn) async {
     if (this.checkEventIn(eventIn))
       return [Event(null, SendUUID: this.UUID, success: false)];
 
-    this.lastRun = DateTime.now();
+//    this.lastRun = DateTime.now();
 
     String matchBody = eventIn.Data[Event.Body];
     List<Event> eventResult = new List();

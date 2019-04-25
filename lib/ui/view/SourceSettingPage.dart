@@ -3,7 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
 import '../../common/AppShareData.dart';
-import '../../parse/Parse.dart';
+import '../../parse/common/Parse.dart';
 
 class SourceSettingPage extends StatefulWidget {
   @override
@@ -61,7 +61,25 @@ class SourceSettingState extends StateMVC {
           IconButton(
             icon: Icon(Icons.account_circle),
             tooltip: "About",
-            onPressed: () {},
+            onPressed: () {
+              showDialog<void>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                        title: Text(parse.author),
+                        content: Column(
+                          children: <Widget>[
+                            Text(parse.author_email),
+                            Text(parse.author_website),
+                          ],
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: Text("OK"),
+                          ),
+                        ],
+                      ));
+            },
           ),
         ],
       ),

@@ -31,7 +31,7 @@ class MediaInfoPageState extends StateMVC {
               MediaQuery.of(context).orientation == Orientation.landscape
                   ? 3
                   : 2,
-          childAspectRatio: 5.0,
+          childAspectRatio: 3.0,
           mainAxisSpacing: 10.0,
           crossAxisSpacing: 10.0),
       delegate: SliverChildBuilderDelegate(
@@ -39,8 +39,11 @@ class MediaInfoPageState extends StateMVC {
           final chapter = episode.chapter[index];
           return OutlineButton(
             child: Text(
-              chapter.info.title,
-//              textAlign: TextAlign.center,
+              chapter.info.title ?? "Loading Failed",
+              softWrap: false,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
             onPressed: () {
               Map<String, dynamic> data = new Map();
@@ -61,10 +64,15 @@ class MediaInfoPageState extends StateMVC {
   List<Widget> _mediaList(BuildContext context, Media media) {
     List<Widget> widgets = new List();
 
+    if (media.episode == null)
+      return []..add(SliverToBoxAdapter(
+          child: Text("Loading failed!"),
+        ));
+
     media.episode.forEach((e) {
       widgets.add(SliverToBoxAdapter(
           child: Text(
-        e.info.title,
+        e.info.title ?? "Loading Failed",
         textAlign: TextAlign.center,
       )));
       widgets.add(
@@ -158,7 +166,7 @@ class MediaInfoPageState extends StateMVC {
                             ),
                           ]
                             ..addAll(
-                              _mediaList(context, snapshot.data),
+                              _mediaList(context, snapshot.data ?? this.media),
                             )
                             ..add(SliverPadding(
                               padding: const EdgeInsets.only(bottom: 20.0),

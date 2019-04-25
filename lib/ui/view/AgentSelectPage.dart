@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../Agent/Agent.dart';
-import '../../Agent/AgentCreater.dart';
+import '../../Agent/common/Agent.dart';
+import '../../Agent/common/AgentCreater.dart';
 import '../../common/AppShareData.dart';
 import '../widget/SettingDivideText.dart';
 
@@ -87,6 +87,7 @@ class AgentSelectPageState extends StateMVC {
                   leading: Icon(Icons.settings),
                   title: Text(
                       "${Agent.AgentItemNames[agent.agentType.index]} Config"),
+                  subtitle: Text(this.agent.UUID),
                 ))
 //                ..addAll(agentConfigBody[Agent.AgentConfigBody_Widgets])
               //add end

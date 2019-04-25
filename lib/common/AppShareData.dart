@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../Agent/Agent.dart';
 import '../Agent/HttpAgent.dart';
 import '../Agent/RegexpAgent.dart';
+import '../Agent/common/Agent.dart';
+import '../Agent/common/AgentJsonFormatter.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/BaseParse.dart';
-import '../parse/Parse.dart';
+import '../parse/common/Parse.dart';
+import '../parse/common/ParseCreator.dart';
 import 'AppEnums.dart';
 
 List<List<Agent>> GenExpAgents() {
   List<List<Agent>> agents = new List(ParseType.All.index);
 
   Agent domoAgent = HttpAgent(
-      url: "https://www.50mh.com/search/?keywords=" + Event.SearchKeyword,
-      replaces: [Event.SearchKeyword]);
+    url: "https://www.50mh.com/search/?keywords=" + Event.SearchKeyword,
+  );
   Agent demoRegexAgent = RegexpAgent(
       RegExp(
           r'<a class="image-link" href="(https.*?manhua\/(.*?)\/?)" title="(.*?)"><img src="(.*?)" width="\d+" height="\d+" alt="" default="(?:.*?)">'),
@@ -28,8 +30,8 @@ List<List<Agent>> GenExpAgents() {
       [Event.Url, Event.MediaId, Event.Cover, Event.Title]);
 
   Agent domoinfoAgent = HttpAgent(
-      url: "https://www.50mh.com/manhua/${Event.MediaId}/",
-      replaces: [Event.MediaId]);
+    url: "https://www.50mh.com/manhua/${Event.MediaId}/",
+  );
   Agent demoinfoRegexAgent = RegexpAgent(
       RegExp(r'<meta name="description" content="(.*?)">'), [Event.Intro]);
 
@@ -40,7 +42,15 @@ List<List<Agent>> GenExpAgents() {
       RegExp(r'<li>\s+<a href="(.*\/(\d+).*?)" title="(.*?)"'),
       [Event.Url, Event.ChapterId, Event.Title]);
 
+  print(domoAgent.toString());
+  print(demoRegexAgent.toString());
+
   agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
+//  agents[ParseType.homepage.index] = [
+//    AgentJsonFormatter.loadAgent(domohAgent.toJson()),
+//    AgentJsonFormatter.loadAgent(demohRegexAgent.toJson())
+//  ];
+
   agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
   agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];
   agents[ParseType.Episode.index] = [domoinfoAgent, demoepiinfoRegexAgent];
@@ -86,11 +96,16 @@ class AppShareData extends InheritedWidget {
     List<List<Agent>> expagents = GenExpAgents();
 
     // for debug use
-    this.AppParse[MediaType.Image.index].add(
-        BaseParse(agents: expagents, ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
-          ..name = "50manhua"
-          ..url = "https://50mh.com"
-          ..type = MediaType.Image);
+    this.AppParse[MediaType.Image.index].add(BaseParse(
+        agents: expagents, ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
+      ..name = "50manhua"
+      ..url = "https://50mh.com"
+      ..type = MediaType.Image);
+
+    var a = this.AppParse[MediaType.Image.index][0].toString();
+    this
+        .AppParse[MediaType.Image.index]
+        .add(ParseCreator.fromString(a)..name = "copy");
   }
 
   @override
