@@ -32,9 +32,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 //firebase
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'io.fabric'
-apply plugin: 'com.google.firebase.firebase-perf'
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'io.fabric'
+//apply plugin: 'com.google.firebase.firebase-perf'
 
 
 android {
@@ -78,7 +78,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     //forebase
-    implementation 'com.google.firebase:firebase-core:16.0.1'
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
-    implementation 'com.google.firebase:firebase-perf:16.2.5'
+//    implementation 'com.google.firebase:firebase-core:16.0.1'
+//    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+//    implementation 'com.google.firebase:firebase-perf:16.2.5'
 }

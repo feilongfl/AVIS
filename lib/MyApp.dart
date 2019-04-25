@@ -1,6 +1,4 @@
 import 'package:avis/ui/view/homepage.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -25,6 +23,9 @@ import 'ui/view/SourceEditPage.dart';
 import 'ui/view/SourceSettingPage.dart';
 import 'ui/view/UnknownPage.dart';
 
+//import 'package:firebase_analytics/firebase_analytics.dart';
+//import 'package:firebase_analytics/observer.dart';
+
 class MyApp extends StatefulWidget {
   MyApp({Key key}) : super(key: key);
 
@@ -34,7 +35,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends StateMVC {
   MyAppController controller = new MyAppController();
-  FirebaseAnalytics analytics = FirebaseAnalytics();
+//  FirebaseAnalytics analytics = FirebaseAnalytics();
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +47,9 @@ class _MyAppState extends StateMVC {
       routes: controller._routes,
       onGenerateRoute: controller._getRoute,
       onUnknownRoute: controller._unknowRoute,
-      navigatorObservers: [
-        FirebaseAnalyticsObserver(analytics: analytics),
-      ],
+//      navigatorObservers: [
+//        FirebaseAnalyticsObserver(analytics: analytics),
+//      ],
     );
   }
 }
