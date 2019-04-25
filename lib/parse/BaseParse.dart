@@ -97,6 +97,7 @@ class BaseParse implements Parse {
   }
 
   Future<List<Media>> doWork(ParseType type, dynamic data) async {
+    List<Media> medias;
     switch (type) {
       case ParseType.homepage:
       case ParseType.Search:
@@ -104,17 +105,25 @@ class BaseParse implements Parse {
         break;
 
       case ParseType.info:
-        return [await doInfo(type, data)];
+        medias = [await doInfo(type, data)];
+        break;
 
       case ParseType.Episode:
-        return [await doEpisode(type, data)];
+        medias = [await doEpisode(type, data)];
+        break;
 
       case ParseType.Chapter:
-        return [await doChapter(type, data)];
+        medias = [await doChapter(type, data)];
+        break;
 
       default:
+        medias = List();
         break;
     }
+
+    medias.forEach((media) => media.type = this.type);
+
+    return medias;
   }
 
   Map<String, dynamic> toJson() {

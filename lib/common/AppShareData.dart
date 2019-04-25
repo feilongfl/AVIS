@@ -57,6 +57,51 @@ List<List<Agent>> _GenExpAgents() {
   return agents;
 }
 
+List<List<Agent>> _GenAIXIA() {
+  List<List<Agent>> agents = new List(ParseType.All.index);
+
+  Agent domoAgent = HttpAgent(
+    url: "https://www.50mh.com/search/?keywords=" + Event.SearchKeyword,
+  );
+  Agent demoRegexAgent = RegexpAgent(
+      RegExp(
+          r'<a class="image-link" href="(https.*?manhua\/(.*?)\/?)" title="(.*?)"><img src="(.*?)" width="\d+" height="\d+" alt="" default="(?:.*?)">'),
+      [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
+
+  Agent domohAgent = HttpAgent(
+      url:
+          "https://m.qidian.com/category/detail?catId=21&subCatId=8&gender=male");
+  Agent demohRegexAgent = RegexpAgent(
+      RegExp(
+          r'<a href="(.*\/(\d+))" class="book-layout">\s+<img src="(?:.*?)" data-src="(.*?)" class="book-cover" alt="(.*?)">\s+<div class="book-cell">\s+<div class="book-title-x">\s+<div class="book-title-r">\s+<\/div>\s+<h4 class="book-title">(?:.*?)<\/h4>\s+<\/div>\s+<p class="book-desc"> (.*?)<\/p>'),
+      [Event.Url, Event.MediaId, Event.Cover, Event.Title, Event.Intro]);
+
+  Agent domoinfoAgent = HttpAgent(
+    url: "https://www.50mh.com/manhua/${Event.MediaId}/",
+  );
+  Agent demoinfoRegexAgent = RegexpAgent(
+      RegExp(r'<meta name="description" content="(.*?)">'),
+      [Event.SearchKeyword]);
+
+  Agent demoepiinfoRegexAgent =
+      RegexpAgent(RegExp(r'<em class="c_3">(.*?)列表<\/em>'), [Event.Title]);
+
+  Agent democpiinfoRegexAgent = RegexpAgent(
+      RegExp(r'<li>\s+<a href="(.*\/(\d+).*?)" title="(.*?)"'),
+      [Event.Url, Event.ChapterId, Event.Title]);
+
+  print(domoAgent.toString());
+  print(demoRegexAgent.toString());
+
+  agents[ParseType.homepage.index] = [domohAgent, demohRegexAgent];
+  agents[ParseType.Search.index] = [domoAgent, demoRegexAgent];
+  agents[ParseType.info.index] = [domoinfoAgent, demoinfoRegexAgent];
+  agents[ParseType.Episode.index] = [domoinfoAgent, demoepiinfoRegexAgent];
+  agents[ParseType.Chapter.index] = [domoinfoAgent, democpiinfoRegexAgent];
+
+  return agents;
+}
+
 class AppShareData extends InheritedWidget {
   static const String AppName = "AVIS";
   static const String defaultKeywords = "UnknowKeywords";
@@ -99,6 +144,11 @@ class AppShareData extends InheritedWidget {
       ..name = "50manhua"
       ..url = "https://50mh.com"
       ..type = MediaType.Image);
+    this.AppParse[MediaType.Article.index].add(BaseParse(
+        agents: _GenAIXIA(), ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
+      ..name = "50manhua"
+      ..url = "https://50mh.com"
+      ..type = MediaType.Article);
 
     // copy test
     var a = this.AppParse[MediaType.Image.index][0].toString();
