@@ -22,6 +22,8 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
     RouteButton(name: "History", icon: Icons.history, route: AppRoutes.Histroy),
     RouteButton(
         name: "Favorite", icon: Icons.favorite, route: AppRoutes.Favorite),
+    RouteButton(
+        name: "Download", icon: Icons.file_download, route: AppRoutes.Download),
     RouteButton(devide: true),
     RouteButton(name: "Backup", icon: Icons.backup, route: AppRoutes.Backup),
     RouteButton(

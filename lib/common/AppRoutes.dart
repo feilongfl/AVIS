@@ -8,6 +8,7 @@ class AppRoutes {
   static const String SearchResultArg_keyword = "keyword";
   static const String Histroy = "/History";
   static const String Favorite = "/Favorite";
+  static const String Download = "/Download";
   static const String Backup = "/Backup";
   static const String SourceSetting = "/SourceSetting";
   static const String Setting = "/Setting";
