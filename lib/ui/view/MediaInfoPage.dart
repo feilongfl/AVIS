@@ -93,21 +93,26 @@ class MediaInfoPageState extends StateMVC {
             : MediaQuery.of(context).size.width * 0.6;
     final image_height = image_width * 1.25;
 
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+    return GestureDetector(
+      onLongPress: () => Navigator.of(context)
+          .pushNamed(AppRoutes.PictureView, arguments: [media.info.cover]),
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Container(
+            height: image_height,
+            width: image_width,
+            child: Image(
+              fit: BoxFit.cover,
+              image: AdvancedNetworkImage(
+                media.info.cover,
+                useDiskCache: true,
+                cacheRule: CacheRule(maxAge: const Duration(days: 7)),
+              ),
+            )),
       ),
-      child: Container(
-          height: image_height,
-          width: image_width,
-          child: Image(
-            image: AdvancedNetworkImage(
-              media.info.cover,
-              useDiskCache: true,
-              cacheRule: CacheRule(maxAge: const Duration(days: 7)),
-            ),
-          )),
     );
   }
 

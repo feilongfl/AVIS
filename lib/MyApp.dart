@@ -1,3 +1,4 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -17,6 +18,7 @@ import 'ui/view/AgentSelectPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
 import 'ui/view/MediaInfoPage.dart';
+import 'ui/view/PictureViewer.dart';
 import 'ui/view/SearchPage.dart';
 import 'ui/view/SearchResultPage.dart';
 import 'ui/view/SourceEditPage.dart';
@@ -41,18 +43,24 @@ class _MyAppState extends StateMVC {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: AppShareData.AppName,
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      routes: controller._routes,
-      onGenerateRoute: controller._getRoute,
-      onUnknownRoute: controller._unknowRoute,
+    return DynamicTheme(
+        defaultBrightness: Brightness.light,
+        data: (brightness) => new ThemeData(
+              primarySwatch: Colors.indigo,
+              brightness: brightness,
+            ),
+        themedWidgetBuilder: (context, theme) {
+          return MaterialApp(
+            title: AppShareData.AppName,
+            theme: theme,
+            routes: controller._routes,
+            onGenerateRoute: controller._getRoute,
+            onUnknownRoute: controller._unknowRoute,
 //      navigatorObservers: [
 //        FirebaseAnalyticsObserver(analytics: analytics),
 //      ],
-    );
+          );
+        });
   }
 }
 
@@ -142,6 +150,12 @@ class MyAppController extends ControllerMVC {
       return MaterialPageRoute<Agent>(
           settings: settings,
           builder: (BuildContext context) => argv.AgentConfigPage(argv));
+    }
+    if (settings.name == AppRoutes.PictureView) {
+      List<String> picUrls = settings.arguments;
+      return MaterialPageRoute<void>(
+          settings: settings,
+          builder: (BuildContext context) => PictureViewer(picUrls));
     }
     return null;
   }

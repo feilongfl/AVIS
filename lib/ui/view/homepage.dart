@@ -1,5 +1,7 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:simple_gravatar/simple_gravatar.dart';
 
@@ -96,7 +98,16 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.search),
+            icon: Icon(DynamicTheme.of(context).brightness == Brightness.dark
+                ? FontAwesomeIcons.sun
+                : FontAwesomeIcons.moon),
+            onPressed: () => DynamicTheme.of(context).setBrightness(
+                (DynamicTheme.of(context).brightness == Brightness.dark)
+                    ? Brightness.light
+                    : Brightness.dark),
+          ),
+          IconButton(
+            icon: Icon(FontAwesomeIcons.search),
             onPressed: () => homePageController.doSearch(context),
           )
         ],

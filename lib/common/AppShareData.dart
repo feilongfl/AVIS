@@ -131,6 +131,17 @@ class AppShareData extends InheritedWidget {
   static const String finishTip_isFin = "Finish";
   static const String finishTip_notFin = "not Finish";
 
+  ///////////////////////////////////////////////////
+  // theme data
+  static List<MaterialColor> AppThemeColors = [
+    Colors.blue,
+    Colors.pink,
+    Colors.teal,
+    Colors.red,
+  ];
+
+  ///////////////////////////////////////////////////
+
   //Saved Media
 //  static List<List<Media>> Rss =
 //      new List(MediaType.All.index); //rss source for homepage

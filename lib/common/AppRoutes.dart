@@ -26,6 +26,7 @@ class AppRoutes {
   static const String AgentSelect = "/AgentSelect";
   static const String AgentConfig = "/AgentConfig";
   static const String AgentDryRun = "/AgentDryRun";
+  static const String PictureView = "/PictureView";
 
   static LaunchURL(String url) async {
     if (await canLaunch(url)) {
