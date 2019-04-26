@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Agent/EventFormatAgent.dart';
 import '../Agent/HttpAgent.dart';
@@ -8,6 +9,7 @@ import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/BaseParse.dart';
 import '../parse/common/Parse.dart';
+import '../parse/common/ParseCreator.dart';
 import 'AppEnums.dart';
 
 List<List<Agent>> _GenExpAgents() {
@@ -17,28 +19,35 @@ List<List<Agent>> _GenExpAgents() {
     url: "https://www.50mh.com/search/?keywords=" + Event.SearchKeyword,
   );
   Agent demoRegexAgent = RegexpAgent(
-      RegExp(
+      matchBody: Event.Body,
+      regexp: RegExp(
           r'<a class="image-link" href="(https.*?manhua\/(.*?)\/?)" title="(.*?)"><img src="(.*?)" width="\d+" height="\d+" alt="" default="(?:.*?)">'),
-      [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
+      matchGroups: [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
 
   Agent domohAgent = HttpAgent(url: "https://www.50mh.com/list/riben/");
   Agent demohRegexAgent = RegexpAgent(
-      RegExp(
+      matchBody: Event.Body,
+      regexp: RegExp(
           '<a class="comic_img" href="(http.*?manhua\\/(.*?)\\/)"><img src="(.*?)" alt="(.*?)"'),
-      [Event.Url, Event.MediaId, Event.Cover, Event.Title]);
+      matchGroups: [Event.Url, Event.MediaId, Event.Cover, Event.Title]);
 
   Agent domoinfoAgent = HttpAgent(
     url: "https://www.50mh.com/manhua/${Event.MediaId}/",
   );
   Agent demoinfoRegexAgent = RegexpAgent(
-      RegExp(r'<meta name="description" content="(.*?)">'), [Event.Intro]);
+      matchBody: Event.Body,
+      regexp: RegExp(r'<meta name="description" content="(.*?)">'),
+      matchGroups: [Event.Intro]);
 
-  Agent demoepiinfoRegexAgent =
-      RegexpAgent(RegExp(r'<em class="c_3">(.*?)列表<\/em>'), [Event.Title]);
+  Agent demoepiinfoRegexAgent = RegexpAgent(
+      matchBody: Event.Body,
+      regexp: RegExp(r'<em class="c_3">(.*?)列表<\/em>'),
+      matchGroups: [Event.Title]);
 
   Agent democpiinfoRegexAgent = RegexpAgent(
-      RegExp(r'<li>\s+<a href="(.*\/(\d+).*?)" title="(.*?)"'),
-      [Event.Url, Event.ChapterId, Event.Title]);
+      matchBody: Event.Body,
+      regexp: RegExp(r'<li>\s+<a href="(.*\/(\d+).*?)" title="(.*?)"'),
+      matchGroups: [Event.Url, Event.ChapterId, Event.Title]);
 
   agents[ParseType.homepage.index] = [
     domohAgent,
@@ -60,9 +69,16 @@ List<List<Agent>> _GenAIXIA() {
       url:
           "https://m.qidian.com/category/detail?catId=21&subCatId=8&gender=male");
   Agent demohRegexAgent = RegexpAgent(
-      RegExp(
+      matchBody: Event.Body,
+      regexp: RegExp(
           r'<a href="(.*\/(\d+))" class="book-layout">\s+<img src="(?:.*?)" data-src="(.*?)" class="book-cover" alt="(.*?)">\s+<div class="book-cell">\s+<div class="book-title-x">\s+<div class="book-title-r">\s+<\/div>\s+<h4 class="book-title">(?:.*?)<\/h4>\s+<\/div>\s+<p class="book-desc"> (.*?)<\/p>'),
-      [Event.Url, Event.MediaId, Event.Cover, Event.Title, Event.Intro]);
+      matchGroups: [
+        Event.Url,
+        Event.MediaId,
+        Event.Cover,
+        Event.Title,
+        Event.Intro
+      ]);
 
   Agent domohformatAgent = EventFormatAgent(
       findKey: [Event.Cover], Replaces: ["http:${Event.Cover}"]);
@@ -81,9 +97,10 @@ List<List<Agent>> _Genzzzanime() {
 
   Agent domohAgent = HttpAgent(url: "http://www.zzzfun.com/map-index.html");
   Agent demohRegexAgent = RegexpAgent(
-      RegExp(
+      matchBody: Event.Body,
+      regexp: RegExp(
           r'<a href="(\/vod-detail-id-(\d+)\.html)" style="\s+color: #fffee4;\s+">(.*?)<\/a><em>\/<\/em><\/h5>\s+<div class="tipInfo">\s+<div class="play-img"><img src="(.*?)" alt="(?:.*?)" \/>'),
-      [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
+      matchGroups: [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
 
   Agent domohformatAgent = EventFormatAgent(
       findKey: [Event.Url],
@@ -97,8 +114,10 @@ List<List<Agent>> _Genzzzanime() {
 
   Agent domoinfoAgent = HttpAgent(
       url: "http://www.zzzfun.com/vod-detail-id-${Event.MediaId}.html");
-  Agent domoinforegAgent =
-      RegexpAgent(RegExp(r'name="description" content="(.*?)"'), [Event.Intro]);
+  Agent domoinforegAgent = RegexpAgent(
+      matchBody: Event.Body,
+      regexp: RegExp(r'name="description" content="(.*?)"'),
+      matchGroups: [Event.Intro]);
 
   agents[ParseType.info.index] = [domoinfoAgent, domoinforegAgent];
 
@@ -108,9 +127,10 @@ List<List<Agent>> _Genzzzanime() {
   agents[ParseType.Episode.index] = [domoinfoAgent, domoeposideformatAgent];
 
   Agent domochapterformatAgent = RegexpAgent(
-      RegExp(
+      matchBody: Event.Body,
+      regexp: RegExp(
           r'<a class="" href="(.*?sid-(\d+)-nid-(\d+)\.html)" target="_blank"><span class="title">(.*?)<\/span>'),
-      [Event.Url, Event.EpisodeId, Event.ChapterId, Event.Title]);
+      matchGroups: [Event.Url, Event.EpisodeId, Event.ChapterId, Event.Title]);
   agents[ParseType.Chapter.index] = [domoinfoAgent, domochapterformatAgent];
 
   return agents;
@@ -121,9 +141,10 @@ List<List<Agent>> _GenAcgyy() {
 
   Agent domohAgent = HttpAgent(url: "http://www.acgjc.com/yy/");
   Agent demohRegexAgent = RegexpAgent(
-      RegExp(
+      matchBody: Event.Body,
+      regexp: RegExp(
           r'<a\s+href="(.*?(\d+)\.html)"\s+title="(.*?)"[\s\S]+?src="(.*?jpg)"\s+alt=".*?"'),
-      [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
+      matchGroups: [Event.Url, Event.MediaId, Event.Title, Event.Cover]);
 
 //  Agent domohformatAgent = EventFormatAgent(
 //      findKey: [Event.Url], Replaces: ["http://www.zzzfun.com/vod-detail-id-${Event.MediaId}.html"]);
@@ -167,23 +188,55 @@ class AppShareData extends InheritedWidget {
   static List<List<Media>> History = new List(MediaType.All.index);
 
   //parse config
+  // todo make set get method here
   List<List<Parse>> AppParse = new List(MediaType.All.index);
+//  List<List<Parse>> get AppParse => prefs.getStringList(PREF_APP_AGENTLISTS).map((p) => ParseCreator.fromString(p)).where((p)=>p.type.index)
 
   static AppShareData of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(AppShareData);
   }
 
-  AppShareData({
-    @required Widget child,
-  }) : super(child: child) {
-    //read from storage here
+  //////////////////////////prefs///////////////////////
+  static SharedPreferences prefs;
+  static String PREF_APP_AGENTLISTS = "pref_app_agentlists";
+
+  void ClearParses() {
+    AppParse = new List(MediaType.All.index);
     for (int i = 0; i < MediaType.All.index; i++) {
       this.AppParse[i] = new List();
     }
+  }
 
+  void SaveAngetsToPref() {
+    List<String> _agentStrs = List();
+    this
+        .AppParse
+        .forEach((as) => as.forEach((a) => _agentStrs.add(a.toString())));
+    prefs.setStringList(PREF_APP_AGENTLISTS, _agentStrs);
+    print("Save agents to Prefs!");
+  }
+
+  void LoadAngetsFromPref() {
+    List<String> _agentStrs = prefs.getStringList(PREF_APP_AGENTLISTS);
+    if (_agentStrs == null) {
+      LoadDefaultAgents();
+      return;
+    }
+
+    ClearParses();
+    _agentStrs.forEach((a) {
+      Parse p = ParseCreator.fromString(a);
+      this.AppParse[p.type.index].add(p);
+    });
+    print("Load agents from Prefs!");
+  }
+
+  //////////////////////////prefs///////////////////////
+
+  void LoadDefaultAgents() {
+    ClearParses();
     //exp agents
     List<List<Agent>> expagents = _GenExpAgents();
-
     // for debug use
     this.AppParse[MediaType.Image.index].add(BaseParse(
         agents: expagents, ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
@@ -208,12 +261,17 @@ class AppShareData extends InheritedWidget {
       ..name = "acgjcyy"
       ..url = "https://www.acgjc.com"
       ..type = MediaType.Sound);
+  }
 
-    // copy test
-//    var a = this.AppParse[MediaType.Image.index][0].toString();
-//    this
-//        .AppParse[MediaType.Image.index]
-//        .add(ParseCreator.fromString(a)..name = "copy");
+  AppShareData({
+    @required Widget child,
+  }) : super(child: child) {
+    //read from storage here
+    for (int i = 0; i < MediaType.All.index; i++) {
+      this.AppParse[i] = new List();
+    }
+
+    LoadAngetsFromPref();
   }
 
   @override

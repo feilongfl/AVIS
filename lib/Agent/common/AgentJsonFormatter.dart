@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../../common/AppEnums.dart';
+import '../EventFormatAgent.dart';
 import '../HttpAgent.dart';
 import '../RegexpAgent.dart';
 import 'Agent.dart';
@@ -30,8 +31,18 @@ class AgentJsonFormatter {
         break;
 
       case AgentLists.RegexpAgent:
-        return RegexpAgent(RegExp(jsonObj[AgentJsonKey.AgentJsonKey_REGEXP]),
-            jsonObj[AgentJsonKey.AgentJsonKey_MATCHGROUP].cast<String>());
+        return RegexpAgent(
+            matchBody: jsonObj[AgentJsonKey.AgentJsonKey_MATCHBODY],
+            regexp: RegExp(jsonObj[AgentJsonKey.AgentJsonKey_REGEXP]),
+            matchGroups:
+                jsonObj[AgentJsonKey.AgentJsonKey_MATCHGROUP].cast<String>());
+        break;
+
+      case AgentLists.EventFormatAgent:
+        return EventFormatAgent(
+            findKey: jsonObj[AgentJsonKey.AgentJsonKey_FindKey].cast<String>(),
+            Replaces:
+                jsonObj[AgentJsonKey.AgentJsonKey_REPLACETO].cast<String>());
         break;
 
       default:

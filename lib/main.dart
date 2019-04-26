@@ -1,9 +1,10 @@
 import 'package:avis/MyApp.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'common/AppShareData.dart';
 
-void main() {
+void main() async {
 //  bool isInDebugMode = false;
 //
 //  FlutterError.onError = (FlutterErrorDetails details) {
@@ -20,6 +21,7 @@ void main() {
 //  await FlutterCrashlytics().initialize();
 //
 //  runZoned<Future<Null>>(() async {
+  AppShareData.prefs = await SharedPreferences.getInstance();
   runApp(AppShareData(child: MyApp()));
 //  }, onError: (error, stackTrace) async {
 //     Whenever an error occurs, call the `reportCrash` function. This will send

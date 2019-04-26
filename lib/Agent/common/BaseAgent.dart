@@ -86,7 +86,7 @@ class BaseAgent implements Agent {
 //    this.lastRun = DateTime.now();
 
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['body'] = "Hello world!";
+    data[Event.Body] = "Hello world!";
 
     return [Event(data, SendUUID: this._UUID, success: true)];
   }

@@ -12,11 +12,11 @@ class AgentJsonKey {
   static const String AgentJsonKey_REFERER = 'A_REFERER';
 
   //regexp agent
+  static const String AgentJsonKey_MATCHBODY = 'A_MATCHBODY';
   static const String AgentJsonKey_REGEXP = 'A_REGEXP';
   static const String AgentJsonKey_MATCHGROUP = 'A_MATCHGROUP';
 
   //Event format agent
   static const String AgentJsonKey_FindKey = 'A_FINDKEY';
   static const String AgentJsonKey_REPLACETO = 'A_REPLACETO';
-
 }

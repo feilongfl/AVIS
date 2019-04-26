@@ -18,18 +18,23 @@ class RegexpAgent extends BaseAgent {
 //  DateTime lastRun = Agent.DefaultDateTime;
 
   String get UUID => AgentUUID;
-
+  String matchBody;
   RegExp regexp;
   List<String> matchGroups = new List();
 
   List<String> replaces = Event.EventItemStrings;
 
-  RegexpAgent(this.regexp, this.matchGroups, {this.replaces}) : super();
+  RegexpAgent(
+      {@required this.matchBody,
+      @required this.regexp,
+      @required this.matchGroups})
+      : super();
 
   @override
   Map<String, dynamic> toJson() {
     var jsonObj = super.toJson();
 
+    jsonObj[AgentJsonKey.AgentJsonKey_MATCHBODY] = this.matchBody;
     jsonObj[AgentJsonKey.AgentJsonKey_REGEXP] = this.regexp.pattern;
     jsonObj[AgentJsonKey.AgentJsonKey_MATCHGROUP] = this.matchGroups;
 
@@ -43,9 +48,10 @@ class RegexpAgent extends BaseAgent {
 
 //    this.lastRun = DateTime.now();
 
-    String matchBody = eventIn.Data[Event.Body];
+//    String matchBody = eventIn.Data[Event.Body];
     List<Event> eventResult = new List();
-    Iterable<Match> matcher = regexp.allMatches(matchBody);
+    Iterable<Match> matcher =
+        regexp.allMatches(ReplaceOneVal(matchBody, eventIn.Data));
 
     for (Match m in matcher) {
       final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -128,9 +134,20 @@ class _AgentConfigPageState extends StateMVC {
               ..add(
                 ListTile(
                   title: TextFormField(
+                    decoration: InputDecoration(labelText: "Body"),
+                    onSaved: (v) => setState(() => agent.matchBody = v),
+                    initialValue: agent.matchBody,
+                    maxLines: 3,
+                  ),
+                ),
+              )
+              ..add(
+                ListTile(
+                  title: TextFormField(
                     decoration: InputDecoration(labelText: "Regexp"),
                     onSaved: (v) => setState(() => agent.regexp = RegExp(v)),
                     initialValue: agent.regexp.pattern,
+                    maxLines: 2,
                   ),
                 ),
               )

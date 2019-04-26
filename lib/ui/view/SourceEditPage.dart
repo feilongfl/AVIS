@@ -86,6 +86,9 @@ class SourceEditState extends StateMVC {
                 if (!match)
                   AppShareData.of(context).AppParse[p.type.index].add(p);
 
+                //save pref
+                AppShareData.of(context).SaveAngetsToPref();
+
                 Navigator.of(context).pop();
               }),
         ],
