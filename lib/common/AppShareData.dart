@@ -95,6 +95,24 @@ List<List<Agent>> _Genzzzanime() {
     domohformatAgent
   ];
 
+  Agent domoinfoAgent = HttpAgent(
+      url: "http://www.zzzfun.com/vod-detail-id-${Event.MediaId}.html");
+  Agent domoinforegAgent =
+      RegexpAgent(RegExp(r'name="description" content="(.*?)"'), [Event.Intro]);
+
+  agents[ParseType.info.index] = [domoinfoAgent, domoinforegAgent];
+
+  Agent domoeposideformatAgent = EventFormatAgent(
+      findKey: [Event.Title, Event.EpisodeId],
+      Replaces: ["eposide event", "1"]);
+  agents[ParseType.Episode.index] = [domoinfoAgent, domoeposideformatAgent];
+
+  Agent domochapterformatAgent = RegexpAgent(
+      RegExp(
+          r'<a class="" href="(.*?sid-(\d+)-nid-(\d+)\.html)" target="_blank"><span class="title">(.*?)<\/span>'),
+      [Event.Url, Event.EpisodeId, Event.ChapterId, Event.Title]);
+  agents[ParseType.Chapter.index] = [domoinfoAgent, domochapterformatAgent];
+
   return agents;
 }
 
