@@ -125,11 +125,14 @@ class AgentEditPageState extends StateMVC {
                             trailing: Row(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.arrow_upward),
-                                  tooltip: "Move UP",
-                                  onPressed: () =>
-                                      _moveAgentUP(context, index, agent),
+                                Visibility(
+                                  visible: index != 0,
+                                  child: IconButton(
+                                    icon: Icon(Icons.arrow_upward),
+                                    tooltip: "Move UP",
+                                    onPressed: () =>
+                                        _moveAgentUP(context, index, agent),
+                                  ),
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.edit),
