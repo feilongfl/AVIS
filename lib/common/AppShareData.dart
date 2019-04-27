@@ -189,8 +189,51 @@ class AppShareData extends InheritedWidget {
 
   //parse config
   // todo make set get method here
-  List<List<Parse>> AppParse = new List(MediaType.All.index);
-//  List<List<Parse>> get AppParse => prefs.getStringList(PREF_APP_AGENTLISTS).map((p) => ParseCreator.fromString(p)).where((p)=>p.type.index)
+//  List<List<Parse>> AppParse = new List(MediaType.All.index);
+
+  List<Parse> get AppParse {
+    List<String> _parseStrings = prefs.getStringList(PREF_APP_AGENTLISTS);
+    if (_parseStrings == null) {
+      List<Parse> parses = LoadDefaultParses();
+      print("set app parse default pref");
+      prefs.setStringList(
+          PREF_APP_AGENTLISTS, parses.map((p) => p.toString()).toList());
+      print("Load Default agents!");
+      return parses;
+    }
+
+//    print("Load agents to Prefs!");
+    return _parseStrings
+        .map((parseString) => ParseCreator.fromString(parseString))
+        .toList();
+  }
+
+  set AppParse(List<Parse> parse) {
+    prefs.setStringList(
+        PREF_APP_AGENTLISTS, parse.map((p) => p.toString()).toList());
+    print("Save agents to Prefs!");
+  }
+
+  addOrEditAppParse(Parse parse) {
+    if (parse == null) return;
+
+    List<Parse> parses = AppParse;
+
+    if (parses.where((p) => p.ParseUUID == parse.ParseUUID).length != 0)
+      parses.removeWhere((p) => p.ParseUUID == parse.ParseUUID);
+
+    parses.add(parse);
+
+    AppParse = parses;
+  }
+
+  removeParse(Parse parse) {
+    if (parse == null) return;
+
+    List<Parse> parses = AppParse;
+    parses.removeWhere((p) => p.ParseUUID == parse.ParseUUID);
+    AppParse = parses;
+  }
 
   static AppShareData of(BuildContext context) {
     return context.inheritFromWidgetOfExactType(AppShareData);
@@ -200,79 +243,106 @@ class AppShareData extends InheritedWidget {
   static SharedPreferences prefs;
   static String PREF_APP_AGENTLISTS = "pref_app_agentlists";
 
-  void ClearParses() {
-    AppParse = new List(MediaType.All.index);
-    for (int i = 0; i < MediaType.All.index; i++) {
-      this.AppParse[i] = new List();
-    }
-  }
-
-  void SaveAngetsToPref() {
-    List<String> _agentStrs = List();
-    this
-        .AppParse
-        .forEach((as) => as.forEach((a) => _agentStrs.add(a.toString())));
-    prefs.setStringList(PREF_APP_AGENTLISTS, _agentStrs);
-    print("Save agents to Prefs!");
-  }
-
-  void LoadAngetsFromPref() {
-    List<String> _agentStrs = prefs.getStringList(PREF_APP_AGENTLISTS);
-    if (_agentStrs == null) {
-      LoadDefaultAgents();
-      return;
-    }
-
-    ClearParses();
-    _agentStrs.forEach((a) {
-      Parse p = ParseCreator.fromString(a);
-      this.AppParse[p.type.index].add(p);
-    });
-    print("Load agents from Prefs!");
-  }
+//
+//  void ClearParses() {
+//    AppParse = new List(MediaType.All.index);
+//    for (int i = 0; i < MediaType.All.index; i++) {
+//      this.AppParse[i] = new List();
+//    }
+//  }
+//
+//  void SaveAngetsToPref() {
+//    List<String> _agentStrs = List();
+//    this
+//        .AppParse
+//        .forEach((as) => as.forEach((a) => _agentStrs.add(a.toString())));
+//    prefs.setStringList(PREF_APP_AGENTLISTS, _agentStrs);
+//    print("Save agents to Prefs!");
+//  }
+//
+//  void LoadAngetsFromPref() {
+//    List<String> _agentStrs = prefs.getStringList(PREF_APP_AGENTLISTS);
+//    if (_agentStrs == null) {
+//      LoadDefaultAgents();
+//      return;
+//    }
+//
+//    ClearParses();
+//    _agentStrs.forEach((a) {
+//      Parse p = ParseCreator.fromString(a);
+//      this.AppParse[p.type.index].add(p);
+//    });
+//    print("Load agents from Prefs!");
+//  }
 
   //////////////////////////prefs///////////////////////
+//
+//  void LoadDefaultAgents() {
+//    ClearParses();
+//    //exp agents
+//    List<List<Agent>> expagents = _GenExpAgents();
+//    // for debug use
+//    this.AppParse[MediaType.Image.index].add(BaseParse(
+//        agents: expagents, ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
+//      ..name = "50manhua"
+//      ..url = "https://50mh.com"
+//      ..type = MediaType.Image);
+//    this.AppParse[MediaType.Article.index].add(BaseParse(
+//        agents: _GenAIXIA(), ParseUUID: "dfa1f15e-f70a-4bef-b765-3f2c064de94a")
+//      ..name = "qidian"
+//      ..url = "https://qidian.com"
+//      ..type = MediaType.Article);
+//
+//    this.AppParse[MediaType.Video.index].add(BaseParse(
+//        agents: _Genzzzanime(),
+//        ParseUUID: "c2601286-bd9d-4e3a-b604-13636e579e07")
+//      ..name = "zzzfun"
+//      ..url = "https://www.zzzfun.com"
+//      ..type = MediaType.Video);
+//
+//    this.AppParse[MediaType.Sound.index].add(BaseParse(
+//        agents: _GenAcgyy(), ParseUUID: "fe47aabd-b32b-41e2-b7d5-933dced8ad6b")
+//      ..name = "acgjcyy"
+//      ..url = "https://www.acgjc.com"
+//      ..type = MediaType.Sound);
+//  }
 
-  void LoadDefaultAgents() {
-    ClearParses();
-    //exp agents
+  List<Parse> LoadDefaultParses() {
     List<List<Agent>> expagents = _GenExpAgents();
-    // for debug use
-    this.AppParse[MediaType.Image.index].add(BaseParse(
+    List<Parse> p;
+
+    p = new List();
+
+    p.add(BaseParse(
         agents: expagents, ParseUUID: "1c4c7f1e-35ff-410a-a7f1-ec1ce15c174d")
       ..name = "50manhua"
       ..url = "https://50mh.com"
       ..type = MediaType.Image);
-    this.AppParse[MediaType.Article.index].add(BaseParse(
+    p.add(BaseParse(
         agents: _GenAIXIA(), ParseUUID: "dfa1f15e-f70a-4bef-b765-3f2c064de94a")
       ..name = "qidian"
       ..url = "https://qidian.com"
       ..type = MediaType.Article);
 
-    this.AppParse[MediaType.Video.index].add(BaseParse(
+    p.add(BaseParse(
         agents: _Genzzzanime(),
         ParseUUID: "c2601286-bd9d-4e3a-b604-13636e579e07")
       ..name = "zzzfun"
       ..url = "https://www.zzzfun.com"
       ..type = MediaType.Video);
 
-    this.AppParse[MediaType.Sound.index].add(BaseParse(
+    p.add(BaseParse(
         agents: _GenAcgyy(), ParseUUID: "fe47aabd-b32b-41e2-b7d5-933dced8ad6b")
       ..name = "acgjcyy"
       ..url = "https://www.acgjc.com"
       ..type = MediaType.Sound);
+
+    return p;
   }
 
   AppShareData({
     @required Widget child,
-  }) : super(child: child) {
-    //read from storage here
-    for (int i = 0; i < MediaType.All.index; i++) {
-      this.AppParse[i] = new List();
-    }
-
-    LoadAngetsFromPref();
-  }
+  }) : super(child: child);
 
   @override
   bool updateShouldNotify(AppShareData oldWidget) =>

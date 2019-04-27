@@ -16,7 +16,8 @@ class ParseRunner {
   static Future<List<Media>> Search(
       BuildContext context, String keyword, MediaType type) async {
     List<Media> medias = new List();
-    for (Parse parse in AppShareData.of(context).AppParse[type.index]) {
+    for (Parse parse
+        in AppShareData.of(context).AppParse.where((p) => p.type == type)) {
       medias.addAll(await _SearchOne(parse, keyword).then((vals) {
         vals.forEach((m) {
           m.ParseUUID = parse.ParseUUID;
@@ -28,11 +29,8 @@ class ParseRunner {
   }
 
   static Parse findParse(BuildContext context, Media media) {
-    for (List<Parse> appparse in AppShareData.of(context).AppParse) {
-      if (appparse != null)
-        for (Parse parse in appparse) {
-          if (parse.ParseUUID == media.ParseUUID) return parse;
-        }
+    for (Parse parse in AppShareData.of(context).AppParse) {
+      if (parse.ParseUUID == media.ParseUUID) return parse;
     }
     return null;
   }
@@ -93,12 +91,14 @@ class ParseRunner {
   static Future<List<Media>> Homepage(
       BuildContext context, HomePages page_type) async {
     if (AppShareData.of(context)
-            .AppParse[HomePagesToMediaTypes(page_type).index]
+            .AppParse
+            .where((p) => p.type == HomePagesToMediaTypes(page_type))
             .length ==
         0) return List();
     List<Media> medias = new List();
     for (Parse parse in AppShareData.of(context)
-        .AppParse[HomePagesToMediaTypes(page_type).index]) {
+        .AppParse
+        .where((p) => p.type == HomePagesToMediaTypes(page_type))) {
       medias.addAll(await parse.doWork(ParseType.homepage, null).then((ms) {
         ms.forEach((val) {
           val.ParseUUID = parse.ParseUUID;

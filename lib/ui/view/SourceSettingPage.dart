@@ -12,7 +12,9 @@ class SourceSettingPage extends StatefulWidget {
 }
 
 class SourceSettingState extends StateMVC {
-  Widget _tile(BuildContext context, Parse parse, List<Parse> parses) {
+  void _editParse(Parse parse) {}
+
+  Widget _tile(BuildContext context, Parse parse) {
     return ListTile(
       onTap: () => AppRoutes.LaunchURL(parse.url ?? ""),
       title: Text(parse.name ?? "name"),
@@ -25,7 +27,8 @@ class SourceSettingState extends StateMVC {
             icon: Icon(Icons.edit),
             tooltip: "Edit",
             onPressed: () => Navigator.of(context)
-                .pushNamed(AppRoutes.SourceEdit, arguments: parse),
+                .pushNamed(AppRoutes.SourceEdit, arguments: parse)
+                .then((p) => AppShareData.of(context).addOrEditAppParse(p)),
           ),
           IconButton(
             icon: Icon(Icons.delete),
@@ -50,7 +53,8 @@ class SourceSettingState extends StateMVC {
                       )).then((returnValue) {
                 switch (returnValue) {
                   case "OK":
-                    setState(() => parses.remove(parse));
+                    setState(
+                        () => AppShareData.of(context).removeParse(parse));
                     break;
 
                   default:
@@ -88,7 +92,7 @@ class SourceSettingState extends StateMVC {
   }
 
   List<Widget> _group(
-      BuildContext context, String groupName, List<Parse> parses) {
+      BuildContext context, String groupName, MediaType mediaType) {
     List<Widget> widgets = new List();
 
     widgets.add(Divider());
@@ -98,8 +102,12 @@ class SourceSettingState extends StateMVC {
       child: Text(groupName),
     ));
 
+    List<Parse> parses = AppShareData.of(context)
+        .AppParse
+        .where((p) => mediaType == p.type)
+        .toList();
     if ((parses ?? List()).length > 0)
-      widgets.addAll(parses.map((parse) => _tile(context, parse, parses)));
+      widgets.addAll(parses.map((parse) => _tile(context, parse)));
     else
       widgets.add(ListTile(title: Text("NULL")));
 
@@ -115,7 +123,8 @@ class SourceSettingState extends StateMVC {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context)
-            .pushNamed(AppRoutes.SourceEdit, arguments: null),
+            .pushNamed(AppRoutes.SourceEdit, arguments: null)
+            .then((p) => AppShareData.of(context).addOrEditAppParse(p)),
         child: Icon(Icons.add),
       ),
       body: ListView(
@@ -134,14 +143,10 @@ class SourceSettingState extends StateMVC {
               ],
             ),
           ))
-          ..addAll(_group(context, "Article",
-              AppShareData.of(context).AppParse[MediaType.Article.index]))
-          ..addAll(_group(context, "Video",
-              AppShareData.of(context).AppParse[MediaType.Video.index]))
-          ..addAll(_group(context, "Image",
-              AppShareData.of(context).AppParse[MediaType.Image.index]))
-          ..addAll(_group(context, "Sound",
-              AppShareData.of(context).AppParse[MediaType.Sound.index])),
+          ..addAll(_group(context, "Article", MediaType.Article))
+          ..addAll(_group(context, "Video", MediaType.Video))
+          ..addAll(_group(context, "Image", MediaType.Image))
+          ..addAll(_group(context, "Sound", MediaType.Sound)),
       ),
     );
   }

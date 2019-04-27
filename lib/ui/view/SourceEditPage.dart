@@ -47,49 +47,10 @@ class SourceEditState extends StateMVC {
 
                 _formKey.currentState.save();
 
-                Parse p = SourceEditPageModel.of(context);
-                bool match = false;
+                Parse parse = SourceEditPageModel.of(context);
+                AppShareData.of(context).addOrEditAppParse(parse);
 
-                //replace old
-                for (int i = 0;
-                    i < AppShareData.of(context).AppParse[p.type.index].length;
-                    i++) {
-                  if (AppShareData.of(context)
-                          .AppParse[p.type.index][i]
-                          .ParseUUID ==
-                      p.ParseUUID) {
-                    match = true;
-                    setState(() =>
-                        AppShareData.of(context).AppParse[p.type.index][i] = p);
-                    break;
-                  }
-                }
-
-                //move agent
-                if (!match)
-                  for (int j = 0; j < MediaType.All.index; j++)
-                    if (j != p.type.index)
-                      for (int i = 0;
-                          i < AppShareData.of(context).AppParse[j].length;
-                          i++) {
-                        if (AppShareData.of(context).AppParse[j][i].ParseUUID ==
-                            p.ParseUUID) {
-//                          match = true;
-                          setState(() => AppShareData.of(context)
-                              .AppParse[j]
-                              .remove(AppShareData.of(context).AppParse[j][i]));
-                          break;
-                        }
-                      }
-
-                //add new
-                if (!match)
-                  AppShareData.of(context).AppParse[p.type.index].add(p);
-
-                //save pref
-                AppShareData.of(context).SaveAngetsToPref();
-
-                Navigator.of(context).pop();
+                Navigator.of(context).pop(parse);
               }),
         ],
       ),
