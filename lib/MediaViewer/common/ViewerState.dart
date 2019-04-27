@@ -23,11 +23,15 @@ class ViewerState extends StateMVC {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Text(media.type.toString()),
-          Text(media.info.title),
+          Text(
+            media.info.title,
+            style: Theme.of(context).textTheme.display1,
+            textAlign: TextAlign.center,
+          ),
           Divider(),
           Text(media.info.ID),
           Text(eposide ?? "no eposide"),
-          Text(chapter?? "no chapter"),
+          Text(chapter ?? "no chapter"),
         ],
       ),
     );

@@ -15,7 +15,7 @@ class SettingDevideText extends StatelessWidget {
       child: Center(
           child: Text(
         title,
-        style: TextStyle(color: this.color?? Theme.of(context).primaryColor),
+        style: TextStyle(color: this.color?? Theme.of(context).textSelectionHandleColor),
       )),
     );
   }

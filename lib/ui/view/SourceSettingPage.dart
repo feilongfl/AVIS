@@ -5,6 +5,7 @@ import '../../common/AppEnums.dart';
 import '../../common/AppRoutes.dart';
 import '../../common/AppShareData.dart';
 import '../../parse/common/Parse.dart';
+import '../widget/SettingDivideText.dart';
 
 class SourceSettingPage extends StatefulWidget {
   @override
@@ -95,12 +96,14 @@ class SourceSettingState extends StateMVC {
       BuildContext context, String groupName, MediaType mediaType) {
     List<Widget> widgets = new List();
 
-    widgets.add(Divider());
+//    widgets.add(Divider());
+//
+//    widgets.add(Padding(
+//      padding: EdgeInsets.only(top: 10, left: 15),
+//      child: Text(groupName),
+//    ));
 
-    widgets.add(Padding(
-      padding: EdgeInsets.only(top: 10, left: 15),
-      child: Text(groupName),
-    ));
+    widgets.add(SettingDevideText(groupName));
 
     List<Parse> parses = AppShareData.of(context)
         .AppParse
