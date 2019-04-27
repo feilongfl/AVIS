@@ -172,7 +172,7 @@ class AppShareData extends InheritedWidget {
 
   ///////////////////////////////////////////////////
   // theme data
-  static List<MaterialColor> AppThemeColors = [
+  static const List<MaterialColor> AppThemeColors = [
     Colors.blue,
     Colors.pink,
     Colors.teal,
