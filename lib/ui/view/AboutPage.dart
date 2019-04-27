@@ -3,6 +3,7 @@ import 'package:package_info/package_info.dart';
 
 import '../../common/AppRoutes.dart';
 import '../../common/AppShareData.dart';
+import '../../generated/i18n.dart';
 
 class AboutPage extends StatelessWidget {
   @override
@@ -10,7 +11,7 @@ class AboutPage extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("About"),
+        title: Text(S.of(context).About),
       ),
       body: FutureBuilder(
         future: PackageInfo.fromPlatform(),
@@ -40,21 +41,21 @@ class AboutPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                onTap: () => AppRoutes.LaunchURL(AppShareData.FEILONGBLOG),
-                title: Text(AppShareData.FEILONG),
-                subtitle: Text(AppShareData.FEILONGBLOG),
+                onTap: () => AppRoutes.LaunchURL(S.of(context).FEILONGBLOG),
+                title: Text(S.of(context).FEILONG),
+                subtitle: Text(S.of(context).FEILONGBLOG),
                 leading: Icon(Icons.portrait),
               ),
               ListTile(
-                onTap: () => AppRoutes.LaunchURL(AppShareData.GITHUB),
-                title: Text("Github"),
-                subtitle: Text(AppShareData.GITHUB),
+                onTap: () => AppRoutes.LaunchURL(S.of(context).GITHUB),
+                title: Text(S.of(context).GitHub),
+                subtitle: Text(S.of(context).GITHUB),
                 leading: Icon(Icons.cake),
               ),
               ListTile(
-                onTap: () => AppRoutes.LaunchURL(AppShareData.GITHUBRELEASE),
-                title: Text("Release"),
-                subtitle: Text(AppShareData.GITHUBRELEASE),
+                onTap: () => AppRoutes.LaunchURL(S.of(context).GITHUBRELEASE),
+                title: Text(S.of(context).Release),
+                subtitle: Text(S.of(context).GITHUBRELEASE),
                 leading: Icon(Icons.file_download),
               ),
             ],

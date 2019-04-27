@@ -5,7 +5,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../ParseRunner/ParseRunner.dart';
 import '../../common/AppEnums.dart';
 import '../../common/AppRoutes.dart';
-import '../../common/AppShareData.dart';
+import '../../generated/i18n.dart';
 import '../../media/Media.dart';
 
 class SearchResultPage extends StatefulWidget {
@@ -74,8 +74,8 @@ class _SearchResultPageState extends StateMVC {
                     style: TextStyle(fontSize: 30),
                   ),
                   Text(media.info.isFinished
-                      ? AppShareData.finishTip_isFin
-                      : AppShareData.finishTip_notFin),
+                      ? S.of(context).finishTip_isFin
+                      : S.of(context).finishTip_notFin),
                   Padding(
                     padding: EdgeInsets.only(top: 30),
                   ),
@@ -96,7 +96,7 @@ class _SearchResultPageState extends StateMVC {
       appBar: AppBar(
 //        title: Text("Search Result"),
         title: Text((searchResultPageController.keyword ??
-            AppShareData.defaultKeywords)),
+            S.of(context).defaultKeywords)),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),

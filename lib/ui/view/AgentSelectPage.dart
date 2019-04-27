@@ -4,6 +4,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../Agent/common/Agent.dart';
 import '../../Agent/common/AgentCreater.dart';
 import '../../common/AppRoutes.dart';
+import '../../generated/i18n.dart';
 import '../widget/SettingDivideText.dart';
 
 class AgentSelectPage extends StatefulWidget {
@@ -33,17 +34,17 @@ class AgentSelectPageState extends StateMVC {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Agent Config"),
+        title: Text(S.of(context).Agent_Config),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.refresh),
-            tooltip: "Dry Run",
+            tooltip: S.of(context).Dry_Run,
             onPressed: () => Navigator.of(context)
                 .pushNamed(AppRoutes.AgentDryRun, arguments: agent),
           ),
           IconButton(
             icon: Icon(Icons.save),
-            tooltip: "Save",
+            tooltip: S.of(context).Save,
             onPressed: () => _saveAndPop(context, _formKey),
           )
         ],
@@ -56,14 +57,14 @@ class AgentSelectPageState extends StateMVC {
                   padding: EdgeInsets.only(top: 30, bottom: 20),
                   color: Theme.of(context).primaryColorLight,
                   child: Text(
-                    "Agent Select",
+                    S.of(context).Agent_Select,
                     textAlign: TextAlign.center,
                   ),
                 ))
-                ..add(SettingDevideText("Normal Config"))
+                ..add(SettingDevideText(S.of(context).Normal_Config))
                 ..add(ListTile(
                   title: DropdownButtonFormField(
-                    decoration: InputDecoration(labelText: "Agent Type"),
+                    decoration: InputDecoration(labelText: S.of(context).Agent_Type),
                     items: Agent.AgentItems.map((t) => DropdownMenuItem(
                         value: t,
                         child: Text(
@@ -74,7 +75,7 @@ class AgentSelectPageState extends StateMVC {
                         setState(() => agent = AgentCreater.newAgent(v)),
                   ),
                 ))
-                ..add(SettingDevideText("Agent Config"))
+                ..add(SettingDevideText(S.of(context).Agent_Config))
                 ..add(ListTile(
                   onTap: () => Navigator.of(context)
                           .pushNamed<Agent>(AppRoutes.AgentConfig,
@@ -86,7 +87,7 @@ class AgentSelectPageState extends StateMVC {
                       }),
                   leading: Icon(Icons.settings),
                   title: Text(
-                      "${Agent.AgentItemNames[agent.agentType.index]} Config"),
+                      "${Agent.AgentItemNames[agent.agentType.index]} ${S.of(context).Config}"),
                   subtitle: Text(this.agent.UUID),
                 ))
 //                ..addAll(agentConfigBody[Agent.AgentConfigBody_Widgets])

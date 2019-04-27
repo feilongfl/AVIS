@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
+import '../../generated/i18n.dart';
+
 class BackupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("Backup"),
+        title: Text(S.of(context).Backup),
       ),
       body: FutureBuilder(
         future: PackageInfo.fromPlatform(),
@@ -16,40 +17,40 @@ class BackupPage extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 onTap: () {},
-                title: Text("Backup Source"),
+                title: Text(S.of(context).Backup_Source),
 //                subtitle: Text(""),
                 leading: Icon(Icons.backup),
               ),
               ListTile(
                 onTap: () {},
-                title: Text("Restore Source"),
+                title: Text(S.of(context).Restory_Source),
 //                subtitle: Text(""),
                 leading: Icon(Icons.restore),
               ),
               Divider(),
               ListTile(
                 onTap: () {},
-                title: Text("Backup Config"),
+                title: Text(S.of(context).Backup_config),
 //                subtitle: Text(""),
                 leading: Icon(Icons.backup),
               ),
               ListTile(
                 onTap: () {},
-                title: Text("Restore Config"),
+                title: Text(S.of(context).Restory_config),
 //                subtitle: Text(""),
                 leading: Icon(Icons.restore),
               ),
               Divider(),
               ListTile(
                 onTap: () {},
-                title: Text("Backup Data"),
-                subtitle: Text("Backup history and favorite data."),
+                title: Text(S.of(context).Backup_Data),
+                subtitle: Text(S.of(context).Backup_Data_Summary),
                 leading: Icon(Icons.backup),
               ),
               ListTile(
                 onTap: () {},
-                title: Text("Restore Data"),
-                subtitle: Text("Restory history and favorite data."),
+                title: Text(S.of(context).Restory_Data),
+                subtitle: Text(S.of(context).Restory_Data_Summary),
                 leading: Icon(Icons.restore),
               ),
             ],

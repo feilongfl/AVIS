@@ -52,7 +52,7 @@ class _MyAppState extends StateMVC {
             ),
         themedWidgetBuilder: (context, theme) {
           return MaterialApp(
-            title: AppShareData.AppName,
+            title: S.of(context).AppName,
             theme: theme,
             routes: controller._routes,
             onGenerateRoute: controller._getRoute,

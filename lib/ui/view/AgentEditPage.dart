@@ -5,6 +5,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../Agent/common/Agent.dart';
 import '../../common/AppEnums.dart';
 import '../../common/AppRoutes.dart';
+import '../../generated/i18n.dart';
 import '../model/SourceEditPageModel.dart';
 
 class AgentEditPage extends StatefulWidget {
@@ -147,7 +148,7 @@ class AgentEditPageState extends StateMVC {
                             ),
                           )))
                       .values
-                  : [ListTile(title: Text("No Agents"))]),
+                  : [ListTile(title: Text(S.of(context).No_Agent))]),
       ),
     );
   }

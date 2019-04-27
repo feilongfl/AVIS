@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../common/AppRoutes.dart';
+import '../../generated/i18n.dart';
 
 class DonatePage extends StatelessWidget {
   void _itemClick(
@@ -12,7 +13,7 @@ class DonatePage extends StatelessWidget {
       Clipboard.setData(new ClipboardData(text: item.account));
 
       key.currentState.showSnackBar(new SnackBar(
-        content: new Text("Account copied to Clipboard"),
+        content: new Text(S.of(context).tip_copied_account),
       ));
     }
   }
@@ -22,7 +23,7 @@ class DonatePage extends StatelessWidget {
       padding: EdgeInsets.only(top: 30, bottom: 20),
       color: Theme.of(context).primaryColorLight,
       child: Text(
-        "Donate",
+        S.of(context).Donate,
         textAlign: TextAlign.center,
       ),
     );
@@ -34,12 +35,12 @@ class DonatePage extends StatelessWidget {
     return Scaffold(
       key: key,
       appBar: AppBar(
-        title: Text("Donate"),
+        title: Text(S.of(context).Donate),
       ),
       body: ListView(
         children: <Widget>[]
               ..add(_header(context))
-              ..addAll(_DonateData.WebSite.map((v) => ListTile(
+              ..addAll(_DonateData().WebSite(context).map((v) => ListTile(
                     onTap: () => _itemClick(context, v, key),
                     title: Text(v.name),
                     subtitle: Text(v.account),
@@ -60,10 +61,12 @@ class _DonateItem {
 }
 
 class _DonateData {
-  static List<_DonateItem> WebSite = [
-    _DonateItem("AliPay", "614183595@qq.com", null),
-    _DonateItem("WeChat", "feilong_wx", null),
-    _DonateItem("Paypal", "https://www.paypal.me/feilongpay",
-        "https://www.paypal.me/feilongpay"),
-  ];
+  List<_DonateItem> WebSite(BuildContext context) {
+    return [
+      _DonateItem(S.of(context).AliPay, S.of(context).AliPay_feilong, null),
+      _DonateItem(S.of(context).WeChat, S.of(context).WeChat_feilong, null),
+      _DonateItem(S.of(context).Paypal, S.of(context).Paypal_feilong,
+          S.of(context).Paypal_feilong),
+    ];
+  }
 }

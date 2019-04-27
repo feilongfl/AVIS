@@ -4,6 +4,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../common/AppEnums.dart';
 import '../../common/AppRoutes.dart';
 import '../../common/AppShareData.dart';
+import '../../generated/i18n.dart';
 import '../../parse/common/Parse.dart';
 import '../model/SourceEditPageModel.dart';
 import '../widget/SettingDivideText.dart';
@@ -28,7 +29,8 @@ class SourceEditState extends StateMVC {
           onTap: () => Navigator.of(context)
               .pushNamed(AppRoutes.AgentsEdit, arguments: p),
           leading: Icon(Parse.ParseTypeIcons[p.index]),
-          title: Text(Parse.ParseTypeStrings[p.index] + " Agents"),
+          title: Text(
+              Parse.ParseTypeStrings[p.index] + " " + S.of(context).Agents),
           trailing: Icon(Icons.keyboard_arrow_right),
         )).toList();
   }
@@ -37,7 +39,7 @@ class SourceEditState extends StateMVC {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Source Edit"),
+        title: Text(S.of(context).Source_Edit),
         actions: <Widget>[
           IconButton(icon: Icon(Icons.help), onPressed: () {}),
           IconButton(
@@ -64,13 +66,14 @@ class SourceEditState extends StateMVC {
         key: _formKey,
         child: ListView(
             children: <Widget>[]
-              ..add(SettingDevideText("Base Info"))
+              ..add(SettingDevideText(S.of(context).Base_Info))
               ..add(Padding(
                 padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 child: TextFormField(
                   initialValue: SourceEditPageModel.of(context).name,
                   decoration: InputDecoration(
-                      labelText: "Source Name", hintText: "Input source name."),
+                      labelText: S.of(context).Source_Name,
+                      hintText: S.of(context).Source_Name_hint),
                   onSaved: (v) => SourceEditPageModel.of(context).name = v,
                 ),
               ))
@@ -79,8 +82,8 @@ class SourceEditState extends StateMVC {
                 child: TextFormField(
                   initialValue: SourceEditPageModel.of(context).url,
                   decoration: InputDecoration(
-                      labelText: "Source Url",
-                      hintText: "Input source web url."),
+                      labelText: S.of(context).Source_Url,
+                      hintText: S.of(context).Source_Url_hint),
                   onSaved: (v) => SourceEditPageModel.of(context).url = v,
                 ),
               ))
@@ -89,7 +92,8 @@ class SourceEditState extends StateMVC {
                 child: TextFormField(
                   initialValue: SourceEditPageModel.of(context).ParseUUID,
                   decoration: InputDecoration(
-                      labelText: "Source UUID", hintText: "Source UUID."),
+                      labelText: S.of(context).Source_UUID,
+                      hintText: S.of(context).Source_UUID_hint),
                   onSaved: (v) => SourceEditPageModel.of(context).ParseUUID = v,
                 ),
               ))
@@ -98,12 +102,14 @@ class SourceEditState extends StateMVC {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   child: DropdownButtonFormField(
-                    decoration: InputDecoration(labelText: "Source Type"),
+                    decoration:
+                        InputDecoration(labelText: S.of(context).Source_Type),
                     items: SourceEditController.MediaTypeLists.map(
                         (t) => DropdownMenuItem(
                             value: t,
                             child: Text(
-                              SourceEditController.MediaTypeStrings[t.index],
+                              SourceEditController.MediaTypeStrings(
+                                  context)[t.index],
                             ))).toList(),
                     value: SourceEditPageModel.of(context).type,
                     onChanged: (v) => setState(
@@ -111,7 +117,7 @@ class SourceEditState extends StateMVC {
                   ),
                 ),
               ))
-              ..add(SettingDevideText("Agent Settings"))
+              ..add(SettingDevideText(S.of(context).Agent_Settings))
               ..addAll(_agentSettingButton(context))
             //add,
             ),
@@ -138,12 +144,14 @@ class SourceEditController extends ControllerMVC {
     MediaType.Sound,
   ];
 
-  static const List<String> MediaTypeStrings = [
-    "Article",
-    "Video",
-    "Image",
-    "Sound",
-  ];
+  static List<String> MediaTypeStrings(BuildContext context) {
+    return [
+      S.of(context).Article,
+      S.of(context).Video,
+      S.of(context).Image,
+      S.of(context).Sound,
+    ];
+  }
 
   SourceEditController() {
 //    this.parse = this.parse ?? BaseParse(List(ParseType.All.index));

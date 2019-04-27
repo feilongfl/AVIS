@@ -4,6 +4,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../common/AppEnums.dart';
 import '../../common/AppRoutes.dart';
 import '../../common/AppShareData.dart';
+import '../../generated/i18n.dart';
 import '../../parse/common/Parse.dart';
 import '../widget/SettingDivideText.dart';
 
@@ -54,8 +55,7 @@ class SourceSettingState extends StateMVC {
                       )).then((returnValue) {
                 switch (returnValue) {
                   case "OK":
-                    setState(
-                        () => AppShareData.of(context).removeParse(parse));
+                    setState(() => AppShareData.of(context).removeParse(parse));
                     break;
 
                   default:
@@ -96,13 +96,6 @@ class SourceSettingState extends StateMVC {
       BuildContext context, String groupName, MediaType mediaType) {
     List<Widget> widgets = new List();
 
-//    widgets.add(Divider());
-//
-//    widgets.add(Padding(
-//      padding: EdgeInsets.only(top: 10, left: 15),
-//      child: Text(groupName),
-//    ));
-
     widgets.add(SettingDevideText(groupName));
 
     List<Parse> parses = AppShareData.of(context)
@@ -112,17 +105,16 @@ class SourceSettingState extends StateMVC {
     if ((parses ?? List()).length > 0)
       widgets.addAll(parses.map((parse) => _tile(context, parse)));
     else
-      widgets.add(ListTile(title: Text("NULL")));
+      widgets.add(ListTile(title: Text(S.of(context).NULL)));
 
     return widgets;
   }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
-        title: Text("Sources"),
+        title: Text(S.of(context).Sources),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context)
@@ -140,16 +132,16 @@ class SourceSettingState extends StateMVC {
             child: Column(
               children: <Widget>[
                 Text(
-                  "Sources",
+                  S.of(context).Sources,
                   style: TextStyle(fontSize: 32),
                 ),
               ],
             ),
           ))
-          ..addAll(_group(context, "Article", MediaType.Article))
-          ..addAll(_group(context, "Video", MediaType.Video))
-          ..addAll(_group(context, "Image", MediaType.Image))
-          ..addAll(_group(context, "Sound", MediaType.Sound)),
+          ..addAll(_group(context, S.of(context).Article, MediaType.Article))
+          ..addAll(_group(context, S.of(context).Video, MediaType.Video))
+          ..addAll(_group(context, S.of(context).Image, MediaType.Image))
+          ..addAll(_group(context, S.of(context).Sound, MediaType.Sound)),
       ),
     );
   }

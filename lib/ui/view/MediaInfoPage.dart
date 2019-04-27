@@ -6,6 +6,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../ParseRunner/ParseRunner.dart';
 import '../../common/AppRoutes.dart';
+import '../../generated/i18n.dart';
 import '../../media/Media.dart';
 import '../../media/MediaEpisode.dart';
 import '../widget/ActionButton.dart';
@@ -39,7 +40,7 @@ class MediaInfoPageState extends StateMVC {
           final chapter = episode.chapter[index];
           return OutlineButton(
             child: Text(
-              chapter.info.title ?? "Loading Failed",
+              chapter.info.title ?? S.of(context).Loading_Failed,
               softWrap: false,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -66,13 +67,13 @@ class MediaInfoPageState extends StateMVC {
 
     if (media.episode == null)
       return []..add(SliverToBoxAdapter(
-          child: Text("Loading failed!"),
+          child: Text(S.of(context).Loading_Failed),
         ));
 
     media.episode.forEach((e) {
       widgets.add(SliverToBoxAdapter(
           child: Text(
-        e.info.title ?? "Loading Failed",
+        e.info.title ?? S.of(context).Loading_Failed,
         textAlign: TextAlign.center,
       )));
       widgets.add(
@@ -128,14 +129,14 @@ class MediaInfoPageState extends StateMVC {
           textAlign: TextAlign.center,
         ),
         Text(
-          media.info.author ?? "loading author ...",
+          media.info.author ?? S.of(context).Loading,
           textAlign: TextAlign.center,
         ),
         Divider(),
         Padding(
           padding: EdgeInsets.only(left: 10, right: 10),
           child: Text(
-            media.info.intro ?? "loading intro ...",
+            media.info.intro ?? S.of(context).Loading,
             textAlign: TextAlign.left,
           ),
         ),
@@ -280,33 +281,38 @@ class MediaInfoPageState extends StateMVC {
     super.initState();
   }
 
-  List<ActionButton> appBarActions = [
-    ActionButton(
-        name: "Search title",
-        icon: Icons.search,
-        action: (BuildContext context, Media media) {
-          Navigator.of(context).pushNamed(AppRoutes.SearchResult, arguments: {
-            AppRoutes.SearchResultArg_type: media.type,
-            AppRoutes.SearchResultArg_keyword: media.info.title
-          });
-        }),
-    ActionButton(name: "Share", icon: Icons.share, action: () {}),
-    ActionButton(
-        name: "Download", icon: Icons.file_download, hide: true, action: () {}),
-    ActionButton(
-        name: "Search Author",
-        icon: Icons.people,
-        hide: true,
-        action: (BuildContext context, Media media) {
-          Navigator.of(context).pushNamed(AppRoutes.SearchResult, arguments: {
-            AppRoutes.SearchResultArg_type: media.type,
-            AppRoutes.SearchResultArg_keyword: media.info.author
-          });
-        }),
-  ];
+  List<ActionButton> appBarActions(BuildContext context) {
+    return [
+      ActionButton(
+          name: S.of(context).Search_title,
+          icon: Icons.search,
+          action: (BuildContext context, Media media) {
+            Navigator.of(context).pushNamed(AppRoutes.SearchResult, arguments: {
+              AppRoutes.SearchResultArg_type: media.type,
+              AppRoutes.SearchResultArg_keyword: media.info.title
+            });
+          }),
+      ActionButton(name: S.of(context).Share, icon: Icons.share, action: () {}),
+      ActionButton(
+          name: S.of(context).Download,
+          icon: Icons.file_download,
+          hide: true,
+          action: () {}),
+      ActionButton(
+          name: S.of(context).Search_Author,
+          icon: Icons.people,
+          hide: true,
+          action: (BuildContext context, Media media) {
+            Navigator.of(context).pushNamed(AppRoutes.SearchResult, arguments: {
+              AppRoutes.SearchResultArg_type: media.type,
+              AppRoutes.SearchResultArg_keyword: media.info.author
+            });
+          }),
+    ];
+  }
 
   List<Widget> _genActions(BuildContext context) {
-    List<Widget> w = <Widget>[]..addAll(appBarActions
+    List<Widget> w = <Widget>[]..addAll(appBarActions(context)
         .where((action) => (!action.hide ||
             MediaQuery.of(context).orientation == Orientation.landscape))
         .map((action) => IconButton(
@@ -318,7 +324,7 @@ class MediaInfoPageState extends StateMVC {
     if (MediaQuery.of(context).orientation == Orientation.portrait)
       w.add(
         PopupMenuButton(
-            itemBuilder: (context) => appBarActions
+            itemBuilder: (context) => appBarActions(context)
                 .where((action) => action.hide)
                 .map((action) => PopupMenuItem(
                         child: ListTile(

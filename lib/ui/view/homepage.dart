@@ -18,28 +18,46 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends StateMVC with TickerProviderStateMixin {
-  final String title = "AVIS";
   HomePageController homePageController = new HomePageController();
 
-  final List<RouteButton> drawerRouteLists = [
-    RouteButton(name: "History", icon: Icons.history, route: AppRoutes.Histroy),
-    RouteButton(
-        name: "Favorite", icon: Icons.favorite, route: AppRoutes.Favorite),
-    RouteButton(
-        name: "Download", icon: Icons.file_download, route: AppRoutes.Download),
-    RouteButton(devide: true),
-    RouteButton(name: "Backup", icon: Icons.backup, route: AppRoutes.Backup),
-    RouteButton(
-        name: "Source Settings",
-        icon: Icons.settings_input_component,
-        route: AppRoutes.SourceSetting),
-    RouteButton(
-        name: "Settings", icon: Icons.settings, route: AppRoutes.Setting),
-    RouteButton(devide: true),
-    RouteButton(
-        name: "Donate", icon: Icons.attach_money, route: AppRoutes.Donate),
-    RouteButton(name: "About", icon: Icons.account_box, route: AppRoutes.About),
-  ];
+  List<RouteButton> drawerRouteLists(BuildContext context) {
+    return [
+      RouteButton(
+          name: S.of(context).History,
+          icon: Icons.history,
+          route: AppRoutes.Histroy),
+      RouteButton(
+          name: S.of(context).Favorite,
+          icon: Icons.favorite,
+          route: AppRoutes.Favorite),
+      RouteButton(
+          name: S.of(context).Download,
+          icon: Icons.file_download,
+          route: AppRoutes.Download),
+      RouteButton(devide: true),
+      RouteButton(
+          name: S.of(context).Backup,
+          icon: Icons.backup,
+          route: AppRoutes.Backup),
+      RouteButton(
+          name: S.of(context).Source_Settings,
+          icon: Icons.settings_input_component,
+          route: AppRoutes.SourceSetting),
+      RouteButton(
+          name: S.of(context).Settings,
+          icon: Icons.settings,
+          route: AppRoutes.Setting),
+      RouteButton(devide: true),
+      RouteButton(
+          name: S.of(context).Donate,
+          icon: Icons.attach_money,
+          route: AppRoutes.Donate),
+      RouteButton(
+          name: S.of(context).About,
+          icon: Icons.account_box,
+          route: AppRoutes.About),
+    ];
+  }
 
   @override
   void initState() {
@@ -49,6 +67,7 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
   }
 
   List<Widget> DrawerLists(BuildContext context) {
+    //todo replace here
     final String username = "feilong";
     final String email = "feilongphone@gmail.com";
     final gravatar = Gravatar(email);
@@ -76,7 +95,7 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
             ),
           ),
           accountEmail: Text(email)),
-    ]..addAll(drawerRouteLists
+    ]..addAll(drawerRouteLists(context)
         .map((v) => (v.devide ?? false)
             ? Divider()
             : ListTile(

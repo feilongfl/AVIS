@@ -3,6 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
 import '../../common/AppRoutes.dart';
+import '../../generated/i18n.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
@@ -21,7 +22,7 @@ class _SearchPageState extends StateMVC {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Search"),
+        title: Text(S.of(context).Search),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.settings),
@@ -46,7 +47,12 @@ class _SearchPageState extends StateMVC {
                     this.type = v;
                   });
                 }),
-            Text(["Article", "Video", "Image", "Sound"][type.index]),
+            Text([
+              S.of(context).Article,
+              S.of(context).Video,
+              S.of(context).Image,
+              S.of(context).Sound
+            ][type.index]),
           ],
         ));
   }
