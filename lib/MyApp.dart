@@ -52,7 +52,7 @@ class _MyAppState extends StateMVC {
             ),
         themedWidgetBuilder: (context, theme) {
           return MaterialApp(
-            title: S.of(context).AppName,
+            title: "AVIS",
             theme: theme,
             routes: controller._routes,
             onGenerateRoute: controller._getRoute,
