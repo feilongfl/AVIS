@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../../ParseRunner/ParseRunner.dart';
 import '../../media/Media.dart';
 
 class ViewerState extends StateMVC {
@@ -11,6 +12,11 @@ class ViewerState extends StateMVC {
   ViewerState({this.media, this.eposide, this.chapter})
       : assert(media != null),
         super();
+
+  Future<Media> _getMedias(BuildContext context) async {
+    print("get source");
+    return ParseRunner.Source(context, media);
+  }
 
   @override
   Widget build(BuildContext context) {

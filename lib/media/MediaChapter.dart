@@ -1,12 +1,28 @@
+import 'dart:convert';
+
 import '../common/AppEnums.dart';
 import 'MediaInfo.dart';
+import 'MediaSource.dart';
+import 'MeidaConst.dart';
 
 class MediaChapter {
-  int index = 0;
-  String chapterId = "";
-  MediaInfo info = MediaInfo();
-
+  MediaInfo info;
   MediaType type = MediaType.Image;
 
-  MediaChapter({this.info, this.index, this.type, this.chapterId});
+  List<MediaSource> sources = List();
+
+  MediaChapter({this.info, this.sources, this.type});
+
+  Map<String, dynamic> toJson() {
+    return {
+      MediaConst.Info: info.toString(),
+      MediaConst.Type: type.index,
+      MediaConst.Sources: sources.map((s) => s.toString()).toList(),
+    };
+  }
+
+  @override
+  String toString() {
+    return json.encode(this.toJson());
+  }
 }

@@ -3,6 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
 import '../../media/Media.dart';
+import '../ImageViewer.dart';
 import '../VideoViewer.dart';
 import 'ViewerState.dart';
 
@@ -20,6 +21,11 @@ class ViewerPage extends StatefulWidget {
       case MediaType.Video:
         this.createStateCallBack =
             (m, e, c) => VideoViewer(media: m, eposide: e, chapter: c);
+        break;
+
+      case MediaType.Image:
+        this.createStateCallBack =
+            (m, e, c) => ImageViewer(media: m, eposide: e, chapter: c);
         break;
 
       default:
