@@ -20,10 +20,10 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get About => "About";
-  String get Agent_Base64_Method => "Method";
-  String get Agent_Base64_Method_decode => "decode";
-  String get Agent_Base64_Method_encode => "encode";
-  String get Agent_Base64_Text => "Text";
+  String get Agent_Codec_Method => "Method";
+  String get Agent_Codec_Method_decode => "decode";
+  String get Agent_Codec_Method_encode => "encode";
+  String get Agent_Codec_Text => "Text";
   String get Agent_Config => "Agent Config";
   String get Agent_SaveTo => "Save to";
   String get Agent_Select => "Agent Select";
@@ -82,6 +82,7 @@ class S implements WidgetsLocalizations {
   String get Source_Url => "Source Url";
   String get Source_Url_hint => "Input source web url.";
   String get Sources => "Sources";
+  String get UrlCodec_Config => "URL codec Config";
   String get Video => "Video";
   String get WeChat => "WeChat";
   String get WeChat_feilong => "feilong_wx";

@@ -19,7 +19,7 @@ class Base64Agent extends BaseAgent {
 
   String text;
 
-  Base64Agent_Method method;
+  CodecAgent_Method method;
 
   String resultSave;
 
@@ -30,12 +30,12 @@ class Base64Agent extends BaseAgent {
 
     // set replace key
     switch (this.method) {
-      case Base64Agent_Method.encode:
+      case CodecAgent_Method.encode:
         data[resultSave] = base64
             .encode(utf8.encode(this.ReplaceOneVal(this.text, eventIn.Data)));
 
         break;
-      case Base64Agent_Method.decode:
+      case CodecAgent_Method.decode:
         data[resultSave] = utf8
             .decode(base64.decode(this.ReplaceOneVal(this.text, eventIn.Data)));
         break;
@@ -51,7 +51,7 @@ class Base64Agent extends BaseAgent {
   Map<String, dynamic> toJson() {
     var jsonObj = super.toJson();
 
-    jsonObj[AgentJsonKey.AgentJsonKey_BASE64METHOD] = this.method.index;
+    jsonObj[AgentJsonKey.AgentJsonKey_CODEC_METHOD] = this.method.index;
     jsonObj[AgentJsonKey.AgentJsonKey_TEXT] = this.text;
     jsonObj[AgentJsonKey.AgentJsonKey_SAVETO] = this.resultSave;
 
@@ -104,7 +104,7 @@ class _AgentConfigPageState extends StateMVC {
                 ListTile(
                   title: TextFormField(
                     decoration: InputDecoration(
-                        labelText: S.of(context).Agent_Base64_Text),
+                        labelText: S.of(context).Agent_Codec_Text),
                     onSaved: (v) => setState(() => agent.text = v),
                     initialValue: agent.text,
                   ),
@@ -112,15 +112,15 @@ class _AgentConfigPageState extends StateMVC {
               )
               ..add(
                 ListTile(
-                  title: DropdownButtonFormField<Base64Agent_Method>(
+                  title: DropdownButtonFormField<CodecAgent_Method>(
                       value: agent.method,
                       onChanged: (v) => setState(() => agent.method = v),
                       decoration: InputDecoration(
-                          labelText: S.of(context).Agent_Base64_Method),
-                      items: AgentConst.Base64Methods.map((v) =>
+                          labelText: S.of(context).Agent_Codec_Method),
+                      items: AgentConst.CodecsMethods.map((v) =>
                           DropdownMenuItem(
                               value: v,
-                              child: Text(AgentConst.Base64MethodStrings(
+                              child: Text(AgentConst.CodecsMethodStrings(
                                   context)[v.index]))).toList()),
                 ),
               )

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../ParseRunner/ParseRunner.dart';
 import '../media/Media.dart';
+import '../ui/widget/VideoPlayer.dart';
 import 'common/ViewerState.dart';
 
 class VideoViewer extends ViewerState {
@@ -26,22 +27,27 @@ class VideoViewer extends ViewerState {
       ),
       body: FutureBuilder(
           future: _getMedias(context),
-          builder: (context, snapshot) => Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(media.type.toString()),
-                  Text(
-                    media.info.title,
-                    style: Theme.of(context).textTheme.display1,
-                    textAlign: TextAlign.center,
-                  ),
-                  Divider(),
-                  Text(media.info.ID),
-                  Text(eposide ?? "no eposide"),
-                  Text(chapter ?? "no chapter"),
-                ],
-              )),
+          builder: (context, snapshot) => snapshot.hasData
+              ? VideoPlayer(snapshot.data.episode[0].chapter[0].info.url)
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(media.type.toString()),
+                    Text(
+                      media.info.title,
+                      style: Theme.of(context).textTheme.display1,
+                      textAlign: TextAlign.center,
+                    ),
+                    Divider(),
+                    Text(media.info.ID),
+                    Text(eposide ?? "no eposide"),
+                    Text(chapter ?? "no chapter"),
+                    Text(!snapshot.hasData
+                        ? "url"
+                        : snapshot.data.episode[0].chapter[0].info.url),
+                  ],
+                )),
     );
   }
 }

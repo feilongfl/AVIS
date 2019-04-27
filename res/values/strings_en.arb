@@ -67,10 +67,11 @@
   "Source_UUID_hint": "Source UUID.",
   "Source_Type": "Source Type",
   "Agent_Settings": "Agent Settings",
-  "Agent_Base64_Text": "Text",
-  "Agent_Base64_Method": "Method",
-  "Agent_Base64_Method_decode": "decode",
-  "Agent_Base64_Method_encode": "encode",
+  "Agent_Codec_Text": "Text",
+  "Agent_Codec_Method": "Method",
+  "Agent_Codec_Method_decode": "decode",
+  "Agent_Codec_Method_encode": "encode",
   "Agent_SaveTo": "Save to",
-  "Base64_Config": "Base64 Config"
+  "Base64_Config": "Base64 Config",
+  "UrlCodec_Config": "URL codec Config"
 }

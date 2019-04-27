@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../generated/i18n.dart';
 
-enum Base64Agent_Method {
+enum CodecAgent_Method {
   encode,
   decode,
   //all
@@ -39,16 +39,16 @@ class AgentConst {
 
   ////////////////////////////// Agent common //////////////////////////////////
 
-  ////////////////////////////// Base64 Agent //////////////////////////////////
-  static const List<Base64Agent_Method> Base64Methods = [
-    Base64Agent_Method.encode,
-    Base64Agent_Method.decode,
+  ////////////////////////////// Normal Codecs Agent //////////////////////////////////
+  static const List<CodecAgent_Method> CodecsMethods = [
+    CodecAgent_Method.encode,
+    CodecAgent_Method.decode,
   ];
 
-  static List<String> Base64MethodStrings(BuildContext context) => [
-        S.of(context).Agent_Base64_Method_encode,
-        S.of(context).Agent_Base64_Method_decode,
+  static List<String> CodecsMethodStrings(BuildContext context) => [
+        S.of(context).Agent_Codec_Method_encode,
+        S.of(context).Agent_Codec_Method_decode,
       ];
-////////////////////////////// Base64 Agent //////////////////////////////////
+////////////////////////////// Normal Codecs  Agent //////////////////////////////////
 
 }

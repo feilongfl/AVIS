@@ -66,11 +66,11 @@ class HttpAgent extends BaseAgent {
 
     HTTPResult httpResult = await HTTP.work(
       httpClient,
-      this.ReplaceOneVal(eventIn.Data[Event.Url] ?? this.url, eventIn.Data), //url
-      referer: eventIn.Data[Event.Referer] ?? this.referer,
-      useragent: eventIn.Data[Event.Useragent] ?? this.userAgent,
-      cookies: eventIn.Data[Event.Cookies] ?? this.cookies,
-      method: eventIn.Data[Event.HttpMethod] ?? this.method,
+      this.ReplaceOneVal(this.url, eventIn.Data), //url
+      referer: this.ReplaceOneVal(this.referer, eventIn.Data),
+      useragent: this.ReplaceOneVal(this.userAgent, eventIn.Data),
+      cookies: this.ReplaceOneVal(this.cookies, eventIn.Data),
+      method: this.method,
       data: this.ReplaceOneVal(this.postData, eventIn.Data),
     );
 

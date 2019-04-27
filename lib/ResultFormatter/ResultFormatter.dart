@@ -86,8 +86,10 @@ class ResultFormatter {
     return media;
   }
 
-  static Media SourceEventFormat(Event event) {
-    return null;
+  static Media SourceEventFormat(List<Event> event, Media media) {
+    media.episode[0].chapter[0].info.url = event[0].Data[Event.Url];
+
+    return media;
   }
 
   static Media SourceLazyEventFormat(Event event) {

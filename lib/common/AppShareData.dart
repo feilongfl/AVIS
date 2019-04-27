@@ -5,6 +5,7 @@ import '../Agent/Base64Agent.dart';
 import '../Agent/EventFormatAgent.dart';
 import '../Agent/HttpAgent.dart';
 import '../Agent/RegexpAgent.dart';
+import '../Agent/UrlCodecsAgent.dart';
 import '../Agent/common/Agent.dart';
 import '../Agent/common/AgentEnums.dart';
 import '../event/Event.dart';
@@ -143,14 +144,23 @@ List<List<Agent>> _Genzzzanime() {
       regexp: RegExp(r'"link_pre":"(?:.*?)","url":"(.*?)"'),
       matchGroups: [Event.Url]);
   Agent zzzbase64de = Base64Agent(
-      text: Event.Url,
-      resultSave: Event.Url,
-      method: Base64Agent_Method.decode);
+      text: Event.Url, resultSave: Event.Url, method: CodecAgent_Method.decode);
+  Agent zzzurlde = UrlCodecsAgent(
+      text: Event.Url, resultSave: Event.Url, method: CodecAgent_Method.decode);
+  Agent zzzhttp2 =
+      HttpAgent(url: "http://www.zzzfun.com/static/danmu/san.php?${Event.Url}");
+  Agent zzzregex2 = RegexpAgent(
+      matchBody: Event.Body,
+      regexp: RegExp(r'<source src="(.*?)"'),
+      matchGroups: [Event.Url]);
 
   agents[ParseType.Source.index] = [
     zzzhttp1,
     zzzregex1,
-    zzzbase64de
+    zzzbase64de,
+    zzzurlde,
+    zzzhttp2,
+    zzzregex2
   ]; //,zzzhttp2,zzzregex2];
 
   return agents;
@@ -200,7 +210,7 @@ class AppShareData extends InheritedWidget {
       print("set app parse default pref");
       prefs.setStringList(
           PREF_APP_AGENTLISTS, parses.map((p) => p.toString()).toList());
-      print("Load Default agents!");
+//      print("Load Default agents!");
       return parses;
     }
 

@@ -6,6 +6,7 @@ import '../Base64Agent.dart';
 import '../EventFormatAgent.dart';
 import '../HttpAgent.dart';
 import '../RegexpAgent.dart';
+import '../UrlCodecsAgent.dart';
 import 'Agent.dart';
 import 'AgentEnums.dart';
 import 'AgentJsonKey.dart';
@@ -35,7 +36,13 @@ class AgentCreator {
       case AgentLists.Base64Agent:
         return Base64Agent(
             text: "",
-            method: Base64Agent_Method.decode,
+            method: CodecAgent_Method.decode,
+            resultSave: Event.TempVal1);
+
+      case AgentLists.UrlCodecsAgent:
+        return UrlCodecsAgent(
+            text: "",
+            method: CodecAgent_Method.decode,
             resultSave: Event.TempVal1);
 
       default:
@@ -77,8 +84,16 @@ class AgentCreator {
       case AgentLists.Base64Agent:
         return Base64Agent(
             text: jsonObj[AgentJsonKey.AgentJsonKey_TEXT],
-            method: Base64Agent_Method
-                .values[jsonObj[AgentJsonKey.AgentJsonKey_BASE64METHOD]],
+            method: CodecAgent_Method
+                .values[jsonObj[AgentJsonKey.AgentJsonKey_CODEC_METHOD]],
+            resultSave: jsonObj[AgentJsonKey.AgentJsonKey_SAVETO]);
+        break;
+
+      case AgentLists.UrlCodecsAgent:
+        return UrlCodecsAgent(
+            text: jsonObj[AgentJsonKey.AgentJsonKey_TEXT],
+            method: CodecAgent_Method
+                .values[jsonObj[AgentJsonKey.AgentJsonKey_CODEC_METHOD]],
             resultSave: jsonObj[AgentJsonKey.AgentJsonKey_SAVETO]);
         break;
 

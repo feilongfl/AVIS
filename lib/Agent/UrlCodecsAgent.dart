@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
@@ -11,33 +9,32 @@ import 'common/AgentEnums.dart';
 import 'common/AgentJsonKey.dart';
 import 'common/BaseAgent.dart';
 
-class UrlCodecs extends BaseAgent {
-  String name = "Base64Agent";
+class UrlCodecsAgent extends BaseAgent {
+  String name = "UrlCodecsAgent";
 
-  String AgentUUID = "ea3d1dd1-f213-4036-bab7-530f98572e75";
-  AgentLists agentType = AgentLists.Base64Agent;
+  String AgentUUID = "884ffb25-c887-4a49-af9f-f073a6901d04";
+  AgentLists agentType = AgentLists.UrlCodecsAgent;
 
   String text;
 
-  Base64Agent_Method method;
+  CodecAgent_Method method;
 
   String resultSave;
 
-  UrlCodecs({this.text, this.method, this.resultSave}) : super();
+  UrlCodecsAgent({this.text, this.method, this.resultSave}) : super();
 
   Future<List<Event>> doRealWork(Event eventIn) async {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
     // set replace key
     switch (this.method) {
-      case Base64Agent_Method.encode:
-        data[resultSave] = base64
-            .encode(utf8.encode(this.ReplaceOneVal(this.text, eventIn.Data)));
-
+      case CodecAgent_Method.encode:
+        data[resultSave] =
+            Uri.encodeFull(this.ReplaceOneVal(this.text, eventIn.Data));
         break;
-      case Base64Agent_Method.decode:
-        data[resultSave] = utf8
-            .decode(base64.decode(this.ReplaceOneVal(this.text, eventIn.Data)));
+      case CodecAgent_Method.decode:
+        data[resultSave] =
+            Uri.decodeFull(this.ReplaceOneVal(this.text, eventIn.Data));
         break;
 
       default:
@@ -51,7 +48,7 @@ class UrlCodecs extends BaseAgent {
   Map<String, dynamic> toJson() {
     var jsonObj = super.toJson();
 
-    jsonObj[AgentJsonKey.AgentJsonKey_BASE64METHOD] = this.method.index;
+    jsonObj[AgentJsonKey.AgentJsonKey_CODEC_METHOD] = this.method.index;
     jsonObj[AgentJsonKey.AgentJsonKey_TEXT] = this.text;
     jsonObj[AgentJsonKey.AgentJsonKey_SAVETO] = this.resultSave;
 
@@ -71,7 +68,7 @@ class _AgentConfigPage extends StatefulWidget {
 }
 
 class _AgentConfigPageState extends StateMVC {
-  final UrlCodecs agent;
+  final UrlCodecsAgent agent;
   var _formKey = GlobalKey<FormState>();
 
   _AgentConfigPageState(this.agent)
@@ -99,12 +96,12 @@ class _AgentConfigPageState extends StateMVC {
         key: _formKey,
         child: ListView(
             children: <Widget>[]
-              ..add(SettingDevideText(S.of(context).Base64_Config))
+              ..add(SettingDevideText(S.of(context).UrlCodec_Config))
               ..add(
                 ListTile(
                   title: TextFormField(
                     decoration: InputDecoration(
-                        labelText: S.of(context).Agent_Base64_Text),
+                        labelText: S.of(context).Agent_Codec_Text),
                     onSaved: (v) => setState(() => agent.text = v),
                     initialValue: agent.text,
                   ),
@@ -112,15 +109,15 @@ class _AgentConfigPageState extends StateMVC {
               )
               ..add(
                 ListTile(
-                  title: DropdownButtonFormField<Base64Agent_Method>(
+                  title: DropdownButtonFormField<CodecAgent_Method>(
                       value: agent.method,
                       onChanged: (v) => setState(() => agent.method = v),
                       decoration: InputDecoration(
-                          labelText: S.of(context).Agent_Base64_Method),
-                      items: AgentConst.Base64Methods.map((v) =>
+                          labelText: S.of(context).Agent_Codec_Method),
+                      items: AgentConst.CodecsMethods.map((v) =>
                           DropdownMenuItem(
                               value: v,
-                              child: Text(AgentConst.Base64MethodStrings(
+                              child: Text(AgentConst.CodecsMethodStrings(
                                   context)[v.index]))).toList()),
                 ),
               )

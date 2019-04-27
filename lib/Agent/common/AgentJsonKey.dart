@@ -22,6 +22,6 @@ class AgentJsonKey {
   static const String AgentJsonKey_REPLACETO = 'A_REPLACETO';
 
   //Base64Agent
-  static const String AgentJsonKey_BASE64METHOD = 'A_REPLACETO';
+  static const String AgentJsonKey_CODEC_METHOD = 'A_REPLACETO';
   static const String AgentJsonKey_TEXT = 'A_TEXT';
 }
