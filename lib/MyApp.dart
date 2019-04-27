@@ -7,7 +7,6 @@ import 'Agent/common/Agent.dart';
 import 'MediaViewer/common/ViewRoute.dart';
 import 'common/AppEnums.dart';
 import 'common/AppRoutes.dart';
-import 'common/AppShareData.dart';
 import 'generated/i18n.dart';
 import 'media/Media.dart';
 import 'parse/BaseParse.dart';
@@ -27,17 +26,7 @@ import 'ui/view/SourceSettingPage.dart';
 import 'ui/view/UnknownPage.dart';
 import 'ui/view/homepage.dart';
 
-//import 'package:firebase_analytics/firebase_analytics.dart';
-//import 'package:firebase_analytics/observer.dart';
-
-class MyApp extends StatefulWidget {
-  MyApp({Key key}) : super(key: key);
-
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends StateMVC {
+class MyApp extends StatelessWidget {
   MyAppController controller = new MyAppController();
 
 //  FirebaseAnalytics analytics = FirebaseAnalytics();
@@ -59,10 +48,12 @@ class _MyAppState extends StateMVC {
             onUnknownRoute: controller._unknowRoute,
             localizationsDelegates: [S.delegate],
             supportedLocales: S.delegate.supportedLocales,
-            localeResolutionCallback: S.delegate.resolution(fallback: new Locale("en", "")),
-//      navigatorObservers: [
-//        FirebaseAnalyticsObserver(analytics: analytics),
-//      ],
+            //todo fix chinese crash
+            localeResolutionCallback:
+                S.delegate.resolution(fallback: new Locale("en", "")),
+//            navigatorObservers: [
+//              FirebaseAnalyticsObserver(analytics: analytics),
+//            ],
           );
         });
   }
@@ -104,16 +95,6 @@ class MyAppController extends ControllerMVC {
         builder: (BuildContext context) => MediaInfoPage(media),
       );
     }
-//    if (settings.name == AppRoutes.MediaView) {
-//      final Map<String, dynamic> argv = settings.arguments;
-//      return MaterialPageRoute<void>(
-//        settings: settings,
-//        builder: (BuildContext context) => MediaViewPage(
-//            argv[AppRoutes.MediaViewArg_Media],
-//            argv[AppRoutes.MediaViewArg_EposideId],
-//            argv[AppRoutes.MediaViewArg_ChapterId]),
-//      );
-//    }
     if (settings.name == AppRoutes.MediaView) {
       final Map<String, dynamic> argv = settings.arguments;
       return ViewRoute.viewRoute(
