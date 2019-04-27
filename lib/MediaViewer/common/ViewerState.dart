@@ -26,8 +26,8 @@ class ViewerState extends StateMVC {
           Text(media.info.title),
           Divider(),
           Text(media.info.ID),
-          Text(eposide),
-          Text(chapter),
+          Text(eposide ?? "no eposide"),
+          Text(chapter?? "no chapter"),
         ],
       ),
     );
