@@ -62,7 +62,12 @@ class ParseRunner {
     return media;
   }
 
-  static Media Source(Parse parse, Media media) {
+  static Future<Media> Source(BuildContext context, Media media) async {
+    Parse parse = findParse(context, media);
+    if (parse == null) return media;
+
+    media = (await parse.doWork(ParseType.Source, media))[0];
+
     return media;
   }
 

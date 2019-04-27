@@ -99,7 +99,7 @@ class Event {
   }
 
   Map<String, dynamic> toJson() {
-    Data['time'] = this.Time;
+    Data['time'] = this.Time.toString();
 
     return Data;
   }

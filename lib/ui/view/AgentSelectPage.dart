@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../Agent/common/Agent.dart';
-import '../../Agent/common/AgentCreater.dart';
+import '../../Agent/common/AgentCreator.dart';
+import '../../Agent/common/AgentEnums.dart';
 import '../../common/AppRoutes.dart';
 import '../../generated/i18n.dart';
 import '../widget/SettingDivideText.dart';
@@ -64,15 +65,16 @@ class AgentSelectPageState extends StateMVC {
                 ..add(SettingDevideText(S.of(context).Normal_Config))
                 ..add(ListTile(
                   title: DropdownButtonFormField(
-                    decoration: InputDecoration(labelText: S.of(context).Agent_Type),
-                    items: Agent.AgentItems.map((t) => DropdownMenuItem(
+                    decoration:
+                        InputDecoration(labelText: S.of(context).Agent_Type),
+                    items: AgentConst.AgentItems.map((t) => DropdownMenuItem(
                         value: t,
                         child: Text(
-                          Agent.AgentItemNames[t.index],
+                          AgentConst.AgentItemNames[t.index],
                         ))).toList(),
                     value: agent.agentType,
                     onChanged: (v) =>
-                        setState(() => agent = AgentCreater.newAgent(v)),
+                        setState(() => agent = AgentCreator.newAgent(v)),
                   ),
                 ))
                 ..add(SettingDevideText(S.of(context).Agent_Config))
@@ -87,7 +89,7 @@ class AgentSelectPageState extends StateMVC {
                       }),
                   leading: Icon(Icons.settings),
                   title: Text(
-                      "${Agent.AgentItemNames[agent.agentType.index]} ${S.of(context).Config}"),
+                      "${AgentConst.AgentItemNames[agent.agentType.index]} ${S.of(context).Config}"),
                   subtitle: Text(this.agent.UUID),
                 ))
 //                ..addAll(agentConfigBody[Agent.AgentConfigBody_Widgets])

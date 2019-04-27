@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import '../ui/widget/SettingDivideText.dart';
 import 'common/Agent.dart';
+import 'common/AgentEnums.dart';
 import 'common/AgentJsonKey.dart';
 import 'common/BaseAgent.dart';
 

@@ -2,6 +2,7 @@ class AgentJsonKey {
   // normal
   static const String AgentJsonKey_UUID = 'A_UUID';
   static const String AgentJsonKey_TYPE = 'A_TYPE';
+  static const String AgentJsonKey_SAVETO = 'A_SAVETO';
 
   //http Agent
   static const String AgentJsonKey_URL = 'A_URL';
@@ -19,4 +20,8 @@ class AgentJsonKey {
   //Event format agent
   static const String AgentJsonKey_FindKey = 'A_FINDKEY';
   static const String AgentJsonKey_REPLACETO = 'A_REPLACETO';
+
+  //Base64Agent
+  static const String AgentJsonKey_BASE64METHOD = 'A_REPLACETO';
+  static const String AgentJsonKey_TEXT = 'A_TEXT';
 }

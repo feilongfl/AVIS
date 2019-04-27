@@ -96,6 +96,20 @@ class BaseParse implements Parse {
     return ResultFormatter.ResultFromatter[type.index](events, media);
   }
 
+  Future<Media> doSource(ParseType type, Media media) async {
+    MapData[Event.MediaId] = media.info.ID;
+    MapData[Event.EpisodeId] = "1";
+    MapData[Event.ChapterId] = "1";
+    List<Event> events = [Event(MapData)];
+
+    for (var agent in agents[type.index]) {
+      events = await agent.doWork(eventsIn: events);
+      print(agent.name + "  =>  " + events[0].toString());
+    }
+
+    return ResultFormatter.ResultFromatter[type.index](events, media);
+  }
+
   Future<List<Media>> doWork(ParseType type, dynamic data) async {
     List<Media> medias;
     switch (type) {
@@ -114,6 +128,10 @@ class BaseParse implements Parse {
 
       case ParseType.Chapter:
         medias = [await doChapter(type, data)];
+        break;
+
+      case ParseType.Source:
+        medias = [await doSource(type, data)];
         break;
 
       default:

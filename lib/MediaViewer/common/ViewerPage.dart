@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../../common/AppEnums.dart';
 import '../../media/Media.dart';
+import '../VideoViewer.dart';
 import 'ViewerState.dart';
 
 class ViewerPage extends StatefulWidget {
@@ -15,6 +17,11 @@ class ViewerPage extends StatefulWidget {
       : assert(media != null),
         super(key: key) {
     switch (media.type) {
+      case MediaType.Video:
+        this.createStateCallBack =
+            (m, e, c) => VideoViewer(media: m, eposide: e, chapter: c);
+        break;
+
       default:
         this.createStateCallBack =
             (m, e, c) => ViewerState(media: m, eposide: e, chapter: c);

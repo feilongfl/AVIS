@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import '../../Agent/common/Agent.dart';
-import '../../Agent/common/AgentJsonFormatter.dart';
+import '../../Agent/common/AgentCreator.dart';
 import '../../common/AppEnums.dart';
 import '../BaseParse.dart';
 import 'Parse.dart';
@@ -18,7 +18,7 @@ class ParseCreator {
       agents[i] = agentsStrs == null
           ? List()
           : agentsStrs
-              .map((agentstr) => AgentJsonFormatter.loadStringToAgent(agentstr))
+              .map((agentstr) => AgentCreator.loadStringToAgent(agentstr))
               .toList();
     }
 

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../Agent/Base64Agent.dart';
 import '../Agent/EventFormatAgent.dart';
 import '../Agent/HttpAgent.dart';
 import '../Agent/RegexpAgent.dart';
 import '../Agent/common/Agent.dart';
+import '../Agent/common/AgentEnums.dart';
 import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/BaseParse.dart';
@@ -133,6 +135,24 @@ List<List<Agent>> _Genzzzanime() {
       matchGroups: [Event.Url, Event.EpisodeId, Event.ChapterId, Event.Title]);
   agents[ParseType.Chapter.index] = [domoinfoAgent, domochapterformatAgent];
 
+  Agent zzzhttp1 = HttpAgent(
+      url:
+          "http://www.zzzfun.com/vod-play-id-${Event.MediaId}-sid-${Event.EpisodeId}-nid-${Event.ChapterId}.html");
+  Agent zzzregex1 = RegexpAgent(
+      matchBody: Event.Body,
+      regexp: RegExp(r'"link_pre":"(?:.*?)","url":"(.*?)"'),
+      matchGroups: [Event.Url]);
+  Agent zzzbase64de = Base64Agent(
+      text: Event.Url,
+      resultSave: Event.Url,
+      method: Base64Agent_Method.decode);
+
+  agents[ParseType.Source.index] = [
+    zzzhttp1,
+    zzzregex1,
+    zzzbase64de
+  ]; //,zzzhttp2,zzzregex2];
+
   return agents;
 }
 
@@ -175,6 +195,7 @@ class AppShareData extends InheritedWidget {
   List<Parse> get AppParse {
     List<String> _parseStrings = prefs.getStringList(PREF_APP_AGENTLISTS);
     if (_parseStrings == null) {
+//    if (true) {
       List<Parse> parses = LoadDefaultParses();
       print("set app parse default pref");
       prefs.setStringList(

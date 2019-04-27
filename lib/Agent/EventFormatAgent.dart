@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../common/AppEnums.dart';
 import '../event/Event.dart';
 import '../ui/widget/SettingDivideText.dart';
 import 'common/Agent.dart';
+import 'common/AgentEnums.dart';
 import 'common/AgentJsonKey.dart';
 import 'common/BaseAgent.dart';
 
@@ -99,7 +99,9 @@ class _AgentConfigPageState extends StateMVC {
                           child: Text(v),
                         )).toList()),
           ),
-          SizedBox(width: 10,),
+          SizedBox(
+            width: 10,
+          ),
           Flexible(
             child: TextFormField(
               decoration: InputDecoration(labelText: "Replaces"),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common/AppEnums.dart';
 import '../../event/Event.dart';
+import 'AgentEnums.dart';
 
 abstract class Agent {
 //  .*?\s+(\w+)(?:;|(?:\s+=.*;))
@@ -35,14 +35,4 @@ abstract class Agent {
 
 //  void fromString(String str) {}
 
-  static const List<AgentLists> AgentItems = [
-    AgentLists.HttpAgent,
-    AgentLists.RegexpAgent,
-    AgentLists.EventFormatAgent,
-  ];
-  static const List<String> AgentItemNames = [
-    "Http Agent",
-    "Regexp Agent",
-    "Event Format Agent"
-  ];
 }

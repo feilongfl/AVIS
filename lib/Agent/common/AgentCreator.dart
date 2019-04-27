@@ -1,17 +1,46 @@
 import 'dart:convert';
 
 import '../../common/AppEnums.dart';
+import '../../event/Event.dart';
+import '../Base64Agent.dart';
 import '../EventFormatAgent.dart';
 import '../HttpAgent.dart';
 import '../RegexpAgent.dart';
 import 'Agent.dart';
+import 'AgentEnums.dart';
 import 'AgentJsonKey.dart';
 import 'BaseAgent.dart';
 
-class AgentJsonFormatter {
+class AgentCreator {
   static Agent loadStringToAgent(String str) {
     var jsonObj = json.decode(str);
     return loadAgent(jsonObj);
+  }
+
+  static Agent newAgent(AgentLists agentType) {
+    switch (agentType) {
+      case AgentLists.HttpAgent:
+        return HttpAgent();
+
+      case AgentLists.RegexpAgent:
+        return RegexpAgent(
+            matchBody: Event.Body,
+            regexp: RegExp(""),
+            matchGroups: [Event.Title, Event.Url]);
+
+      case AgentLists.EventFormatAgent:
+        return EventFormatAgent(
+            findKey: [Event.Url], Replaces: ["http://${Event.Url}"]);
+
+      case AgentLists.Base64Agent:
+        return Base64Agent(
+            text: "",
+            method: Base64Agent_Method.decode,
+            resultSave: Event.TempVal1);
+
+      default:
+        return BaseAgent();
+    }
   }
 
   // load Agent
@@ -43,6 +72,14 @@ class AgentJsonFormatter {
             findKey: jsonObj[AgentJsonKey.AgentJsonKey_FindKey].cast<String>(),
             Replaces:
                 jsonObj[AgentJsonKey.AgentJsonKey_REPLACETO].cast<String>());
+        break;
+
+      case AgentLists.Base64Agent:
+        return Base64Agent(
+            text: jsonObj[AgentJsonKey.AgentJsonKey_TEXT],
+            method: Base64Agent_Method
+                .values[jsonObj[AgentJsonKey.AgentJsonKey_BASE64METHOD]],
+            resultSave: jsonObj[AgentJsonKey.AgentJsonKey_SAVETO]);
         break;
 
       default:

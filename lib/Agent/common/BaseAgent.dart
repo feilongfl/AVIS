@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../common/AppEnums.dart';
 import '../../event/Event.dart';
 import 'Agent.dart';
+import 'AgentEnums.dart';
 import 'AgentJsonKey.dart';
 
 class _AgentConfigPage extends StatefulWidget {
