@@ -8,6 +8,7 @@ import 'MediaViewer/common/ViewRoute.dart';
 import 'common/AppEnums.dart';
 import 'common/AppRoutes.dart';
 import 'common/AppShareData.dart';
+import 'generated/i18n.dart';
 import 'media/Media.dart';
 import 'parse/BaseParse.dart';
 import 'parse/common/Parse.dart';
@@ -56,6 +57,9 @@ class _MyAppState extends StateMVC {
             routes: controller._routes,
             onGenerateRoute: controller._getRoute,
             onUnknownRoute: controller._unknowRoute,
+            localizationsDelegates: [S.delegate],
+            supportedLocales: S.delegate.supportedLocales,
+            localeResolutionCallback: S.delegate.resolution(fallback: new Locale("en", "")),
 //      navigatorObservers: [
 //        FirebaseAnalyticsObserver(analytics: analytics),
 //      ],

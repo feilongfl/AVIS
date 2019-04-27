@@ -19,6 +19,7 @@ class S implements WidgetsLocalizations {
   @override
   TextDirection get textDirection => TextDirection.ltr;
 
+  String get AppName => "AVIS";
 }
 
 class $en extends S {

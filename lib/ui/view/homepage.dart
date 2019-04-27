@@ -6,6 +6,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:simple_gravatar/simple_gravatar.dart';
 
 import '../../common/AppRoutes.dart';
+import '../../generated/i18n.dart';
 import '../controller/HomePageConTroller.dart';
 import '../widget/RouteButton.dart';
 
@@ -90,7 +91,7 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(homePageController.title),
+        title: Text(S.of(context).AppName),
         bottom: TabBar(
           isScrollable: true,
           controller: homePageController.tabController,
