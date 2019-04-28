@@ -1,19 +1,16 @@
-import '../../Agent/common/Agent.dart';
-import '../../common/AppEnums.dart';
 import '../../media/Media.dart';
+import '../event/Event.dart';
+import 'ParseAction.dart';
 import 'ParseConst.dart';
 import 'ParseInfo.dart';
 
 abstract class Parse {
   ParseInfo info;
   ParseType type;
-  ParseActionType action;
+  List<ParseAction> actions;
 
-  List<List<Agent>> agents;
 
-  Future<List<Media>> doWork(ParseType type, dynamic argv) async {
-    return null;
-  }
+  Future<List<Media>> doWork(ParseActionType type, List<Event> events) async {}
 
   Map<String, dynamic> toJson();
 
