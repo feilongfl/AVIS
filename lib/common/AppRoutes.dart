@@ -27,7 +27,8 @@ class AppRoutes {
   static const String AgentConfig = "/AgentConfig";
   static const String AgentDryRun = "/AgentDryRun";
   static const String PictureView = "/PictureView";
-  static const String Settings_HomePageTips = "/Setting/HomePageTips";
+  static const String Settings_HomePageTabs = "/Setting/HomePageTabs";
+  static const String Settings_HomePageTabs_edit = "/Setting/HomePageTabs/Edit";
 
   static LaunchURL(String url) async {
     if (await canLaunch(url)) {

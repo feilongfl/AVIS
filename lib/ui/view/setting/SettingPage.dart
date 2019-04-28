@@ -27,7 +27,7 @@ class SettingPage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           _subSettingTile(
-              context, "Home Page Tabs", AppRoutes.Settings_HomePageTips,
+              context, "Home Page Tabs", AppRoutes.Settings_HomePageTabs,
               Icons.home),
         ],
       ),

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:uuid/uuid.dart';
+
 import '../../UiConst.dart';
 
 class HomepageTabItem {
@@ -11,27 +13,33 @@ class HomepageTabItem {
   bool autoRefersh;
   bool autoLoadmore;
 
-  HomepageTabItem({
-    this.name = "Tabs",
-    this.parseUuid = const [],
-    this.viewType = ViewType.GridView,
-    this.autoRefersh = false,
-    this.autoLoadmore = true,
-  });
+  String uuid;
+
+  HomepageTabItem(
+      {this.name = "Tabs",
+      this.parseUuid = const [],
+      this.viewType = ViewType.GridView,
+      this.autoRefersh = false,
+      this.autoLoadmore = true,
+      this.uuid}) {
+    uuid = uuid ?? Uuid().v4();
+  }
 
   static const jsonKey_name = "name";
   static const jsonKey_parseUuid = "parseUuid";
   static const jsonKey_viewType = "viewType";
   static const jsonKey_autoRefersh = "autoRefersh";
   static const jsonKey_autoLoadmore = "autoLoadmore";
+  static const jsonKey_uuid = "uuid";
 
   static HomepageTabItem fromJson(Map<String, dynamic> jsonObj) {
     return HomepageTabItem(
       name: jsonObj[jsonKey_name],
-      parseUuid: jsonObj[jsonKey_parseUuid],
-      viewType: jsonObj[jsonKey_viewType],
+      parseUuid: jsonObj[jsonKey_parseUuid].cast<String>(),
+      viewType: ViewType.values[jsonObj[jsonKey_viewType]],
       autoRefersh: jsonObj[jsonKey_autoRefersh],
       autoLoadmore: jsonObj[jsonKey_autoLoadmore],
+      uuid: jsonObj[jsonKey_uuid],
     );
   }
 
@@ -43,9 +51,10 @@ class HomepageTabItem {
     return {
       jsonKey_name: name,
       jsonKey_parseUuid: parseUuid,
-      jsonKey_viewType: viewType,
+      jsonKey_viewType: viewType.index,
       jsonKey_autoRefersh: autoRefersh,
       jsonKey_autoLoadmore: autoLoadmore,
+      jsonKey_uuid: uuid,
     };
   }
 

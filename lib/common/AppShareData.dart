@@ -5,6 +5,7 @@ import '../media/Media.dart';
 import '../parse/BaseParse.dart';
 import '../parse/common/Parse.dart';
 import '../parse/event/Event.dart';
+import '../ui/view/homepage/HomepageTabItem.dart';
 import 'AppEnums.dart';
 
 //List<List<Agent>> _GenExpAgents() {
@@ -246,10 +247,55 @@ class AppShareData extends InheritedWidget {
   //////////////////////////prefs///////////////////////
   static SharedPreferences prefs;
   static String PREF_APP_AGENTLISTS = "pref_app_agentlists";
+  static String PREF_APP_HomePageTabs = "pref_app_homepage_tabs";
+
+  //////////////////////////HomepageTabItem///////////////////////
+  List<HomepageTabItem> get homepageTabItems {
+    List<String> _homepageTabsStrings =
+        prefs.getStringList(PREF_APP_HomePageTabs);
+
+    if (_homepageTabsStrings == null) return List();
+
+    return _homepageTabsStrings
+        .map((_hs) => HomepageTabItem.fromString(_hs))
+        .toList();
+  }
+
+  set homepageTabItems(List<HomepageTabItem> hs) {
+    prefs.setStringList(
+        PREF_APP_HomePageTabs, hs.map((h) => h.toString()).toList());
+    print("Save homepagetabs to Prefs!");
+  }
+
+  //add or edit
+  homepageTabItem_add(HomepageTabItem hs) {
+    if (hs == null) return;
+    bool match = false;
+    List<HomepageTabItem> htemp = homepageTabItems;
+
+    for (int i = 0; i < htemp.length; i++) {
+      if (hs.uuid == htemp[i].uuid) {
+        match = true;
+        htemp[i] = hs;
+      }
+    }
+
+    if (!match) htemp.add(hs);
+
+    homepageTabItems = htemp;
+  }
+
+  homepageTabItem_remove(HomepageTabItem hs) {
+    if (hs == null) return;
+
+    homepageTabItems = homepageTabItems..removeWhere((h) => h.uuid == hs.uuid);
+  }
+
+  //////////////////////////HomepageTabItem///////////////////////
 
   List<Parse> LoadDefaultParses() {
 //    List<List<Agent>> expagents = _GenExpAgents();
-    List<Parse> p= new List();
+    List<Parse> p = new List();
 
     // todo replace here
 //    p.add(BaseParse(

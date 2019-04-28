@@ -1,4 +1,3 @@
-import 'ui/view/MediaViewer/common/ViewRoute.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
@@ -12,10 +11,14 @@ import 'ui/view/AboutPage.dart';
 import 'ui/view/AgentSelectPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
+import 'ui/view/MediaViewer/common/ViewRoute.dart';
 import 'ui/view/PictureViewer.dart';
 import 'ui/view/SearchPage.dart';
 import 'ui/view/UnknownPage.dart';
+import 'ui/view/homepage/HomepageTabItem.dart';
 import 'ui/view/homepage/homepage.dart';
+import 'ui/view/setting/HomePageTipsSetting.dart';
+import 'ui/view/setting/HomepageTabItemEdit.dart';
 import 'ui/view/setting/SettingPage.dart';
 
 class MyApp extends StatelessWidget {
@@ -60,7 +63,8 @@ class MyAppController extends ControllerMVC {
 //    AppRoutes.SourceSetting: (BuildContext context) => SourceSettingPage(),
     AppRoutes.Donate: (BuildContext context) => DonatePage(),
     AppRoutes.Setting: (BuildContext context) => SettingPage(),
-    AppRoutes.Settings_HomePageTips: (BuildContext context) => SettingPage(),
+    AppRoutes.Settings_HomePageTabs: (BuildContext context) =>
+        HomePageTipsSetting(),
   };
 
   Route<dynamic> _unknowRoute(RouteSettings settings) {
@@ -135,6 +139,14 @@ class MyAppController extends ControllerMVC {
       return MaterialPageRoute<void>(
           settings: settings,
           builder: (BuildContext context) => PictureViewer(picUrls));
+    }
+    if (settings.name == AppRoutes.Settings_HomePageTabs_edit) {
+      HomepageTabItem homepageTabItem = settings.arguments;
+      return MaterialPageRoute<HomepageTabItem>(
+          settings: settings,
+          builder: (BuildContext context) => HomepageTabItemEdit(
+                item: homepageTabItem,
+              ));
     }
     return null;
   }
