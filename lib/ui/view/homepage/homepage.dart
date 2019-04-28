@@ -5,10 +5,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:simple_gravatar/simple_gravatar.dart';
 
-import '../../common/AppRoutes.dart';
-import '../../generated/i18n.dart';
-import '../controller/HomePageConTroller.dart';
-import '../widget/RouteButton.dart';
+import '../../../common/AppRoutes.dart';
+import '../../../generated/i18n.dart';
+import '../../controller/HomePageConTroller.dart';
+import '../../widget/RouteButton.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);

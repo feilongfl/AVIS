@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../common/AppEnums.dart';
-import '../view/HomepageBody.dart';
+import '../view/homepage/HomepageBody.dart';
 
 class WidgetTab {
   String text;

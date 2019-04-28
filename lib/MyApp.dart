@@ -1,30 +1,22 @@
-import 'package:avis/ui/view/MediaViewer/common/ViewRoute.dart';
+import 'ui/view/MediaViewer/common/ViewRoute.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'Agent/HttpAgent.dart';
 import 'Agent/common/Agent.dart';
-import 'common/AppEnums.dart';
 import 'common/AppRoutes.dart';
 import 'generated/i18n.dart';
-import 'media/Media.dart';
-import 'parse/BaseParse.dart';
 import 'parse/common/Parse.dart';
-import 'ui/model/SourceEditPageModel.dart';
 import 'ui/view/AboutPage.dart';
-import 'ui/view/AgentEditPage.dart';
 import 'ui/view/AgentSelectPage.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
-import 'ui/view/MediaInfoPage.dart';
 import 'ui/view/PictureViewer.dart';
 import 'ui/view/SearchPage.dart';
-import 'ui/view/SearchResultPage.dart';
-import 'ui/view/SourceEditPage.dart';
-import 'ui/view/SourceSettingPage.dart';
 import 'ui/view/UnknownPage.dart';
-import 'ui/view/homepage.dart';
+import 'ui/view/homepage/homepage.dart';
+import 'ui/view/setting/SettingPage.dart';
 
 class MyApp extends StatelessWidget {
   MyAppController controller = new MyAppController();
@@ -67,6 +59,8 @@ class MyAppController extends ControllerMVC {
     AppRoutes.Backup: (BuildContext context) => BackupPage(),
 //    AppRoutes.SourceSetting: (BuildContext context) => SourceSettingPage(),
     AppRoutes.Donate: (BuildContext context) => DonatePage(),
+    AppRoutes.Setting: (BuildContext context) => SettingPage(),
+    AppRoutes.Settings_HomePageTips: (BuildContext context) => SettingPage(),
   };
 
   Route<dynamic> _unknowRoute(RouteSettings settings) {

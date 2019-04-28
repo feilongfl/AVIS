@@ -7,10 +7,10 @@ import '../../media/Media.dart';
 //import '../../parse/ParseRunner/ParseRunner.dart';
 import '../../parse/common/Parse.dart';
 
-class HomeCardView extends StatelessWidget {
+class MediaCardView extends StatelessWidget {
   Media media;
 
-  HomeCardView(this.media) : super();
+  MediaCardView(this.media) : super();
 
   void _onTap(BuildContext context) {
 //    Parse parse = ParseRunner.findParse(context, media);

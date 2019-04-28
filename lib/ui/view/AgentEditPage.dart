@@ -1,4 +1,4 @@
-//import 'package:avis/parse/common/Parse.dart';
+//import 'parse/common/Parse.dart';
 //import 'package:flutter/material.dart';
 //import 'package:mvc_pattern/mvc_pattern.dart';
 //

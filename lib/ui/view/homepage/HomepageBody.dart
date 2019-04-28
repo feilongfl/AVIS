@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../common/AppEnums.dart';
-import '../../media/Media.dart';
-import '../controller/HomePageBodyController.dart';
-import 'HomeCardView.dart';
+import '../../../common/AppEnums.dart';
+import '../../../media/Media.dart';
+import '../../controller/HomePageBodyController.dart';
+import '../../widget/MediaCardView.dart';
 
 class HomepageBody extends StatefulWidget {
   HomePages page_type = HomePages.Home;
@@ -37,7 +37,7 @@ class HomepageBodyState extends StateMVC {
                           : 3),
                   itemCount: futureData.data.length,
                   itemBuilder: (BuildContext context, int position) {
-                    return HomeCardView(futureData.data[position]);
+                    return MediaCardView(futureData.data[position]);
                   },
                 )
               : Center(
