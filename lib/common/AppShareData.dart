@@ -8,11 +8,11 @@ import '../Agent/RegexpAgent.dart';
 import '../Agent/UrlCodecsAgent.dart';
 import '../Agent/common/Agent.dart';
 import '../Agent/common/AgentEnums.dart';
-import '../event/Event.dart';
 import '../media/Media.dart';
 import '../parse/BaseParse.dart';
 import '../parse/common/Parse.dart';
 import '../parse/common/ParseCreator.dart';
+import '../parse/event/Event.dart';
 import 'AppEnums.dart';
 
 List<List<Agent>> _GenExpAgents() {

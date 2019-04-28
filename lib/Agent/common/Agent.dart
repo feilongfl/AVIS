@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../event/Event.dart';
+import '../../parse/event/Event.dart';
 import 'AgentEnums.dart';
 
 abstract class Agent {

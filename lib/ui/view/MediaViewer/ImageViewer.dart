@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-
-import '../media/Media.dart';
+import '../../../media/Media.dart';
 import 'common/ViewerState.dart';
 
 class ImageViewer extends ViewerState {

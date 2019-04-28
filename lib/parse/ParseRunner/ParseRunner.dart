@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import '../common/AppEnums.dart';
-import '../common/AppShareData.dart';
-import '../event/Event.dart';
-import '../media/Media.dart';
-import '../parse/common/Parse.dart';
+import '../../common/AppEnums.dart';
+import '../../common/AppShareData.dart';
+import '../../media/Media.dart';
+import '../../parse/common/Parse.dart';
+import '../../parse/event/Event.dart';
 
 class ParseRunner {
   static Future<List<Media>> _SearchOne(Parse parse, String keyword) async {

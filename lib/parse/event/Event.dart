@@ -51,6 +51,7 @@ class Event {
   static const String Intro = "{{intro}}";
   static const String EpisodeId = "{{episodeid}}";
   static const String Group = "{{group}}";
+
   // temp vals
   static const String TempVal1 = "{{TempVal1}}";
   static const String TempVal2 = "{{TempVal2}}";

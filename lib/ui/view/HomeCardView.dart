@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 
-import '../../ParseRunner/ParseRunner.dart';
 import '../../common/AppEnums.dart';
 import '../../common/AppRoutes.dart';
 import '../../media/Media.dart';
+import '../../parse/ParseRunner/ParseRunner.dart';
 import '../../parse/common/Parse.dart';
 
 class HomeCardView extends StatelessWidget {
@@ -18,10 +18,8 @@ class HomeCardView extends StatelessWidget {
 
     if (parse.agents[ParseType.Episode.index].length == 0 &&
         parse.agents[ParseType.Chapter.index].length == 0) {
-      Navigator.of(context)
-          .pushNamed(AppRoutes.MediaView, arguments: {
-            AppRoutes.MediaViewArg_Media: this.media
-      });
+      Navigator.of(context).pushNamed(AppRoutes.MediaView,
+          arguments: {AppRoutes.MediaViewArg_Media: this.media});
     } else {
       Navigator.of(context)
           .pushNamed(AppRoutes.MediaInfo, arguments: this.media);

@@ -18,8 +18,6 @@ enum HttpMethod {
   All,
 }
 
-
-
 enum MediaType {
   Article,
   Video,
@@ -36,5 +34,3 @@ enum HomePages {
   Music,
   All,
 }
-
-

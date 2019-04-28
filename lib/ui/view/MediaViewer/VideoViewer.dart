@@ -2,8 +2,8 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
-import '../ParseRunner/ParseRunner.dart';
-import '../media/Media.dart';
+import '../../../media/Media.dart';
+import '../../../parse/ParseRunner/ParseRunner.dart';
 import 'common/ViewerState.dart';
 
 class VideoViewer extends ViewerState {
@@ -28,7 +28,6 @@ class VideoViewer extends ViewerState {
   void initState() {
     super.initState();
   }
-
 
   @override
   void dispose() {

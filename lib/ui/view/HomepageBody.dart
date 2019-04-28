@@ -1,9 +1,7 @@
-import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
-import '../../common/AppShareData.dart';
 import '../../media/Media.dart';
 import '../controller/HomePageBodyController.dart';
 import 'HomeCardView.dart';

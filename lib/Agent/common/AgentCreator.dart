@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import '../../common/AppEnums.dart';
-import '../../event/Event.dart';
+import '../../parse/event/Event.dart';
 import '../Base64Agent.dart';
 import '../EventFormatAgent.dart';
 import '../HttpAgent.dart';

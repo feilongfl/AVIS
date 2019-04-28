@@ -1,10 +1,10 @@
+import 'package:avis/ui/view/MediaViewer/common/ViewRoute.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import 'Agent/HttpAgent.dart';
 import 'Agent/common/Agent.dart';
-import 'MediaViewer/common/ViewRoute.dart';
 import 'common/AppEnums.dart';
 import 'common/AppRoutes.dart';
 import 'generated/i18n.dart';

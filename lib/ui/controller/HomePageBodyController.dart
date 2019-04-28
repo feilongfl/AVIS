@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../ParseRunner/ParseRunner.dart';
 import '../../common/AppEnums.dart';
 import '../../media/Media.dart';
+import '../../parse/ParseRunner/ParseRunner.dart';
 
 class HomePageBodyController extends ControllerMVC {
   HomePages page_type;

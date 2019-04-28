@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../ParseRunner/ParseRunner.dart';
 import '../../common/AppRoutes.dart';
 import '../../generated/i18n.dart';
 import '../../media/Media.dart';
 import '../../media/MediaEpisode.dart';
+import '../../parse/ParseRunner/ParseRunner.dart';
 import '../widget/ActionButton.dart';
 
 class MediaInfoPage extends StatefulWidget {

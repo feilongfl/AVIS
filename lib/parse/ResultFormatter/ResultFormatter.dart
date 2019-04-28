@@ -1,8 +1,8 @@
-import '../event/Event.dart';
-import '../media/Media.dart';
-import '../media/MediaChapter.dart';
-import '../media/MediaEpisode.dart';
-import '../media/MediaInfo.dart';
+import '../../media/Media.dart';
+import '../../media/MediaChapter.dart';
+import '../../media/MediaEpisode.dart';
+import '../../media/MediaInfo.dart';
+import '../../parse/event/Event.dart';
 
 class ResultFormatter {
   static List<dynamic> ResultFromatter = [

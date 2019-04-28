@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../common/AppEnums.dart';
-import '../../media/Media.dart';
+import '../../../../common/AppEnums.dart';
+import '../../../../media/Media.dart';
 import '../ImageViewer.dart';
 import '../VideoViewer.dart';
 import 'ViewerState.dart';

@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:uuid/uuid.dart';
 
 import '../Agent/common/Agent.dart';
-import '../ResultFormatter/ResultFormatter.dart';
 import '../common/AppEnums.dart';
-import '../event/Event.dart';
 import '../media/Media.dart';
+import '../parse/ResultFormatter/ResultFormatter.dart';
+import '../parse/event/Event.dart';
 import 'common/Parse.dart';
 import 'common/ParseJsonKey.dart';
 

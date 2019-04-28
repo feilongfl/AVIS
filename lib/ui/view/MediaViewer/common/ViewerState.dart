@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../ParseRunner/ParseRunner.dart';
-import '../../media/Media.dart';
+import '../../../../media/Media.dart';
+import '../../../../parse/ParseRunner/ParseRunner.dart';
+
 
 class ViewerState extends StateMVC {
   final Media media;

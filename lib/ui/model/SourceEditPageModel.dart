@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../parse/common/Parse.dart';
 
-
 class SourceEditPageModel extends InheritedWidget {
   final Parse parse;
 

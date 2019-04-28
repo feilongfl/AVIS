@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../media/Media.dart';
+import '../../../../media/Media.dart';
 import 'ViewerPage.dart';
 
 class ViewRoute {

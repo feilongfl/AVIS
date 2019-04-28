@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../event/Event.dart';
 import '../generated/i18n.dart';
+import '../parse/event/Event.dart';
 import '../ui/widget/SettingDivideText.dart';
 import 'common/Agent.dart';
 import 'common/AgentEnums.dart';

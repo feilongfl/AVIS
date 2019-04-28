@@ -13,8 +13,7 @@ class ParseCreator {
 
     assert(ParseType.All.index == ParseJsonKey.AGENT_JSONKEYS.length);
     for (int i = 0; i < ParseType.All.index; i++) {
-      final List<dynamic> agentsStrs =
-          jsonObj[ParseJsonKey.AGENT_JSONKEYS[i]];
+      final List<dynamic> agentsStrs = jsonObj[ParseJsonKey.AGENT_JSONKEYS[i]];
       agents[i] = agentsStrs == null
           ? List()
           : agentsStrs

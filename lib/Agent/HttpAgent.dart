@@ -6,7 +6,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../common/AppEnums.dart';
 import '../common/HttpUserAgent.dart';
 import '../core/HTTP.dart';
-import '../event/Event.dart';
+import '../parse/event/Event.dart';
 import '../ui/widget/SettingDivideText.dart';
 import 'common/Agent.dart';
 import 'common/AgentEnums.dart';
