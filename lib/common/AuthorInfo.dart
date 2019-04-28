@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-class AuthorInfo {
+import 'Info.dart';
+
+class AuthorInfo implements Info{
   String name;
   String email;
   String phone;
@@ -32,7 +34,7 @@ class AuthorInfo {
   }
 
   static AuthorInfo fromString(String str) {
-    return fromString(json.decode(str));
+    return fromJson(json.decode(str));
   }
 
   Map<String, dynamic> toJson() {

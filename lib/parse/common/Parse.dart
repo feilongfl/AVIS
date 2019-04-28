@@ -1,16 +1,13 @@
-
 import '../../Agent/common/Agent.dart';
 import '../../common/AppEnums.dart';
 import '../../media/Media.dart';
+import 'ParseConst.dart';
+import 'ParseInfo.dart';
 
 abstract class Parse {
-  String url; // Source URL
-  MediaType type;
-  String comment; //Source intro
-  String updateUrl; // Source Parse Script Update URL
-  String author; //Author
-  String author_email; //Author e-mail
-  String author_website; //Author website or blog
+  ParseInfo info;
+  ParseType type;
+  ParseActionType action;
 
   List<List<Agent>> agents;
 
@@ -22,6 +19,4 @@ abstract class Parse {
 
   @override
   String toString();
-
-
 }

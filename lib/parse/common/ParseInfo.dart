@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import '../../common/AuthorInfo.dart';
+import '../../common/Info.dart';
 
-class ParseInfo {
+class ParseInfo implements Info{
   // .* (.*?);
   String uuid;
   String name;
@@ -45,8 +46,8 @@ class ParseInfo {
     );
   }
 
-  static AuthorInfo fromString(String str) {
-    return fromString(json.decode(str));
+  static ParseInfo fromString(String str) {
+    return fromJson(json.decode(str));
   }
 
   Map<String, dynamic> toJson() {
