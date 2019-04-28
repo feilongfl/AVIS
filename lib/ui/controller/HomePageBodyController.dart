@@ -3,7 +3,6 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../common/AppEnums.dart';
 import '../../media/Media.dart';
-import '../../parse/ParseRunner/ParseRunner.dart';
 
 class HomePageBodyController extends ControllerMVC {
   HomePages page_type;
@@ -11,6 +10,7 @@ class HomePageBodyController extends ControllerMVC {
   HomePageBodyController(this.page_type);
 
   Future<List<Media>> getMedias(BuildContext context) async {
-    return ParseRunner.Homepage(context, page_type);
+//    return ParseRunner.Homepage(context, page_type);
+  return List();
   }
 }

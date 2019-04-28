@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../media/Media.dart';
-import '../../../parse/ParseRunner/ParseRunner.dart';
 import 'common/ViewerState.dart';
 
 class VideoViewer extends ViewerState {
@@ -17,7 +16,8 @@ class VideoViewer extends ViewerState {
 
   Future<Media> _getMedias(BuildContext context) async {
     print("get source");
-    return ParseRunner.Source(context, media);
+//    return ParseRunner.Source(context, media);
+    return Media();
   }
 
   bool loaded = false;

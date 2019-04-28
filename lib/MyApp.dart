@@ -65,7 +65,7 @@ class MyAppController extends ControllerMVC {
     AppRoutes.Search: (BuildContext context) => SearchPage(),
     AppRoutes.About: (BuildContext context) => AboutPage(),
     AppRoutes.Backup: (BuildContext context) => BackupPage(),
-    AppRoutes.SourceSetting: (BuildContext context) => SourceSettingPage(),
+//    AppRoutes.SourceSetting: (BuildContext context) => SourceSettingPage(),
     AppRoutes.Donate: (BuildContext context) => DonatePage(),
   };
 
@@ -79,22 +79,22 @@ class MyAppController extends ControllerMVC {
   static Parse _editingParse;
 
   Route<dynamic> _getRoute(RouteSettings settings) {
-    if (settings.name == AppRoutes.SearchResult) {
-      final Map<String, dynamic> argv = settings.arguments;
-      return MaterialPageRoute<void>(
-        settings: settings,
-        builder: (BuildContext context) => SearchResultPage(
-            argv[AppRoutes.SearchResultArg_type],
-            argv[AppRoutes.SearchResultArg_keyword]),
-      );
-    }
-    if (settings.name == AppRoutes.MediaInfo) {
-      final Media media = settings.arguments;
-      return MaterialPageRoute<void>(
-        settings: settings,
-        builder: (BuildContext context) => MediaInfoPage(media),
-      );
-    }
+//    if (settings.name == AppRoutes.SearchResult) {
+//      final Map<String, dynamic> argv = settings.arguments;
+//      return MaterialPageRoute<void>(
+//        settings: settings,
+//        builder: (BuildContext context) => SearchResultPage(
+//            argv[AppRoutes.SearchResultArg_type],
+//            argv[AppRoutes.SearchResultArg_keyword]),
+//      );
+//    }
+//    if (settings.name == AppRoutes.MediaInfo) {
+//      final Media media = settings.arguments;
+//      return MaterialPageRoute<void>(
+//        settings: settings,
+//        builder: (BuildContext context) => MediaInfoPage(media),
+//      );
+//    }
     if (settings.name == AppRoutes.MediaView) {
       final Map<String, dynamic> argv = settings.arguments;
       return ViewRoute.viewRoute(
@@ -103,26 +103,26 @@ class MyAppController extends ControllerMVC {
           argv[AppRoutes.MediaViewArg_EposideId],
           argv[AppRoutes.MediaViewArg_ChapterId]);
     }
-    if (settings.name == AppRoutes.SourceEdit) {
-      _editingParse = settings.arguments ?? BaseParse();
-      return MaterialPageRoute<Parse>(
-        settings: settings,
-        builder: (BuildContext context) => SourceEditPageModel(
-              parse: _editingParse,
-              child: SourceEditPage(),
-            ),
-      );
-    }
-    if (settings.name == AppRoutes.AgentsEdit) {
-      ParseType argv = settings.arguments;
-      return MaterialPageRoute<void>(
-        settings: settings,
-        builder: (BuildContext context) => SourceEditPageModel(
-              parse: _editingParse,
-              child: AgentEditPage(argv),
-            ),
-      );
-    }
+//    if (settings.name == AppRoutes.SourceEdit) {
+//      _editingParse = settings.arguments ?? BaseParse();
+//      return MaterialPageRoute<Parse>(
+//        settings: settings,
+//        builder: (BuildContext context) => SourceEditPageModel(
+//              parse: _editingParse,
+//              child: SourceEditPage(),
+//            ),
+//      );
+//    }
+//    if (settings.name == AppRoutes.AgentsEdit) {
+//      ParseType argv = settings.arguments;
+//      return MaterialPageRoute<void>(
+//        settings: settings,
+//        builder: (BuildContext context) => SourceEditPageModel(
+//              parse: _editingParse,
+//              child: AgentEditPage(argv),
+//            ),
+//      );
+//    }
     if (settings.name == AppRoutes.AgentSelect) {
       Agent argv = settings.arguments;
       return MaterialPageRoute<Agent>(

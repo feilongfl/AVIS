@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../../../media/Media.dart';
-import '../../../../parse/ParseRunner/ParseRunner.dart';
-
 
 class ViewerState extends StateMVC {
   final Media media;
@@ -16,7 +14,8 @@ class ViewerState extends StateMVC {
 
   Future<Media> _getMedias(BuildContext context) async {
     print("get source");
-    return ParseRunner.Source(context, media);
+//    return ParseRunner.Source(context, media);
+    return Media();
   }
 
   @override
