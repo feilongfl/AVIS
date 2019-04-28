@@ -332,6 +332,7 @@ class AppShareData extends InheritedWidget {
   @override
   bool updateShouldNotify(AppShareData oldWidget) =>
       oldWidget.AppParse != AppParse ||
+      oldWidget.homepageTabItems != homepageTabItems ||
 //      oldWidget.History != History ||
 //      oldWidget.Favorite != Favorite ||
       false; //debug use

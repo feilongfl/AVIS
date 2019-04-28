@@ -6,6 +6,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'package:simple_gravatar/simple_gravatar.dart';
 
 import '../../../common/AppRoutes.dart';
+import '../../../common/AppShareData.dart';
 import '../../../generated/i18n.dart';
 import '../../controller/HomePageConTroller.dart';
 import '../../widget/RouteButton.dart';
@@ -59,11 +60,13 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
     ];
   }
 
+  int _tabLength = 1;
+
   @override
   void initState() {
     super.initState();
-    homePageController.tabController = new TabController(
-        length: homePageController.widgetTabs.length, vsync: this);
+    homePageController.tabController =
+        new TabController(length: _tabLength, vsync: this);
   }
 
   List<Widget> DrawerLists(BuildContext context) {
@@ -108,13 +111,25 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    if (_tabLength != AppShareData.of(context).homepageTabItems.length + 1) {
+      _tabLength = AppShareData.of(context).homepageTabItems.length + 1;
+      homePageController.tabController =
+          new TabController(length: _tabLength, vsync: this);
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).AppName),
         bottom: TabBar(
           isScrollable: true,
           controller: homePageController.tabController,
-          tabs: homePageController.widgetTabs,
+          tabs: [
+            Tab(
+              text: "Home",
+            )
+          ]..addAll(AppShareData.of(context).homepageTabItems.map((h) => Tab(
+                text: h.name,
+              ))),
         ),
         actions: <Widget>[
           IconButton(
@@ -134,7 +149,17 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
       ),
       body: TabBarView(
           controller: homePageController.tabController,
-          children: homePageController.widgetBodys),
+          children: [
+            // main page
+            Center(
+              child: Icon(Icons.home),
+            )
+          ]..addAll(AppShareData.of(context)
+              .homepageTabItems
+              .map((h) => Center(
+                    child: Icon(Icons.texture),
+                  ))
+              .toList())),
       drawer: Drawer(
         child: ListView(
           children: DrawerLists(context),

@@ -13,15 +13,16 @@ class HomePageController extends ControllerMVC {
 
   bool showIcon = false;
 
-  List<Widget> get widgetTabs => HomePageModel.widgetTabs
-      .map((t) => Tab(
-            text: t.text,
-            icon: showIcon ? t.icon : null,
-          ))
-      .toList();
+//  List<Widget> get widgetTabs => HomePageModel.widgetTabs
+//      .map((t) => Tab(
+//            text: t.text,
+//            icon: showIcon ? t.icon : null,
+//          ))
+//      .toList();
 
-  List<Widget> get widgetBodys =>
-      HomePageModel.widgetTabs.map((t) => t.child).toList();
+
+//  List<Widget> get widgetBodys => Center(child:Icon(Icons.texture));
+//      HomePageModel.widgetTabs.map((t) => t.child).toList();
 
   void whatever() => HomePageModel.incre();
 

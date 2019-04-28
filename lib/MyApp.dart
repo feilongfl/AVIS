@@ -5,6 +5,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import 'Agent/HttpAgent.dart';
 import 'Agent/common/Agent.dart';
 import 'common/AppRoutes.dart';
+import 'common/AppShareData.dart';
 import 'generated/i18n.dart';
 import 'parse/common/Parse.dart';
 import 'ui/view/AboutPage.dart';
