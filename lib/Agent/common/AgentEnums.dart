@@ -15,6 +15,7 @@ enum AgentLists {
   EventFormatAgent,
   Base64Agent,
   UrlCodecsAgent,
+  ActAsAgent,
   //all
   All,
 }
