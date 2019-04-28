@@ -18,6 +18,7 @@ enum EventItems {
   ChapterId,
   Intro,
   EpisodeId,
+  SourcePath,
   Group,
   //temp vals
   TempVal1,
@@ -55,6 +56,7 @@ class Event {
   static const String ChapterId = "{{chapterid}}";
   static const String Intro = "{{intro}}";
   static const String EpisodeId = "{{episodeid}}";
+  static const String SourcePath = "{{SourcePath}}";
   static const String Group = "{{group}}";
 
   // temp vals
@@ -86,6 +88,7 @@ class Event {
     ChapterId,
     Intro,
     EpisodeId,
+    SourcePath,
     Group,
     // temp vals
     TempVal1,

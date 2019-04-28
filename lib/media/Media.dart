@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import '../common/AppEnums.dart';
+import '../parse/common/ParseConst.dart';
+import '../parse/event/Event.dart';
 import 'MediaEpisode.dart';
 import 'MediaInfo.dart';
 import 'MeidaConst.dart';
@@ -24,5 +26,11 @@ class Media {
   @override
   String toString() {
     return json.encode(this.toJson());
+  }
+
+  static List<Media> fromEvent(List<Event> events, ParseActionType actionType,
+      {Media media}) {
+    // todo complete here
+    return List();
   }
 }
