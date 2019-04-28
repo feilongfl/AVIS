@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 enum EventItems {
+  //Parse arg
+  Action,
+  PageNums,
   // formatter event
   Title,
   Cover,
@@ -37,6 +40,8 @@ class Event {
   bool success = true;
 
   //const strings
+  static const String Action = "{{Action}}";
+  static const String PageNums = "{{PageNums}}";
   static const String Title = "{{title}}";
   static const String Cover = "{{cover}}";
   static const String Url = "{{url}}";
@@ -64,6 +69,10 @@ class Event {
   static const String TempVal9 = "{{TempVal9}}";
 
   static const List<String> EventItemStrings = [
+    //parse
+    Action,
+    PageNums,
+    //formatter
     Title,
     Cover,
     Url,

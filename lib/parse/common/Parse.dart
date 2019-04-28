@@ -1,4 +1,3 @@
-import '../../media/Media.dart';
 import '../event/Event.dart';
 import 'ParseAction.dart';
 import 'ParseConst.dart';
@@ -9,8 +8,7 @@ abstract class Parse {
   ParseType type;
   List<ParseAction> actions;
 
-
-  Future<List<Media>> doWork(ParseActionType type, List<Event> events) async {}
+  Future<List<Event>> doWork(ParseActionType type, List<Event> events) async {}
 
   Map<String, dynamic> toJson();
 
