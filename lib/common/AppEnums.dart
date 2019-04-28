@@ -1,14 +1,14 @@
-enum ParseType {
-  Search,
-  info,
-  Episode,
-  Chapter,
-  Source,
-  SourceLazy,
-  homepage,
-  login,
-  All,
-}
+//enum ParseType {
+//  Search,
+//  info,
+//  Episode,
+//  Chapter,
+//  Source,
+//  SourceLazy,
+//  homepage,
+//  login,
+//  All,
+//}
 
 enum HttpMethod {
   Get,
