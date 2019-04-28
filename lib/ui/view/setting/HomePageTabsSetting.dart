@@ -6,15 +6,16 @@ import '../../../common/AppShareData.dart';
 import '../../../generated/i18n.dart';
 import '../homepage/HomepageTabItem.dart';
 
-class HomePageTipsSetting extends StatefulWidget {
+class HomePageTabsSetting extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => HomePageTipsSettingState();
+  State<StatefulWidget> createState() => HomePageTabsSettingState();
 }
 
-class HomePageTipsSettingState extends StateMVC {
+class HomePageTabsSettingState extends StateMVC {
   Widget _ItemTile(BuildContext context, HomepageTabItem item) {
     return ListTile(
       title: Text(item.name),
+      subtitle: Text(item.uuid),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
@@ -34,12 +35,12 @@ class HomePageTipsSettingState extends StateMVC {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Page Settings"),
       ),
       floatingActionButton: FloatingActionButton(
+        onPressed: () {},
         child: IconButton(
             icon: Icon(Icons.add),
             onPressed: () => Navigator.of(context)

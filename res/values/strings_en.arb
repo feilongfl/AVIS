@@ -1,6 +1,7 @@
 {
   "AppName": "AVIS",
   "NULL": "NULL",
+  "Name": "Name",
   "Sources": "Sources",
   "Article": "Article",
   "Video": "Video",

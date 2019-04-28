@@ -17,7 +17,7 @@ import 'ui/view/SearchPage.dart';
 import 'ui/view/UnknownPage.dart';
 import 'ui/view/homepage/HomepageTabItem.dart';
 import 'ui/view/homepage/homepage.dart';
-import 'ui/view/setting/HomePageTipsSetting.dart';
+import 'ui/view/setting/HomePageTabsSetting.dart';
 import 'ui/view/setting/HomepageTabItemEdit.dart';
 import 'ui/view/setting/SettingPage.dart';
 
@@ -64,7 +64,7 @@ class MyAppController extends ControllerMVC {
     AppRoutes.Donate: (BuildContext context) => DonatePage(),
     AppRoutes.Setting: (BuildContext context) => SettingPage(),
     AppRoutes.Settings_HomePageTabs: (BuildContext context) =>
-        HomePageTipsSetting(),
+        HomePageTabsSetting(),
   };
 
   Route<dynamic> _unknowRoute(RouteSettings settings) {

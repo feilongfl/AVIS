@@ -17,11 +17,12 @@ class HomepageTabItem {
 
   HomepageTabItem(
       {this.name = "Tabs",
-      this.parseUuid = const [],
+      this.parseUuid,
       this.viewType = ViewType.GridView,
       this.autoRefersh = false,
       this.autoLoadmore = true,
       this.uuid}) {
+    this.parseUuid = this.parseUuid ?? List();
     uuid = uuid ?? Uuid().v4();
   }
 

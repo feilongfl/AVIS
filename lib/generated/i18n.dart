@@ -56,6 +56,7 @@ class S implements WidgetsLocalizations {
   String get Loading => "Loading";
   String get Loading_Failed => "Loading Failed";
   String get NULL => "NULL";
+  String get Name => "Name";
   String get No_Agent => "No Agent";
   String get Normal_Config => "Normal Config";
   String get Paypal => "Paypal";

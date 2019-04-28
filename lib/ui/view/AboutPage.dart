@@ -7,7 +7,6 @@ import '../../generated/i18n.dart';
 class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text(S.of(context).About),
