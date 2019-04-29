@@ -14,6 +14,7 @@ class MediaTileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
+      contentPadding: EdgeInsets.symmetric(horizontal: 4),
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -34,7 +35,7 @@ class MediaTileView extends StatelessWidget {
           Expanded(
             child: Container(
               height: imageWidthHeight,
-              padding: EdgeInsets.only(left: 12),
+              padding: EdgeInsets.only(left: 6),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +63,7 @@ class MediaTileView extends StatelessWidget {
                     child: Center(
                       child: Text(
                         media.info.intro ?? "",
-                        maxLines: 6,
+                        maxLines: 4,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                       ),

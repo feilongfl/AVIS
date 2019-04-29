@@ -49,10 +49,9 @@ class HomeViewState extends StateMVC {
     if (parse == null) return;
 
     // no eposide and no chapter direct to source
-    if (
-//    parse.actions[ParseActionType.Info.index].agents.length == 0 &&
+    if (parse.actions[ParseActionType.Info.index].agents.length == 0 &&
         parse.actions[ParseActionType.Eposide.index].agents.length == 0 &&
-            parse.actions[ParseActionType.Chapter.index].agents.length == 0) {
+        parse.actions[ParseActionType.Chapter.index].agents.length == 0) {
       Navigator.of(context).pushNamed(AppRoutes.MediaView,
           arguments: {AppRoutes.MediaViewArg_Media: media});
     } else {

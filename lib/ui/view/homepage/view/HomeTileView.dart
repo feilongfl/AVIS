@@ -10,13 +10,13 @@ class HomeTileViewState extends HomeViewState {
 
   HomeTileViewState(this.item) : super(item);
 
-  final double imageWidthHeight = 150;
+//  final double imageWidthHeight = 150;
 
   Widget mediaViewCard(BuildContext context,
           {@required Media media, VoidCallback onTap}) =>
       MediaTileView(
         media,
-        imageWidthHeight,
+        MediaQuery.of(context).size.width * 0.28,
         onTap: onTap,
       );
 }
