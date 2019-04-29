@@ -22,7 +22,6 @@ class HomeGridViewState extends HomeViewState {
   List<Media> medias = List();
   GlobalKey<EasyRefreshState> easyRefreshKey =
       new GlobalKey<EasyRefreshState>();
-  bool firstShow = true;
 
   HomeGridViewState(this.item) : super(item);
 
