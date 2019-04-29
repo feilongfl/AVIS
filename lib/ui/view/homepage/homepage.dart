@@ -8,8 +8,11 @@ import 'package:simple_gravatar/simple_gravatar.dart';
 import '../../../common/AppRoutes.dart';
 import '../../../common/AppShareData.dart';
 import '../../../generated/i18n.dart';
+import '../../UiConst.dart';
 import '../../controller/HomePageConTroller.dart';
 import '../../widget/RouteButton.dart';
+import 'HomepageTabItem.dart';
+import 'view/HomeGridView.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -156,15 +159,29 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
             )
           ]..addAll(AppShareData.of(context)
               .homepageTabItems
-              .map((h) => Center(
-                    child: Icon(Icons.texture),
-                  ))
+              .map((h) => _homePageTabBody(context, h))
               .toList())),
       drawer: Drawer(
         child: ListView(
           children: DrawerLists(context),
         ),
       ),
+    );
+  }
+
+  Widget _homePageTabBody(
+      BuildContext context, HomepageTabItem homepageTabItem) {
+    switch (homepageTabItem.viewType) {
+      case ViewType.GridView:
+        return HomeGridView(homepageTabItem);
+        break;
+
+      default:
+        break;
+    }
+
+    return Center(
+      child: Icon(Icons.texture),
     );
   }
 }
