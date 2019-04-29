@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'MeidaConst.dart';
 
 class MediaSource {
-  List<String> urls;
+  List<String> urls = List();
 
   Map<String, dynamic> toJson() {
     return {

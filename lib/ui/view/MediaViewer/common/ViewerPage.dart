@@ -3,6 +3,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../../../common/AppEnums.dart';
 import '../../../../media/Media.dart';
+import '../ArticleViewer.dart';
 import '../ImageViewer.dart';
 import '../VideoViewer.dart';
 import 'ViewerState.dart';
@@ -28,11 +29,17 @@ class ViewerPage extends StatefulWidget {
             (m, e, c) => ImageViewer(media: m, eposide: e, chapter: c);
         break;
 
+      case MediaType.Article:
+        if (media.episode.length == 0)
+          this.createStateCallBack = (m, e, c) =>
+              SinglePageArticleViewer(media: m, eposide: e, chapter: c);
+        break;
+
       default:
-        this.createStateCallBack =
-            (m, e, c) => ViewerState(media: m, eposide: e, chapter: c);
         break;
     }
+    this.createStateCallBack = this.createStateCallBack ??
+        (m, e, c) => ViewerState(media: m, eposide: e, chapter: c);
   }
 
   @override

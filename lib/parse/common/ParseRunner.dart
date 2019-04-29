@@ -42,6 +42,15 @@ class ParseRunner {
     return medias[0];
   }
 
+  static Future<Media> runSource(BuildContext context, Media media) async {
+    List<Media> medias = new List();
+
+    medias.addAll(await run(context, ParseType.Source, ParseActionType.Source,
+        media: media));
+
+    return medias[0];
+  }
+
   static Future<List<Media>> run(
     BuildContext context,
     ParseType parseType,

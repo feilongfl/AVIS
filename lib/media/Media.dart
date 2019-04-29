@@ -3,8 +3,10 @@ import 'dart:convert';
 import '../common/AppEnums.dart';
 import '../parse/common/ParseConst.dart';
 import '../parse/event/Event.dart';
+import 'MediaChapter.dart';
 import 'MediaEpisode.dart';
 import 'MediaInfo.dart';
+import 'MediaSource.dart';
 import 'MeidaConst.dart';
 
 class Media {
@@ -66,6 +68,24 @@ class Media {
         final Event e = events[0];
         media.info.intro = e.Data[Event.Intro];
         //              todo add more
+        medias.add(media);
+        break;
+
+      case ParseActionType.Source:
+        assert(media != null);
+        final Event e = events[0];
+
+        //              todo add more
+        //no eposide or chapter
+        if (media.episode.length == 0) {
+          media.episode.add(MediaEpisode());
+          media.episode[0].chapter.add(MediaChapter());
+          media.episode[0].chapter[0].sources.add(MediaSource());
+          media.episode[0].chapter[0].sources[0].urls.add(e.Data[Event.Body]);
+        } else {
+          // have eposide and chapter
+        }
+
         medias.add(media);
         break;
 

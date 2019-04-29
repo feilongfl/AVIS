@@ -7,11 +7,14 @@ import 'MeidaConst.dart';
 
 class MediaChapter {
   MediaInfo info;
-  MediaType type = MediaType.Image;
+  MediaType type;
 
-  List<MediaSource> sources = List();
+  List<MediaSource> sources;
 
-  MediaChapter({this.info, this.sources, this.type});
+  MediaChapter({this.info, this.sources, this.type = MediaType.Image}) {
+    this.info = this.info ?? MediaInfo();
+    this.sources = this.sources ?? List();
+  }
 
   Map<String, dynamic> toJson() {
     return {
