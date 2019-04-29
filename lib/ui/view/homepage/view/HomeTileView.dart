@@ -16,7 +16,7 @@ class HomeTileViewState extends HomeViewState {
           {@required Media media, VoidCallback onTap}) =>
       MediaTileView(
         media,
-        MediaQuery.of(context).size.width * 0.28,
+        MediaQuery.of(context).size.width * 0.3,
         onTap: onTap,
       );
 }

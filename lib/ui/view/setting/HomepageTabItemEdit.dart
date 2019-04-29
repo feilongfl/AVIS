@@ -38,15 +38,22 @@ class HomepageTabItemEditState extends StateMVC {
     }
 
     return ListTile(
-      title: DropdownButtonFormField(
-          decoration: InputDecoration(labelText: "Source"),
+      title: DropdownButton(
+//          decoration: InputDecoration(labelText: "Source"),
+          isExpanded: true,
           value: item.parseUuids[index],
+          onChanged: (v) => setState(() => item.parseUuids[index] = v),
           items: AppShareData.of(context)
               .appParse
               .where((p) =>
                   p.actions[ParseActionType.HomePage.index].agents.length != 0)
               .map((p) => DropdownMenuItem(
-                  value: p.info.uuid, child: Text(p.info.uuid)))
+                  value: p.info.uuid,
+                  child: Text(
+                    p.info.uuid,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  )))
               .toList()),
       trailing: IconButton(
           icon: Icon(Icons.delete),
