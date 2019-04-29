@@ -77,33 +77,43 @@ class SourceSettingState extends StateMVC {
               });
             },
           ),
-          IconButton(
-            icon: Icon(Icons.account_circle),
-            tooltip: "About",
-            onPressed: () {
-              showDialog<void>(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                        title: Text(parse.info.author.name),
-                        content: Column(
-                          children: <Widget>[
-                            Text(parse.info.author.email),
-                            Text(parse.info.author.donateUrl),
-                          ],
-                        ),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: Text("OK"),
-                          ),
-                        ],
-                      ));
-            },
+          PopupMenuButton(
+            itemBuilder: (context) => _tilePopItems
+                .map((k, v) =>
+                    MapEntry(k, PopupMenuItem(value: v, child: Text(k))))
+                .values
+                .toList(),
+            onSelected: (v) => v(context, parse),
           ),
         ],
       ),
     );
   }
+
+  static void _about(BuildContext context, Parse parse) {
+    showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: Text(parse.info.author.name),
+              content: Column(
+                children: <Widget>[
+                  Text(parse.info.author.email),
+                  Text(parse.info.author.donateUrl),
+                ],
+              ),
+              actions: <Widget>[
+                FlatButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text("OK"),
+                ),
+              ],
+            ));
+  }
+
+  Map<String, void Function(BuildContext context, Parse parse)> _tilePopItems =
+      {
+    "About": (c, p) => _about(c, p),
+  };
 
 //  List<Widget> _group(
 //      BuildContext context, String groupName, MediaType mediaType) {
