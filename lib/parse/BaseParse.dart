@@ -29,7 +29,11 @@ class BaseParse implements Parse {
     this.initHomePage = 1,
   }) {
     this.info = this.info ?? ParseInfo();
-    this.actions = this.actions ?? List();
+    this.actions = this.actions ?? List(ParseActionType.values.length);
+
+    ParseActionType.values.forEach((t) {
+      if (actions[t.index] == null) actions[t.index] = ParseAction(type: t);
+    });
   }
 
   Future<List<Event>> doWork(ParseActionType type, List<Event> eventsIn) async {
@@ -38,7 +42,7 @@ class BaseParse implements Parse {
     // select action
     for (Event e in eventsIn) {
       final ParseAction action = (e.Data[EventItems.Action] ??
-              ParseActionType.All.index >= ParseActionType.All.index)
+              ParseActionType.values.length >= ParseActionType.values.length)
           ? null
           : actions[e.Data[EventItems.Action]];
 

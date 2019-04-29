@@ -31,8 +31,8 @@ class SourceEditState extends StateMVC {
     return ParseConst.ParseActionTypes.map((p) => Visibility(
           visible: ParseConst.ParseActionTypeVisibility(parse.type, p),
           child: ListTile(
-            onTap: () => Navigator.of(context)
-                .pushNamed(AppRoutes.AgentsEdit, arguments: p),
+            onTap: () => Navigator.of(context).pushNamed(AppRoutes.AgentsEdit,
+                arguments: parse.actions[p.index]),
             leading: Icon(ParseConst.ParseActionTypeIcons[p.index]),
             title: Text(ParseConst.ParseActionTypeStrings[p.index] +
                 " " +

@@ -8,12 +8,14 @@ import 'common/AppRoutes.dart';
 import 'generated/i18n.dart';
 import 'parse/BaseParse.dart';
 import 'parse/common/Parse.dart';
+import 'parse/common/ParseAction.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
 import 'ui/view/MediaViewer/common/ViewRoute.dart';
 import 'ui/view/PictureViewer.dart';
 import 'ui/view/SearchPage.dart';
 import 'ui/view/SourceSetting/AboutPage.dart';
+import 'ui/view/SourceSetting/AgentEditPage.dart';
 import 'ui/view/SourceSetting/AgentSelectPage.dart';
 import 'ui/view/SourceSetting/SourceEditPage.dart';
 import 'ui/view/SourceSetting/SourceSettingPage.dart';
@@ -111,16 +113,12 @@ class MyAppController extends ControllerMVC {
         builder: (BuildContext context) => SourceEditPage(_editingParse),
       );
     }
-//    if (settings.name == AppRoutes.AgentsEdit) {
-//      ParseType argv = settings.arguments;
-//      return MaterialPageRoute<void>(
-//        settings: settings,
-//        builder: (BuildContext context) => SourceEditPageModel(
-//              parse: _editingParse,
-//              child: AgentEditPage(argv),
-//            ),
-//      );
-//    }
+    if (settings.name == AppRoutes.AgentsEdit) {
+      ParseAction argv = settings.arguments;
+      return MaterialPageRoute<List<Agent>>(
+          settings: settings,
+          builder: (BuildContext context) => AgentEditPage(argv));
+    }
     if (settings.name == AppRoutes.AgentSelect) {
       Agent argv = settings.arguments;
       return MaterialPageRoute<Agent>(

@@ -19,10 +19,10 @@ class AppRoutes {
   static const String MediaViewArg_Media = "media";
   static const String MediaViewArg_EposideId = "eposide";
   static const String MediaViewArg_ChapterId = "chapter";
-  static const String SourceEdit = "/SourceEdit";
-  static const String AgentsEdit = "/AgentsEdit";
-  static const String AgentsEditArgs_Parse = "parse";
-  static const String AgentsEditArgs_ParseType = "parsetype";
+  static const String SourceEdit = "/SourceSetting/SourceEdit";
+  static const String AgentsEdit = "/SourceSetting/SourceEdit/AgentsEdit";
+  static const String AgentsEditArgs_Agents = "agents";
+  static const String AgentsEditArgs_ActionType = "actiontype";
   static const String AgentSelect = "/AgentSelect";
   static const String AgentConfig = "/AgentConfig";
   static const String AgentDryRun = "/AgentDryRun";

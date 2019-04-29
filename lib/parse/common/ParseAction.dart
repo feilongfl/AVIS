@@ -9,7 +9,9 @@ class ParseAction {
   ParseActionType type;
   List<Agent> agents;
 
-  ParseAction({this.agents, this.type});
+  ParseAction({this.agents, this.type = ParseActionType.Info}) {
+    this.agents = this.agents ?? List();
+  }
 
   Future<List<Event>> doWork(List<Event> events) async {
     for (var agent in agents) {
@@ -27,6 +29,7 @@ class ParseAction {
       agents: jsonObj[jsonKey_agents]
           .cast<String>()
           .map((as) => (AgentCreator.loadStringToAgent(as)))
+          .cast<Agent>()
           .toList(),
     );
   }

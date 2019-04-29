@@ -18,7 +18,7 @@ enum ParseActionType {
   SourceLazy,
   HomePage,
   //
-  All,
+//  All,
 }
 
 class ParseConst {
