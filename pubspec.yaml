@@ -37,6 +37,7 @@ dependencies:
   dynamic_theme: 1.0.1
   font_awesome_flutter: 8.4.0
   chewie: 0.9.7
+  flutter_easyrefresh: 1.2.7
 #  flutter_crashlytics: 1.0.0
 #  firebase_core: 0.3.4
 #  firebase_analytics: 2.1.1
