@@ -6,7 +6,7 @@ import '../../UiConst.dart';
 
 class HomepageTabItem {
   String name;
-  List<String> parseUuid;
+  List<String> parseUuids;
 
   ViewType viewType;
 
@@ -17,12 +17,12 @@ class HomepageTabItem {
 
   HomepageTabItem(
       {this.name = "Tabs",
-      this.parseUuid,
+      this.parseUuids,
       this.viewType = ViewType.GridView,
       this.autoRefersh = false,
       this.autoLoadmore = true,
       this.uuid}) {
-    this.parseUuid = this.parseUuid ?? List();
+    this.parseUuids = this.parseUuids ?? List();
     uuid = uuid ?? Uuid().v4();
   }
 
@@ -36,7 +36,7 @@ class HomepageTabItem {
   static HomepageTabItem fromJson(Map<String, dynamic> jsonObj) {
     return HomepageTabItem(
       name: jsonObj[jsonKey_name],
-      parseUuid: jsonObj[jsonKey_parseUuid].cast<String>(),
+      parseUuids: jsonObj[jsonKey_parseUuid].cast<String>(),
       viewType: ViewType.values[jsonObj[jsonKey_viewType]],
       autoRefersh: jsonObj[jsonKey_autoRefersh],
       autoLoadmore: jsonObj[jsonKey_autoLoadmore],
@@ -51,7 +51,7 @@ class HomepageTabItem {
   Map<String, dynamic> toJson() {
     return {
       jsonKey_name: name,
-      jsonKey_parseUuid: parseUuid,
+      jsonKey_parseUuid: parseUuids,
       jsonKey_viewType: viewType.index,
       jsonKey_autoRefersh: autoRefersh,
       jsonKey_autoLoadmore: autoLoadmore,

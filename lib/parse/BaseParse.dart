@@ -36,35 +36,38 @@ class BaseParse implements Parse {
     });
   }
 
-  Future<List<Event>> doWork(ParseActionType type, List<Event> eventsIn) async {
+  Future<List<Event>> doWork(
+      ParseActionType actionType, List<Event> eventsIn) async {
     List<Event> eventsOut = List();
 
     // select action
     for (Event e in eventsIn) {
-      final ParseAction action = (e.Data[EventItems.Action] ??
-              ParseActionType.values.length >= ParseActionType.values.length)
-          ? null
-          : actions[e.Data[EventItems.Action]];
+      try {
+        final ParseAction action =
+            actions.firstWhere((a) => a.type == actionType);
 
-      if (action == null) continue; // event action not found
+        if (action == null) continue; // event action not found
 
-      // do works
-      switch (action.type) {
-        case ParseActionType.Search:
-          for (int i = initSearchPage; i <= maxSearchPage; i++)
-            eventsOut.addAll(
-                await action.doWork([e..Data[Event.PageNums] = i.toString()]));
-          break;
+        // do works
+        switch (action.type) {
+          case ParseActionType.Search:
+            for (int i = initSearchPage; i <= maxSearchPage; i++)
+              eventsOut.addAll(await action
+                  .doWork([e..Data[Event.PageNums] = i.toString()]));
+            break;
 
-        case ParseActionType.HomePage:
-          for (int i = initHomePage; i <= maxHomePage; i++)
-            eventsOut.addAll(
-                await action.doWork([e..Data[Event.PageNums] = i.toString()]));
-          break;
+          case ParseActionType.HomePage:
+            for (int i = initHomePage; i <= maxHomePage; i++)
+              eventsOut.addAll(await action
+                  .doWork([e..Data[Event.PageNums] = i.toString()]));
+            break;
 
-        default:
-          eventsOut.addAll(await action.doWork([e]));
-          break;
+          default:
+            eventsOut.addAll(await action.doWork([e]));
+            break;
+        }
+      } catch (e) {
+        continue;
       }
     }
 

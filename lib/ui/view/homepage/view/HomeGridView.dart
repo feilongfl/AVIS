@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import '../../../../media/Media.dart';
+import '../../../../parse/common/ParseRunner.dart';
 import '../../../widget/MediaCardView.dart';
 import '../HomepageTabItem.dart';
 import 'HomeViewState.dart';
@@ -22,15 +23,24 @@ class HomeGridViewState extends HomeViewState {
   List<Media> medias = List();
   GlobalKey<EasyRefreshState> easyRefreshKey =
       new GlobalKey<EasyRefreshState>();
+  int loadTimes = 0;
 
   HomeGridViewState(this.item) : super(item);
 
-  Future<void> loadMore(BuildContext context) {
-    setState(() => medias.add(Media()..info.title = "loadmore"));
+  Future<void> loadMore(BuildContext context) async {
+    loadTimes++;
+    List<Media> media =
+        await ParseRunner.runHomepageTab(context, item.parseUuids, loadTimes);
+
+    setState(() => medias.addAll(media));
   }
 
   Future<void> refersh(BuildContext context) async {
-    setState(() => medias.add(Media()));
+    loadTimes = 0;
+    List<Media> media =
+        await ParseRunner.runHomepageTab(context, item.parseUuids, loadTimes);
+
+    setState(() => medias = media);
   }
 
   @override

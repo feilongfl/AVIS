@@ -14,6 +14,15 @@ class Media {
 
   List<MediaEpisode> episode = new List();
 
+  Media(
+      {this.info,
+      this.type = MediaType.Article,
+      this.ParseUUID,
+      this.episode}) {
+    this.info = this.info ?? MediaInfo();
+    this.episode = this.episode ?? List();
+  }
+
   Map<String, dynamic> toJson() {
     return {
       MediaConst.Info: info.toString(),
@@ -29,8 +38,32 @@ class Media {
   }
 
   static List<Media> fromEvent(List<Event> events, ParseActionType actionType,
-      {Media media}) {
-    // todo complete here
-    return List();
+      {Media media, MediaType type, String parseUUID}) {
+    List<Media> medias = List();
+
+    switch (actionType) {
+      case ParseActionType.HomePage:
+        for (Event e in events) {
+          Media media = Media(
+              info: MediaInfoFull(
+                title: e.Data[Event.Title],
+                cover: e.Data[Event.Cover],
+                url: e.Data[Event.Url],
+                ID: e.Data[Event.MediaId],
+//              todo add more
+//               isFinished: e.Data[Event.],
+              ),
+              ParseUUID: parseUUID,
+              type: type);
+
+          medias.add(media);
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    return medias;
   }
 }

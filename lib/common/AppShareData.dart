@@ -24,7 +24,7 @@ import 'AppEnums.dart';
 //  Agent demohRegexAgent = RegexpAgent(
 //      matchBody: Event.Body,
 //      regexp: RegExp(
-//          '<a class="comic_img" href="(http.*?manhua\\/(.*?)\\/)"><img src="(.*?)" alt="(.*?)"'),
+//          r'<a class="comic_img" href="(http.*?manhua\/(.*?)\/)"><img src="(.*?)" alt="(.*?)"'),
 //      matchGroups: [Event.Url, Event.MediaId, Event.Cover, Event.Title]);
 //
 //  Agent domoinfoAgent = HttpAgent(

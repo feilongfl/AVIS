@@ -40,7 +40,7 @@ class HomepageTabItemEditState extends StateMVC {
     return ListTile(
       title: DropdownButtonFormField(
           decoration: InputDecoration(labelText: "Source"),
-          value: item.parseUuid[index],
+          value: item.parseUuids[index],
           items: AppShareData.of(context)
               .AppParse
               .where((p) =>
@@ -50,7 +50,7 @@ class HomepageTabItemEditState extends StateMVC {
               .toList()),
       trailing: IconButton(
           icon: Icon(Icons.delete),
-          onPressed: () => setState(() => item.parseUuid.removeAt(index))),
+          onPressed: () => setState(() => item.parseUuids.removeAt(index))),
     );
   }
 
@@ -120,8 +120,8 @@ class HomepageTabItemEditState extends StateMVC {
               ),
             )
             ..add(SettingDevideText("Home Page Parses"))
-            ..addAll(item.parseUuid.length > 0
-                ? item.parseUuid
+            ..addAll(item.parseUuids.length > 0
+                ? item.parseUuids
                     .asMap()
                     .map((i, pu) => MapEntry(i, _ParseTile(context, i, pu)))
                     .values
@@ -138,7 +138,7 @@ class HomepageTabItemEditState extends StateMVC {
                                 0)
                             .length !=
                         0)
-                      item.parseUuid.add(AppShareData.of(context)
+                      item.parseUuids.add(AppShareData.of(context)
                           .AppParse
                           .firstWhere((p) =>
                               p.type == ParseType.Source &&
