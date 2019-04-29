@@ -1,40 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 
-import '../../common/AppRoutes.dart';
 import '../../media/Media.dart';
-import '../../parse/common/Parse.dart';
-import '../../parse/common/ParseConst.dart';
-import '../../parse/common/ParseRunner.dart';
 
 class MediaCardView extends StatelessWidget {
-  Media media;
+  final Media media;
+  final VoidCallback onTap;
 
-  MediaCardView(this.media) : super();
-
-  void _onTap(BuildContext context) {
-    Parse parse = ParseRunner.findParse(context, media);
-    if (parse == null) return;
-
-    // no eposide and no chapter direct to source
-    if (parse.actions[ParseActionType.Info.index].agents.length == 0 &&
-        parse.actions[ParseActionType.Eposide.index].agents.length == 0 &&
-        parse.actions[ParseActionType.Chapter.index].agents.length == 0) {
-      Navigator.of(context).pushNamed(AppRoutes.MediaView,
-          arguments: {AppRoutes.MediaViewArg_Media: this.media});
-    } else {
-      Navigator.of(context)
-          .pushNamed(AppRoutes.MediaInfo, arguments: this.media);
-    }
-  }
+  MediaCardView(this.media, {this.onTap}) : super();
 
   @override
   Widget build(BuildContext context) {
-    return GridTile(
-      child: Padding(
-        padding: EdgeInsets.all(3),
-        child: GestureDetector(
-          onTap: () => _onTap(context),
+    return GestureDetector(
+      onTap: onTap,
+      child: GridTile(
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
           child: ClipRRect(
             borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
             child: Stack(

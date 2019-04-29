@@ -93,6 +93,7 @@ class HomepageTabItemEditState extends StateMVC {
                 title: DropdownButtonFormField(
                     decoration: InputDecoration(labelText: "View Type"),
                     value: item.viewType,
+                    onChanged: (v) => setState(() => item.viewType = v),
                     items: ViewType.values
                         .map((vt) => DropdownMenuItem(
                               child: Text(vt.toString()),

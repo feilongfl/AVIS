@@ -6,17 +6,6 @@ import '../../../widget/MediaCardView.dart';
 import '../HomepageTabItem.dart';
 import 'HomeViewState.dart';
 
-class HomeGridView extends StatefulWidget {
-  final HomepageTabItem item;
-
-  HomeGridView(this.item)
-      : assert(item != null),
-        super();
-
-  @override
-  HomeViewState createState() => HomeGridViewState(item);
-}
-
 class HomeGridViewState extends HomeViewState {
   final HomepageTabItem item;
 
@@ -25,8 +14,12 @@ class HomeGridViewState extends HomeViewState {
 
   HomeGridViewState(this.item) : super(item);
 
-  Widget mediaViewCard(BuildContext context, Media media) =>
-      MediaCardView(media);
+  Widget mediaViewCard(BuildContext context,
+          {@required Media media, VoidCallback onTap}) =>
+      MediaCardView(
+        media,
+        onTap: onTap,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +36,11 @@ class HomeGridViewState extends HomeViewState {
                         ? landCount
                         : portCount),
             itemCount: medias.length,
-            itemBuilder: (BuildContext context, int index) =>
-                mediaViewCard(context, medias[index])),
+            itemBuilder: (BuildContext context, int index) => mediaViewCard(
+                  context,
+                  media: medias[index],
+                  onTap: () => this.onTap(context, medias[index]),
+                )),
         onRefresh: () async => await refersh(context),
         loadMore: () async => await loadMore(context),
       ),
