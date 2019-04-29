@@ -6,11 +6,13 @@ import 'Agent/HttpAgent.dart';
 import 'Agent/common/Agent.dart';
 import 'common/AppRoutes.dart';
 import 'generated/i18n.dart';
+import 'media/Media.dart';
 import 'parse/BaseParse.dart';
 import 'parse/common/Parse.dart';
 import 'parse/common/ParseAction.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
+import 'ui/view/MediaInfoPage.dart';
 import 'ui/view/MediaViewer/common/ViewRoute.dart';
 import 'ui/view/PictureViewer.dart';
 import 'ui/view/SearchPage.dart';
@@ -91,13 +93,13 @@ class MyAppController extends ControllerMVC {
 //            argv[AppRoutes.SearchResultArg_keyword]),
 //      );
 //    }
-//    if (settings.name == AppRoutes.MediaInfo) {
-//      final Media media = settings.arguments;
-//      return MaterialPageRoute<void>(
-//        settings: settings,
-//        builder: (BuildContext context) => MediaInfoPage(media),
-//      );
-//    }
+    if (settings.name == AppRoutes.MediaInfo) {
+      final Media media = settings.arguments;
+      return MaterialPageRoute<void>(
+        settings: settings,
+        builder: (BuildContext context) => MediaInfoPage(media),
+      );
+    }
     if (settings.name == AppRoutes.MediaView) {
       final Map<String, dynamic> argv = settings.arguments;
       return ViewRoute.viewRoute(
