@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 
 import '../../../../media/Media.dart';
-import '../../../../parse/common/ParseRunner.dart';
 import '../../../widget/MediaCardView.dart';
 import '../HomepageTabItem.dart';
 import 'HomeViewState.dart';
@@ -15,33 +14,19 @@ class HomeGridView extends StatefulWidget {
         super();
 
   @override
-  HomeGridViewState createState() => HomeGridViewState(item);
+  HomeViewState createState() => HomeGridViewState(item);
 }
 
 class HomeGridViewState extends HomeViewState {
   final HomepageTabItem item;
-  List<Media> medias = List();
-  GlobalKey<EasyRefreshState> easyRefreshKey =
-      new GlobalKey<EasyRefreshState>();
-  int loadTimes = 0;
+
+  final int landCount = 3;
+  final int portCount = 2;
 
   HomeGridViewState(this.item) : super(item);
 
-  Future<void> loadMore(BuildContext context) async {
-    loadTimes++;
-    List<Media> media =
-        await ParseRunner.runHomepageTab(context, item.parseUuids, loadTimes);
-
-    setState(() => medias.addAll(media));
-  }
-
-  Future<void> refersh(BuildContext context) async {
-    loadTimes = 0;
-    List<Media> media =
-        await ParseRunner.runHomepageTab(context, item.parseUuids, loadTimes);
-
-    setState(() => medias = media);
-  }
+  Widget mediaViewCard(BuildContext context, Media media) =>
+      MediaCardView(media);
 
   @override
   Widget build(BuildContext context) {
@@ -55,11 +40,11 @@ class HomeGridViewState extends HomeViewState {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:
                     MediaQuery.of(context).orientation == Orientation.landscape
-                        ? 3
-                        : 2),
+                        ? landCount
+                        : portCount),
             itemCount: medias.length,
             itemBuilder: (BuildContext context, int index) =>
-                MediaCardView(medias[index])),
+                mediaViewCard(context, medias[index])),
         onRefresh: () async => await refersh(context),
         loadMore: () async => await loadMore(context),
       ),
