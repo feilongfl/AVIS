@@ -49,9 +49,10 @@ class HomeViewState extends StateMVC {
     if (parse == null) return;
 
     // no eposide and no chapter direct to source
-    if (parse.actions[ParseActionType.Info.index].agents.length == 0 &&
+    if (
+//    parse.actions[ParseActionType.Info.index].agents.length == 0 &&
         parse.actions[ParseActionType.Eposide.index].agents.length == 0 &&
-        parse.actions[ParseActionType.Chapter.index].agents.length == 0) {
+            parse.actions[ParseActionType.Chapter.index].agents.length == 0) {
       Navigator.of(context).pushNamed(AppRoutes.MediaView,
           arguments: {AppRoutes.MediaViewArg_Media: media});
     } else {
@@ -69,12 +70,10 @@ class HomeViewState extends StateMVC {
         autoLoad: item.autoLoadmore,
         child: ListView.builder(
             itemCount: medias.length,
-            itemBuilder: (BuildContext context, int index) => GestureDetector(
-                  child: mediaViewCard(
-                    context,
-                    media: medias[index],
-                    onTap: () => this.onTap(context, medias[index]),
-                  ),
+            itemBuilder: (BuildContext context, int index) => mediaViewCard(
+                  context,
+                  media: medias[index],
+                  onTap: () => this.onTap(context, medias[index]),
                 )),
         onRefresh: () async => await refersh(context),
         loadMore: () async => await loadMore(context),
