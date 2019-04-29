@@ -2,5 +2,5 @@ enum ViewType {
   GridView,
 
   //
-  All,
+//  All,
 }

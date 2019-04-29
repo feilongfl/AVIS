@@ -4,6 +4,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../../common/AppShareData.dart';
 import '../../../generated/i18n.dart';
 import '../../../parse/common/ParseConst.dart';
+import '../../UiConst.dart';
 import '../../widget/SettingDivideText.dart';
 import '../homepage/HomepageTabItem.dart';
 
@@ -84,6 +85,37 @@ class HomepageTabItemEditState extends StateMVC {
                   decoration: InputDecoration(labelText: S.of(context).Name),
                   initialValue: item.name,
                   onSaved: (v) => item.name = v,
+                ),
+              ),
+            )
+            ..add(
+              ListTile(
+                title: DropdownButtonFormField(
+                    decoration: InputDecoration(labelText: "View Type"),
+                    value: item.viewType,
+                    items: ViewType.values
+                        .map((vt) => DropdownMenuItem(
+                              child: Text(vt.toString()),
+                              value: vt,
+                            ))
+                        .toList()),
+              ),
+            )
+            ..add(
+              ListTile(
+                title: Text("Auto Refersh"),
+                trailing: Checkbox(
+                  value: item.autoRefersh,
+                  onChanged: (v) => setState(() => item.autoRefersh = v),
+                ),
+              ),
+            )
+            ..add(
+              ListTile(
+                title: Text("Auto Loadmore"),
+                trailing: Checkbox(
+                  value: item.autoLoadmore,
+                  onChanged: (v) => setState(() => item.autoLoadmore = v),
                 ),
               ),
             )
