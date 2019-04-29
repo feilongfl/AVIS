@@ -33,6 +33,15 @@ class ParseRunner {
     return medias;
   }
 
+  static Future<Media> runInfo(BuildContext context, Media media) async {
+    List<Media> medias = new List();
+
+    medias.addAll(await run(context, ParseType.Source, ParseActionType.Info,
+        media: media));
+
+    return medias[0];
+  }
+
   static Future<List<Media>> run(
     BuildContext context,
     ParseType parseType,
@@ -50,7 +59,7 @@ class ParseRunner {
 
     // trig event
     final Map<String, dynamic> data = {
-      Event.MediaId: mediaId,
+      Event.MediaId: mediaId ?? (media != null) ? media.info.ID : null,
       Event.EpisodeId: eposideId,
       Event.ChapterId: chapterId,
       Event.SourcePath: sourcePath,

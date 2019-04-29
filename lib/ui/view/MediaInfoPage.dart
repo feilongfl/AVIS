@@ -8,6 +8,7 @@ import '../../common/AppRoutes.dart';
 import '../../generated/i18n.dart';
 import '../../media/Media.dart';
 import '../../media/MediaEpisode.dart';
+import '../../parse/common/ParseRunner.dart';
 import '../widget/ActionButton.dart';
 
 class MediaInfoPage extends StatefulWidget {
@@ -268,17 +269,11 @@ class MediaInfoPageState extends StateMVC {
   }
 
   Future<Media> getMediaFuture(BuildContext context) async {
-//    Media mediaResult = await ParseRunner.Info(context, this.media);
+    Media mediaResult = await ParseRunner.runInfo(context, this.media);
 //    mediaResult = await ParseRunner.Episode(context, mediaResult);
 //    mediaResult = await ParseRunner.Chapter(context, mediaResult);
 
-//    return mediaResult;
-    return media;
-  }
-
-  @override
-  void initState() {
-    super.initState();
+    return mediaResult;
   }
 
   List<ActionButton> appBarActions(BuildContext context) {

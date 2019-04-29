@@ -50,6 +50,7 @@ class Media {
                 cover: e.Data[Event.Cover],
                 url: e.Data[Event.Url],
                 ID: e.Data[Event.MediaId],
+                intro: e.Data[Event.Intro],
 //              todo add more
 //               isFinished: e.Data[Event.],
               ),
@@ -58,6 +59,14 @@ class Media {
 
           medias.add(media);
         }
+        break;
+
+      case ParseActionType.Info:
+        assert(media != null);
+        final Event e = events[0];
+        media.info.intro = e.Data[Event.Intro];
+        //              todo add more
+        medias.add(media);
         break;
 
       default:
