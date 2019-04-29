@@ -21,9 +21,11 @@ class HomePageTabsSettingState extends StateMVC {
         children: <Widget>[
           IconButton(
               icon: Icon(Icons.edit),
-              onPressed: () => Navigator.of(context).pushNamed(
-                  AppRoutes.Settings_HomePageTabs_edit,
-                  arguments: item)),
+              onPressed: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.Settings_HomePageTabs_edit,
+                      arguments: item)
+                  .then((item) => setState(() =>
+                      AppShareData.of(context).homepageTabItem_add(item)))),
           IconButton(
               icon: Icon(Icons.delete),
               onPressed: () => setState(

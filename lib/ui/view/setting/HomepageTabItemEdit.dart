@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
+import '../../../common/AppShareData.dart';
 import '../../../generated/i18n.dart';
+import '../../../parse/common/ParseConst.dart';
 import '../../widget/SettingDivideText.dart';
 import '../homepage/HomepageTabItem.dart';
 
@@ -32,6 +34,14 @@ class HomepageTabItemEditState extends StateMVC {
     );
   }
 
+  void _popAndSave(BuildContext context) {
+    if (!_formKey.currentState.validate()) return;
+
+    _formKey.currentState.save();
+
+    Navigator.of(context).pop(item);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +50,7 @@ class HomepageTabItemEditState extends StateMVC {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.save),
-            onPressed: () => Navigator.of(context).pop(item),
+            onPressed: () => _popAndSave(context),
           )
         ],
       ),
@@ -54,6 +64,7 @@ class HomepageTabItemEditState extends StateMVC {
                 title: TextFormField(
                   decoration: InputDecoration(labelText: S.of(context).Name),
                   initialValue: item.name,
+                  onSaved: (v) => item.name = v,
                 ),
               ),
             )
@@ -67,8 +78,16 @@ class HomepageTabItemEditState extends StateMVC {
             ..add(ListTile(
               title: Text("Add"),
               leading: Icon(Icons.add),
-              onTap: () =>
-                  setState(() => item.parseUuid.add("test")), //todo fix here
+              onTap: () => setState(() => item.parseUuid.add(
+                  AppShareData.of(context)
+                      .AppParse
+                      .firstWhere((p) =>
+                          p.type == ParseType.Source &&
+                          p.actions[ParseActionType.HomePage.index].agents
+                                  .length >
+                              0)
+                      .info
+                      .uuid)), //todo fix here
             )),
         ),
       ),
