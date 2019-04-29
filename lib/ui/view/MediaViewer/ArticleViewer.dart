@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 import '../../../media/Media.dart';
-import '../../../parse/common/ParseRunner.dart';
 import 'common/ViewerState.dart';
 
 class SinglePageArticleViewer extends ViewerState {
@@ -14,15 +13,14 @@ class SinglePageArticleViewer extends ViewerState {
       : assert(media != null),
         super(media: media, eposide: eposide, chapter: chapter);
 
-  Future<Media> getMedia(BuildContext context) async {
-    Media mediaResult = await ParseRunner.runSource(context, this.media);
-
-    return mediaResult;
-  }
+//  Future<Media> getMedia(BuildContext context) async {
+//    Media mediaResult = await ParseRunner.runSource(context, this.media);
+//
+//    return mediaResult;
+//  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text(media.info.title),
