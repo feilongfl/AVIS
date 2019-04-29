@@ -10,14 +10,14 @@ import 'common/BaseAgent.dart';
 
 class RegexpAgent extends BaseAgent {
   String name = "RegexAgent";
-  final String AgentUUID = "88ae4496-76cd-4c2d-a2e0-0955a391c97e";
+  final String agentUUID = "88ae4496-76cd-4c2d-a2e0-0955a391c97e";
 
   final AgentLists agentType = AgentLists.RegexpAgent;
 
 //  String _UUID = "";
 //  DateTime lastRun = Agent.DefaultDateTime;
 
-  String get UUID => AgentUUID;
+  String get uuid => agentUUID;
   String matchBody;
   RegExp regexp;
   List<String> matchGroups = new List();
@@ -44,7 +44,7 @@ class RegexpAgent extends BaseAgent {
   @override //match eventIn.body
   Future<List<Event>> doRealWork(Event eventIn) async {
     if (this.checkEventIn(eventIn))
-      return [Event(null, SendUUID: this.UUID, success: false)];
+      return [Event(null, SendUUID: this.uuid, success: false)];
 
 //    this.lastRun = DateTime.now();
 
@@ -59,14 +59,14 @@ class RegexpAgent extends BaseAgent {
       for (String matchGroup in matchGroups) {
         data[matchGroup] = m.group(i++);
       }
-      eventResult.add(Event(data, success: true, SendUUID: this.UUID));
+      eventResult.add(Event(data, success: true, SendUUID: this.uuid));
     }
 
 //    return [Event(data, SendUUID: this._UUID, success: true)];
     return eventResult;
   }
 
-  Widget AgentConfigPage(Agent agent) => _AgentConfigPage(agent);
+  Widget agentConfigPage(Agent agent) => _AgentConfigPage(agent);
 }
 
 class _AgentConfigPage extends StatefulWidget {

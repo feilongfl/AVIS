@@ -8,13 +8,13 @@ abstract class Agent {
   String name;
 
 //  static DateTime DefaultDateTime = DateTime(2010);
-  String _UUID;
+  String _uuid;
   AgentLists agentType;
 
 //  DateTime lastRun;
-  static String AgentUUID;
+  static String agentUUID;
 
-  String get UUID => _UUID;
+  String get uuid => _uuid;
 
 //  this.$1,
   Agent();
@@ -25,7 +25,7 @@ abstract class Agent {
 
   Future<List<Event>> doWork({Event eventIn, List<Event> eventsIn});
 
-  Widget AgentConfigPage(Agent agent);
+  Widget agentConfigPage(Agent agent);
 
 //    data['$1'] = this.$1;
   Map<String, dynamic> toJson();

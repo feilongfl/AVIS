@@ -18,7 +18,7 @@ class SourceSettingState extends StateMVC {
 
   Widget _tile(BuildContext context, Parse parse) {
     return ListTile(
-      onTap: () => AppRoutes.LaunchURL(parse.info.url ?? ""),
+      onTap: () => AppRoutes.launchURL(parse.info.url ?? ""),
       title: Text(parse.info.name ?? "name"),
       subtitle: Text(
         (parse.info.url ?? "")
@@ -88,7 +88,7 @@ class SourceSettingState extends StateMVC {
                         content: Column(
                           children: <Widget>[
                             Text(parse.info.author.email),
-                            Text(parse.info.author.donate_url),
+                            Text(parse.info.author.donateUrl),
                           ],
                         ),
                         actions: <Widget>[
@@ -130,7 +130,7 @@ class SourceSettingState extends StateMVC {
     widgets.add(SettingDevideText(groupName));
 
     List<Parse> parses = AppShareData.of(context)
-        .AppParse
+        .appParse
         .where((p) => parseType == p.type)
         .toList();
     if ((parses ?? List()).length > 0)

@@ -10,7 +10,7 @@ class HomepageTabItem {
 
   ViewType viewType;
 
-  bool autoRefersh;
+//  bool autoRefersh;
   bool autoLoadmore;
 
   String uuid;
@@ -19,7 +19,7 @@ class HomepageTabItem {
       {this.name = "Tabs",
       this.parseUuids,
       this.viewType = ViewType.GridView,
-      this.autoRefersh = false,
+//      this.autoRefersh = false,
       this.autoLoadmore = true,
       this.uuid}) {
     this.parseUuids = this.parseUuids ?? List();
@@ -38,7 +38,7 @@ class HomepageTabItem {
       name: jsonObj[jsonKey_name],
       parseUuids: jsonObj[jsonKey_parseUuid].cast<String>(),
       viewType: ViewType.values[jsonObj[jsonKey_viewType]],
-      autoRefersh: jsonObj[jsonKey_autoRefersh],
+//      autoRefersh: jsonObj[jsonKey_autoRefersh],
       autoLoadmore: jsonObj[jsonKey_autoLoadmore],
       uuid: jsonObj[jsonKey_uuid],
     );
@@ -53,7 +53,7 @@ class HomepageTabItem {
       jsonKey_name: name,
       jsonKey_parseUuid: parseUuids,
       jsonKey_viewType: viewType.index,
-      jsonKey_autoRefersh: autoRefersh,
+//      jsonKey_autoRefersh: autoRefersh,
       jsonKey_autoLoadmore: autoLoadmore,
       jsonKey_uuid: uuid,
     };

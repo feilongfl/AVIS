@@ -14,7 +14,7 @@ import 'common/BaseAgent.dart';
 class Base64Agent extends BaseAgent {
   String name = "Base64Agent";
 
-  String AgentUUID = "ea3d1dd1-f213-4036-bab7-530f98572e75";
+  String agentUUID = "ea3d1dd1-f213-4036-bab7-530f98572e75";
   AgentLists agentType = AgentLists.Base64Agent;
 
   String text;
@@ -44,7 +44,7 @@ class Base64Agent extends BaseAgent {
         break;
     }
 
-    return [Event(data, SendUUID: this.AgentUUID, success: true)];
+    return [Event(data, SendUUID: this.agentUUID, success: true)];
   }
 
   @override
@@ -58,7 +58,7 @@ class Base64Agent extends BaseAgent {
     return jsonObj;
   }
 
-  Widget AgentConfigPage(Agent agent) => _AgentConfigPage(agent);
+  Widget agentConfigPage(Agent agent) => _AgentConfigPage(agent);
 }
 
 class _AgentConfigPage extends StatefulWidget {
@@ -120,7 +120,7 @@ class _AgentConfigPageState extends StateMVC {
                       items: AgentConst.CodecsMethods.map((v) =>
                           DropdownMenuItem(
                               value: v,
-                              child: Text(AgentConst.CodecsMethodStrings(
+                              child: Text(AgentConst.codecsMethodStrings(
                                   context)[v.index]))).toList()),
                 ),
               )

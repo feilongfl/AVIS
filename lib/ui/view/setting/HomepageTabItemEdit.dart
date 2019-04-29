@@ -25,9 +25,9 @@ class HomepageTabItemEditState extends StateMVC {
     this.item = this.item ?? HomepageTabItem();
   }
 
-  Widget _ParseTile(BuildContext context, int index, String uuid) {
+  Widget _parseTile(BuildContext context, int index, String uuid) {
     if (AppShareData.of(context)
-            .AppParse
+            .appParse
             .where((p) =>
                 p.actions[ParseActionType.HomePage.index].agents.length != 0)
             .length ==
@@ -42,7 +42,7 @@ class HomepageTabItemEditState extends StateMVC {
           decoration: InputDecoration(labelText: "Source"),
           value: item.parseUuids[index],
           items: AppShareData.of(context)
-              .AppParse
+              .appParse
               .where((p) =>
                   p.actions[ParseActionType.HomePage.index].agents.length != 0)
               .map((p) => DropdownMenuItem(
@@ -101,15 +101,15 @@ class HomepageTabItemEditState extends StateMVC {
                         .toList()),
               ),
             )
-            ..add(
-              ListTile(
-                title: Text("Auto Refersh"),
-                trailing: Checkbox(
-                  value: item.autoRefersh,
-                  onChanged: (v) => setState(() => item.autoRefersh = v),
-                ),
-              ),
-            )
+//            ..add(
+//              ListTile(
+//                title: Text("Auto Refersh"),
+//                trailing: Checkbox(
+//                  value: item.autoRefersh,
+//                  onChanged: (v) => setState(() => item.autoRefersh = v),
+//                ),
+//              ),
+//            )
             ..add(
               ListTile(
                 title: Text("Auto Loadmore"),
@@ -123,7 +123,7 @@ class HomepageTabItemEditState extends StateMVC {
             ..addAll(item.parseUuids.length > 0
                 ? item.parseUuids
                     .asMap()
-                    .map((i, pu) => MapEntry(i, _ParseTile(context, i, pu)))
+                    .map((i, pu) => MapEntry(i, _parseTile(context, i, pu)))
                     .values
                 : [ListTile(title: Text(S.of(context).NULL))])
             ..add(ListTile(
@@ -131,7 +131,7 @@ class HomepageTabItemEditState extends StateMVC {
               leading: Icon(Icons.add),
               onTap: () => setState(() {
                     if (AppShareData.of(context)
-                            .AppParse
+                            .appParse
                             .where((p) =>
                                 p.actions[ParseActionType.HomePage.index].agents
                                     .length !=
@@ -139,7 +139,7 @@ class HomepageTabItemEditState extends StateMVC {
                             .length !=
                         0)
                       item.parseUuids.add(AppShareData.of(context)
-                          .AppParse
+                          .appParse
                           .firstWhere((p) =>
                               p.type == ParseType.Source &&
                               p.actions[ParseActionType.HomePage.index].agents

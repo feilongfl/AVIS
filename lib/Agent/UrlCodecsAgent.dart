@@ -12,7 +12,7 @@ import 'common/BaseAgent.dart';
 class UrlCodecsAgent extends BaseAgent {
   String name = "UrlCodecsAgent";
 
-  String AgentUUID = "884ffb25-c887-4a49-af9f-f073a6901d04";
+  String agentUUID = "884ffb25-c887-4a49-af9f-f073a6901d04";
   AgentLists agentType = AgentLists.UrlCodecsAgent;
 
   String text;
@@ -41,7 +41,7 @@ class UrlCodecsAgent extends BaseAgent {
         break;
     }
 
-    return [Event(data, SendUUID: this.AgentUUID, success: true)];
+    return [Event(data, SendUUID: this.agentUUID, success: true)];
   }
 
   @override
@@ -55,7 +55,7 @@ class UrlCodecsAgent extends BaseAgent {
     return jsonObj;
   }
 
-  Widget AgentConfigPage(Agent agent) => _AgentConfigPage(agent);
+  Widget agentConfigPage(Agent agent) => _AgentConfigPage(agent);
 }
 
 class _AgentConfigPage extends StatefulWidget {
@@ -117,7 +117,7 @@ class _AgentConfigPageState extends StateMVC {
                       items: AgentConst.CodecsMethods.map((v) =>
                           DropdownMenuItem(
                               value: v,
-                              child: Text(AgentConst.CodecsMethodStrings(
+                              child: Text(AgentConst.codecsMethodStrings(
                                   context)[v.index]))).toList()),
                 ),
               )

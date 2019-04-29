@@ -32,7 +32,7 @@ class AppRoutes {
   static const String Settings_HomePageTabs = "/Setting/HomePageTabs";
   static const String Settings_HomePageTabs_edit = "/Setting/HomePageTabs/Edit";
 
-  static LaunchURL(String url) async {
+  static launchURL(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {

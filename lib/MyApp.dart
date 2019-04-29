@@ -27,7 +27,7 @@ import 'ui/view/setting/HomepageTabItemEdit.dart';
 import 'ui/view/setting/SettingPage.dart';
 
 class MyApp extends StatelessWidget {
-  MyAppController controller = new MyAppController();
+  final MyAppController controller = new MyAppController();
 
 //  FirebaseAnalytics analytics = FirebaseAnalytics();
 
@@ -130,7 +130,7 @@ class MyAppController extends ControllerMVC {
       Agent argv = settings.arguments;
       return MaterialPageRoute<Agent>(
           settings: settings,
-          builder: (BuildContext context) => argv.AgentConfigPage(argv));
+          builder: (BuildContext context) => argv.agentConfigPage(argv));
     }
     if (settings.name == AppRoutes.PictureView) {
       List<String> picUrls = settings.arguments;

@@ -11,7 +11,7 @@ class ParseRunner {
   static findParse(BuildContext context, Media media) {
     try {
       return AppShareData.of(context)
-          .AppParse
+          .appParse
           .firstWhere((p) => media.ParseUUID == p.info.uuid);
     } catch (e) {
       print("Media Parse UUID not found => ${media.ParseUUID}");
@@ -21,15 +21,14 @@ class ParseRunner {
 
   static Future<List<Media>> runHomepageTab(
       BuildContext context, List<String> parseUuids, int loadTime) async {
+//    loadTime = 0;// for debug ui
     if (loadTime >= parseUuids.length) return List(0);
 
     List<Media> medias = new List();
 
-//    for (String parseUuid in parseUuids) {
     String parseUuid = parseUuids[loadTime];
     medias.addAll(await run(context, ParseType.Source, ParseActionType.HomePage,
         parseUuid: parseUuid));
-//    }
 
     return medias;
   }
@@ -64,11 +63,11 @@ class ParseRunner {
     //pre parse
     final List<Parse> parses = (parseUuid == null)
         ? AppShareData.of(context)
-            .AppParse
+            .appParse
             .where((p) => p.type == parseType)
             .toList()
         : AppShareData.of(context)
-            .AppParse
+            .appParse
             .where((p) => p.info.uuid == parseUuid)
             .toList();
 

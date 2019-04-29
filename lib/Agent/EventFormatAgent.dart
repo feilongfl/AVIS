@@ -11,14 +11,14 @@ import 'common/BaseAgent.dart';
 class EventFormatAgent extends BaseAgent {
   String name = "EventFormatAgent";
 
-  String AgentUUID = "dfa1f15e-f70a-4bef-b765-3f2c064de94a";
+  String agentUUID = "dfa1f15e-f70a-4bef-b765-3f2c064de94a";
   AgentLists agentType = AgentLists.EventFormatAgent;
 
   final List<String> findKey;
 
-  final List<String> Replaces;
+  final List<String> replacesWord;
 
-  EventFormatAgent({this.findKey, this.Replaces}) : super();
+  EventFormatAgent({this.findKey, this.replacesWord}) : super();
 
   Future<List<Event>> doRealWork(Event eventIn) async {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -29,13 +29,13 @@ class EventFormatAgent extends BaseAgent {
     });
 
     // set replace key
-    assert(findKey.length == Replaces.length);
+    assert(findKey.length == replacesWord.length);
     for (int i = 0; i < findKey.length; i++) {
       var key = findKey[i];
-      data[key] = ReplaceOneVal(Replaces[i], eventIn.Data);
+      data[key] = ReplaceOneVal(replacesWord[i], eventIn.Data);
     }
 
-    return [Event(data, SendUUID: this.AgentUUID, success: true)];
+    return [Event(data, SendUUID: this.agentUUID, success: true)];
   }
 
   @override
@@ -43,12 +43,12 @@ class EventFormatAgent extends BaseAgent {
     var jsonObj = super.toJson();
 
     jsonObj[AgentJsonKey.AgentJsonKey_FindKey] = this.findKey;
-    jsonObj[AgentJsonKey.AgentJsonKey_REPLACETO] = this.Replaces;
+    jsonObj[AgentJsonKey.AgentJsonKey_REPLACETO] = this.replacesWord;
 
     return jsonObj;
   }
 
-  Widget AgentConfigPage(Agent agent) => _AgentConfigPage(agent);
+  Widget agentConfigPage(Agent agent) => _AgentConfigPage(agent);
 }
 
 class _AgentConfigPage extends StatefulWidget {
@@ -105,8 +105,8 @@ class _AgentConfigPageState extends StateMVC {
           Flexible(
             child: TextFormField(
               decoration: InputDecoration(labelText: "Replaces"),
-              onSaved: (v) => setState(() => agent.Replaces[index] = v),
-              initialValue: agent.Replaces[index],
+              onSaved: (v) => setState(() => agent.replacesWord[index] = v),
+              initialValue: agent.replacesWord[index],
             ),
           ),
         ],
@@ -153,7 +153,7 @@ class _AgentConfigPageState extends StateMVC {
                   leading: Icon(Icons.add),
                   onTap: () => setState(() {
                         agent.findKey.add(Event.EventItemStrings[0]);
-                        agent.Replaces.add("");
+                        agent.replacesWord.add("");
                       }),
                 ),
               )),

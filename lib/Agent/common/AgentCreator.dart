@@ -31,7 +31,7 @@ class AgentCreator {
 
       case AgentLists.EventFormatAgent:
         return EventFormatAgent(
-            findKey: [Event.Url], Replaces: ["http://${Event.Url}"]);
+            findKey: [Event.Url], replacesWord: ["http://${Event.Url}"]);
 
       case AgentLists.Base64Agent:
         return Base64Agent(
@@ -77,7 +77,7 @@ class AgentCreator {
       case AgentLists.EventFormatAgent:
         return EventFormatAgent(
             findKey: jsonObj[AgentJsonKey.AgentJsonKey_FindKey].cast<String>(),
-            Replaces:
+            replacesWord:
                 jsonObj[AgentJsonKey.AgentJsonKey_REPLACETO].cast<String>());
         break;
 

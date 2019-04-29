@@ -25,11 +25,11 @@ class HomePageTabsSettingState extends StateMVC {
                   .pushNamed(AppRoutes.Settings_HomePageTabs_edit,
                       arguments: item)
                   .then((item) => setState(() =>
-                      AppShareData.of(context).homepageTabItem_add(item)))),
+                      AppShareData.of(context).homepageTabItemAdd(item)))),
           IconButton(
               icon: Icon(Icons.delete),
               onPressed: () => setState(
-                  () => AppShareData.of(context).homepageTabItem_remove(item))),
+                  () => AppShareData.of(context).homepageTabItemRemove(item))),
         ],
       ),
     );
@@ -48,7 +48,7 @@ class HomePageTabsSettingState extends StateMVC {
             onPressed: () => Navigator.of(context)
                 .pushNamed(AppRoutes.Settings_HomePageTabs_edit)
                 .then((hs) => setState(
-                    () => AppShareData.of(context).homepageTabItem_add(hs)))),
+                    () => AppShareData.of(context).homepageTabItemAdd(hs)))),
       ),
       body: ListView(
         children: <Widget>[]..addAll(

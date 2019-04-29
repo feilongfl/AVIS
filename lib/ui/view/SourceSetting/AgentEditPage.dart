@@ -28,7 +28,7 @@ class AgentEditPageState extends StateMVC {
         context: context,
         builder: (context) => AlertDialog(
               title: Text("Confirm Delete ${agent.name}"),
-              content: Text("UUID: " + agent.UUID),
+              content: Text("UUID: " + agent.uuid),
               actions: <Widget>[
                 FlatButton(
                   onPressed: () => Navigator.of(context).pop("Cancle"),
@@ -114,7 +114,7 @@ class AgentEditPageState extends StateMVC {
                       index,
                       ListTile(
                         title: Text(agent.name),
-                        subtitle: Text(agent.UUID),
+                        subtitle: Text(agent.uuid),
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: <Widget>[

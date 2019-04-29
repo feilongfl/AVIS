@@ -8,7 +8,7 @@ class DonatePage extends StatelessWidget {
   void _itemClick(
       BuildContext context, _DonateItem item, GlobalKey<ScaffoldState> key) {
     if (item.url != null) {
-      AppRoutes.LaunchURL(item.url);
+      AppRoutes.launchURL(item.url);
     } else {
       Clipboard.setData(new ClipboardData(text: item.account));
 

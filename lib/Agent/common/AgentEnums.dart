@@ -46,7 +46,7 @@ class AgentConst {
     CodecAgent_Method.decode,
   ];
 
-  static List<String> CodecsMethodStrings(BuildContext context) => [
+  static List<String> codecsMethodStrings(BuildContext context) => [
         S.of(context).Agent_Codec_Method_encode,
         S.of(context).Agent_Codec_Method_decode,
       ];

@@ -6,12 +6,12 @@ class AuthorInfo implements Info {
   String name;
   String email;
   String phone;
-  String donate_message;
-  String donate_url;
+  String donateMessage;
+  String donateUrl;
 
   AuthorInfo(
-      {this.donate_message = "donate",
-      this.donate_url = "",
+      {this.donateMessage = "donate",
+      this.donateUrl = "",
       this.email = "",
       this.name = "feilong",
       this.phone = ""});
@@ -28,8 +28,8 @@ class AuthorInfo implements Info {
       name: jsonObj[jsonKey_Name],
       email: jsonObj[jsonKey_Email],
       phone: jsonObj[jsonKey_Phone],
-      donate_message: jsonObj[jsonKey_DonateMessage],
-      donate_url: jsonObj[jsonKey_DonateUrl],
+      donateMessage: jsonObj[jsonKey_DonateMessage],
+      donateUrl: jsonObj[jsonKey_DonateUrl],
     );
   }
 
@@ -42,8 +42,8 @@ class AuthorInfo implements Info {
       jsonKey_Name: name,
       jsonKey_Email: email,
       jsonKey_Phone: phone,
-      jsonKey_DonateMessage: donate_message,
-      jsonKey_DonateUrl: donate_url,
+      jsonKey_DonateMessage: donateMessage,
+      jsonKey_DonateUrl: donateUrl,
     };
   }
 

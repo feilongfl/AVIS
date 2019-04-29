@@ -18,7 +18,7 @@ class HttpAgent extends BaseAgent {
 
 //  String _UUID = "";
 //  DateTime lastRun = Agent.DefaultDateTime;
-  final String AgentUUID = "c8d639f3-fbf7-4575-bbd2-0a3945446ff9";
+  final String agentUUID = "c8d639f3-fbf7-4575-bbd2-0a3945446ff9";
 
   final AgentLists agentType = AgentLists.HttpAgent;
 
@@ -45,7 +45,7 @@ class HttpAgent extends BaseAgent {
 
   HttpClient httpClient = new HttpClient();
 
-  String get UUID => AgentUUID;
+  String get uuid => agentUUID;
 
 //  List<String> replaces = Event.EventItemStrings;
 
@@ -94,7 +94,7 @@ class HttpAgent extends BaseAgent {
     return data;
   }
 
-  Widget AgentConfigPage(Agent agent) => _AgentConfigPage(agent);
+  Widget agentConfigPage(Agent agent) => _AgentConfigPage(agent);
 }
 
 class _AgentConfigPage extends StatefulWidget {

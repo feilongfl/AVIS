@@ -25,10 +25,10 @@ class _SearchBarState extends StateMVC {
         Flexible(
           child: TextField(
             onTap: () {
-              setState(_SearchBarControl.StartInput);
+              setState(_SearchBarControl.startInput);
             },
             onEditingComplete: () {
-              setState(_SearchBarControl.FinishInput);
+              setState(_SearchBarControl.finishInput);
             },
             controller: _SearchBarControl.controller,
             decoration: new InputDecoration(
@@ -51,15 +51,15 @@ class _SearchBarControl extends ControllerMVC {
 
   static TextEditingController get controller => _controller;
 
-  static void StartInput() {
+  static void startInput() {
     _isInput = true;
   }
 
-  static void FinishInput() {
+  static void finishInput() {
     _isInput = false;
   }
 
-  static void ShowNav() {}
+  static void showNav() {}
 
-  static void CancleInput() {}
+  static void cancleInput() {}
 }

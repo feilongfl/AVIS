@@ -44,7 +44,7 @@ class HTTP {
   static String HttpExpception = "HTTP_ERROR_WITH_EXCEPTION";
   static String HttpERRORCode = "HTTP_ERROR_WITH_NO200";
 
-  static Future<HTTPResult> Get(HttpClient httpClient, String url,
+  static Future<HTTPResult> get(HttpClient httpClient, String url,
       {String useragent, String referer, String cookies, String data}) async {
     HTTPResult result = new HTTPResult();
 
@@ -84,7 +84,7 @@ class HTTP {
     switch (method ?? HttpMethod.Get) {
       case HttpMethod.Get:
         {
-          return Get(httpClient, url,
+          return get(httpClient, url,
               useragent: useragent,
               referer: referer,
               cookies: cookies,

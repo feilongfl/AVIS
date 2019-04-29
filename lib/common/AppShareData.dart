@@ -192,14 +192,14 @@ class AppShareData extends InheritedWidget {
   ///////////////////////////////////////////////////
 
   //Saved Media
-  static List<List<Media>> Favorite = new List(MediaType.All.index);
-  static List<List<Media>> History = new List(MediaType.All.index);
+  static List<List<Media>> favorite = new List(MediaType.All.index);
+  static List<List<Media>> history = new List(MediaType.All.index);
 
-  List<Parse> get AppParse {
+  List<Parse> get appParse {
     List<String> _parseStrings = prefs.getStringList(PREF_APP_AGENTLISTS);
     if (_parseStrings == null) {
 //    if (true) {
-      List<Parse> parses = LoadDefaultParses();
+      List<Parse> parses = loadDefaultParses();
       print("set app parse default pref");
       prefs.setStringList(
           PREF_APP_AGENTLISTS, parses.map((p) => p.toString()).toList());
@@ -213,7 +213,7 @@ class AppShareData extends InheritedWidget {
         .toList();
   }
 
-  set AppParse(List<Parse> parse) {
+  set appParse(List<Parse> parse) {
     prefs.setStringList(
         PREF_APP_AGENTLISTS, parse.map((p) => p.toString()).toList());
     print("Save agents to Prefs!");
@@ -222,22 +222,22 @@ class AppShareData extends InheritedWidget {
   addOrEditAppParse(Parse parse) {
     if (parse == null) return;
 
-    List<Parse> parses = AppParse;
+    List<Parse> parses = appParse;
 
     if (parses.where((p) => p.info.uuid == parse.info.uuid).length != 0)
       parses.removeWhere((p) => p.info.uuid == parse.info.uuid);
 
     parses.add(parse);
 
-    AppParse = parses;
+    appParse = parses;
   }
 
   removeParse(Parse parse) {
     if (parse == null) return;
 
-    List<Parse> parses = AppParse;
+    List<Parse> parses = appParse;
     parses.removeWhere((p) => p.info.uuid == parse.info.uuid);
-    AppParse = parses;
+    appParse = parses;
   }
 
   static AppShareData of(BuildContext context) {
@@ -246,8 +246,8 @@ class AppShareData extends InheritedWidget {
 
   //////////////////////////prefs///////////////////////
   static SharedPreferences prefs;
-  static String PREF_APP_AGENTLISTS = "pref_app_agentlists";
-  static String PREF_APP_HomePageTabs = "pref_app_homepage_tabs";
+  static const String PREF_APP_AGENTLISTS = "pref_app_agentlists";
+  static const String PREF_APP_HomePageTabs = "pref_app_homepage_tabs";
 
   //////////////////////////HomepageTabItem///////////////////////
   List<HomepageTabItem> get homepageTabItems {
@@ -268,7 +268,7 @@ class AppShareData extends InheritedWidget {
   }
 
   //add or edit
-  homepageTabItem_add(HomepageTabItem hs) {
+  homepageTabItemAdd(HomepageTabItem hs) {
     if (hs == null) return;
     bool match = false;
     List<HomepageTabItem> htemp = homepageTabItems;
@@ -285,7 +285,7 @@ class AppShareData extends InheritedWidget {
     homepageTabItems = htemp;
   }
 
-  homepageTabItem_remove(HomepageTabItem hs) {
+  homepageTabItemRemove(HomepageTabItem hs) {
     if (hs == null) return;
 
     homepageTabItems = homepageTabItems..removeWhere((h) => h.uuid == hs.uuid);
@@ -293,7 +293,7 @@ class AppShareData extends InheritedWidget {
 
   //////////////////////////HomepageTabItem///////////////////////
 
-  List<Parse> LoadDefaultParses() {
+  List<Parse> loadDefaultParses() {
 //    List<List<Agent>> expagents = _GenExpAgents();
     List<Parse> p = new List();
 
@@ -331,7 +331,7 @@ class AppShareData extends InheritedWidget {
 
   @override
   bool updateShouldNotify(AppShareData oldWidget) =>
-      oldWidget.AppParse != AppParse ||
+      oldWidget.appParse != appParse ||
       oldWidget.homepageTabItems != homepageTabItems ||
 //      oldWidget.History != History ||
 //      oldWidget.Favorite != Favorite ||

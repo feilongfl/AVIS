@@ -39,19 +39,19 @@ class AboutPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                onTap: () => AppRoutes.LaunchURL(S.of(context).FEILONGBLOG),
+                onTap: () => AppRoutes.launchURL(S.of(context).FEILONGBLOG),
                 title: Text(S.of(context).FEILONG),
                 subtitle: Text(S.of(context).FEILONGBLOG),
                 leading: Icon(Icons.portrait),
               ),
               ListTile(
-                onTap: () => AppRoutes.LaunchURL(S.of(context).GITHUB),
+                onTap: () => AppRoutes.launchURL(S.of(context).GITHUB),
                 title: Text(S.of(context).GitHub),
                 subtitle: Text(S.of(context).GITHUB),
                 leading: Icon(Icons.cake),
               ),
               ListTile(
-                onTap: () => AppRoutes.LaunchURL(S.of(context).GITHUBRELEASE),
+                onTap: () => AppRoutes.launchURL(S.of(context).GITHUBRELEASE),
                 title: Text(S.of(context).Release),
                 subtitle: Text(S.of(context).GITHUBRELEASE),
                 leading: Icon(Icons.file_download),

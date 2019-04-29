@@ -72,7 +72,7 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
         new TabController(length: _tabLength, vsync: this);
   }
 
-  List<Widget> DrawerLists(BuildContext context) {
+  List<Widget> drawerLists(BuildContext context) {
     //todo replace here
     final String username = "feilong";
     final String email = "feilongphone@gmail.com";
@@ -163,7 +163,7 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
               .toList())),
       drawer: Drawer(
         child: ListView(
-          children: DrawerLists(context),
+          children: drawerLists(context),
         ),
       ),
     );

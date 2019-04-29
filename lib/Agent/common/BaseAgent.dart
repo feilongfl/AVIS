@@ -43,7 +43,7 @@ class _AgentConfigPageState extends StateMVC {
         children: <Widget>[]..add(ListTile(
             title: TextFormField(
               decoration: InputDecoration(labelText: "UUID"),
-              initialValue: agent.UUID,
+              initialValue: agent.uuid,
               enabled: false,
             ),
           )),
@@ -60,10 +60,10 @@ class BaseAgent implements Agent {
   AgentLists agentType = AgentLists.All;
 
 //  DateTime lastRun = Agent.DefaultDateTime;
-  final String AgentUUID =
+  final String agentUUID =
       "36aee99f-5ce8-4726-802d-363308bb9054"; //https://www.uuidgenerator.net/
 
-  String get UUID => AgentUUID;
+  String get uuid => agentUUID;
 
   List<String> replaces = Event.EventItemStrings;
 
@@ -80,7 +80,7 @@ class BaseAgent implements Agent {
       return true;
   }
 
-  Widget AgentConfigPage(Agent agent) => _AgentConfigPage(agent);
+  Widget agentConfigPage(Agent agent) => _AgentConfigPage(agent);
 
   Future<List<Event>> doRealWork(Event eventIn) async {
 //    this.lastRun = DateTime.now();
@@ -123,7 +123,7 @@ class BaseAgent implements Agent {
 
     return doRealWork(eventIn).then((v) async {
       v.forEach((vv) {
-        vv.SendUUID = AgentUUID;
+        vv.SendUUID = agentUUID;
       });
       return v;
     });
@@ -149,7 +149,7 @@ class BaseAgent implements Agent {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data[AgentJsonKey.AgentJsonKey_UUID] = this.AgentUUID;
+    data[AgentJsonKey.AgentJsonKey_UUID] = this.agentUUID;
     data[AgentJsonKey.AgentJsonKey_TYPE] = this.agentType.index;
 
     return data;

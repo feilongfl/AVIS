@@ -6,19 +6,19 @@ import 'common/BaseAgent.dart';
 class ActAsAgent extends BaseAgent {
   String name = "ActAsAgent";
 
-  String AgentUUID = "f9e725e1-3435-4a9e-969c-c4418d3bfb43";
+  String agentUUID = "f9e725e1-3435-4a9e-969c-c4418d3bfb43";
   AgentLists agentType = AgentLists.Base64Agent;
 
-  String ParseUUID = "";
+  String parseUUID = "";
 
-  ActAsAgent({this.ParseUUID}) : super();
+  ActAsAgent({this.parseUUID}) : super();
 
   Future<List<Event>> doRealWork(Event eventIn) async {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
     // todo finish here
 
-    return [Event(data, SendUUID: this.AgentUUID, success: true)];
+    return [Event(data, SendUUID: this.agentUUID, success: true)];
   }
 
   @override

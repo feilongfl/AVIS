@@ -50,7 +50,7 @@ class HomeGridViewState extends HomeViewState {
       child: EasyRefresh(
         key: easyRefreshKey,
         firstRefresh: true,
-        autoLoad: true,
+        autoLoad: item.autoLoadmore,
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount:

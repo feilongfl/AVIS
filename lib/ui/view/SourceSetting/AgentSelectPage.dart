@@ -90,7 +90,7 @@ class AgentSelectPageState extends StateMVC {
                   leading: Icon(Icons.settings),
                   title: Text(
                       "${AgentConst.AgentItemNames[agent.agentType.index]} ${S.of(context).Config}"),
-                  subtitle: Text(this.agent.UUID),
+                  subtitle: Text(this.agent.uuid),
                 ))
 //                ..addAll(agentConfigBody[Agent.AgentConfigBody_Widgets])
               //add end
