@@ -1,10 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../../common/AppEnums.dart';
 import '../../../common/AppRoutes.dart';
 import '../../../common/AppShareData.dart';
+import '../../../core/HTTP.dart';
 import '../../../generated/i18n.dart';
+import '../../../parse/BaseParse.dart';
 import '../../../parse/common/Parse.dart';
 import '../../../parse/common/ParseConst.dart';
 import '../../widget/SettingDivideText.dart';
@@ -22,6 +27,7 @@ class SourceEditState extends StateMVC {
   SourceEditController controller;
   Parse parse;
   var _formKey = GlobalKey<FormState>();
+  final key = new GlobalKey<ScaffoldState>();
 
   SourceEditState(this.parse) : super() {
     controller = SourceEditController();
@@ -42,13 +48,49 @@ class SourceEditState extends StateMVC {
         )).toList();
   }
 
+  bool _addParseFromText(String text) {
+    try {
+      final Parse p = BaseParse.fromString(text);
+      setState(() => this.parse = p);
+//      _formKey.currentState.reset();
+      // todo bugs here! uuid not refersh except focued it.
+
+      return true; // success
+    } catch (e) {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: key,
       appBar: AppBar(
         title: Text(S.of(context).Source_Edit),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.help), onPressed: () {}),
+//          IconButton(icon: Icon(Icons.help), onPressed: () {}),
+          IconButton(
+            icon: Icon(Icons.content_copy),
+            onPressed: () {
+              Clipboard.setData(new ClipboardData(text: parse.toString()));
+
+              key.currentState.showSnackBar(new SnackBar(
+                content: new Text("Source Copied!"),
+              ));
+            },
+          ),
+          IconButton(
+              icon: Icon(Icons.content_paste),
+              onPressed: () {
+                Clipboard.getData('text/plain').then((data) {
+                  bool _sucess = false;
+                  if (data != null) _sucess = _addParseFromText(data.text);
+                  key.currentState.showSnackBar(new SnackBar(
+                    content: new Text(
+                        "import " + (_sucess ? "sucessed!" : "failed!")),
+                  ));
+                });
+              }),
           IconButton(
               icon: Icon(Icons.save),
               onPressed: () {
@@ -84,6 +126,23 @@ class SourceEditState extends StateMVC {
                 ),
               ))
               ..add(ListTile(
+                trailing: IconButton(
+                    icon: Icon(Icons.web_asset),
+                    onPressed: () async {
+                      bool _sucess = false;
+
+                      if (!_formKey.currentState.validate()) return;
+                      _formKey.currentState.save();
+
+                      var result = await HTTP.get(HttpClient(), parse.info.url);
+                      if (result.status == 200)
+                        _sucess = _addParseFromText(result.body);
+
+                      key.currentState.showSnackBar(new SnackBar(
+                        content: new Text(
+                            "import " + (_sucess ? "sucessed!" : "failed!")),
+                      ));
+                    }),
                 title: TextFormField(
                   initialValue: parse.info.url,
                   decoration: InputDecoration(
