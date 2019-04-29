@@ -84,7 +84,7 @@ class AgentEditPageState extends StateMVC {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "${ParseConst.ParseActionTypeStrings[action.type.index]} action.agents Edit"),
+            "${ParseConst.ParseActionTypeStrings[action.type.index]} agents Edit"),
         actions: <Widget>[
 //          IconButton(
 //            icon: Icon(Icons.save),
@@ -104,7 +104,7 @@ class AgentEditPageState extends StateMVC {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text("todo fix"),
+                  Text("Agent edit"),
                 ],
               )))
           ..addAll(action.agents.length > 0

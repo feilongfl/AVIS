@@ -25,9 +25,28 @@ class HomepageTabItemEditState extends StateMVC {
   }
 
   Widget _ParseTile(BuildContext context, int index, String uuid) {
+    if (AppShareData.of(context)
+            .AppParse
+            .where((p) =>
+                p.actions[ParseActionType.HomePage.index].agents.length != 0)
+            .length ==
+        0) {
+      return ListTile(
+        title: Text("Please add a Source with HomepageAgent!"),
+      );
+    }
+
     return ListTile(
-      title: Text(index.toString()),
-      subtitle: Text(uuid),
+      title: DropdownButtonFormField(
+          decoration: InputDecoration(labelText: "Source"),
+          value: item.parseUuid[index],
+          items: AppShareData.of(context)
+              .AppParse
+              .where((p) =>
+                  p.actions[ParseActionType.HomePage.index].agents.length != 0)
+              .map((p) => DropdownMenuItem(
+                  value: p.info.uuid, child: Text(p.info.uuid)))
+              .toList()),
       trailing: IconButton(
           icon: Icon(Icons.delete),
           onPressed: () => setState(() => item.parseUuid.removeAt(index))),
@@ -78,16 +97,25 @@ class HomepageTabItemEditState extends StateMVC {
             ..add(ListTile(
               title: Text("Add"),
               leading: Icon(Icons.add),
-              onTap: () => setState(() => item.parseUuid.add(
-                  AppShareData.of(context)
-                      .AppParse
-                      .firstWhere((p) =>
-                          p.type == ParseType.Source &&
-                          p.actions[ParseActionType.HomePage.index].agents
-                                  .length >
-                              0)
-                      .info
-                      .uuid)), //todo fix here
+              onTap: () => setState(() {
+                    if (AppShareData.of(context)
+                            .AppParse
+                            .where((p) =>
+                                p.actions[ParseActionType.HomePage.index].agents
+                                    .length !=
+                                0)
+                            .length !=
+                        0)
+                      item.parseUuid.add(AppShareData.of(context)
+                          .AppParse
+                          .firstWhere((p) =>
+                              p.type == ParseType.Source &&
+                              p.actions[ParseActionType.HomePage.index].agents
+                                      .length >
+                                  0)
+                          .info
+                          .uuid);
+                  }),
             )),
         ),
       ),

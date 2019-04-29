@@ -23,8 +23,10 @@ class AppRoutes {
   static const String AgentsEdit = "/SourceSetting/SourceEdit/AgentsEdit";
   static const String AgentsEditArgs_Agents = "agents";
   static const String AgentsEditArgs_ActionType = "actiontype";
-  static const String AgentSelect = "/AgentSelect";
-  static const String AgentConfig = "/AgentConfig";
+  static const String AgentSelect =
+      "/SourceSetting/SourceEdit/AgentsEdit/AgentSelect";
+  static const String AgentConfig =
+      "/SourceSetting/SourceEdit/AgentsEdit/AgentSelect/AgentConfig";
   static const String AgentDryRun = "/AgentDryRun";
   static const String PictureView = "/PictureView";
   static const String Settings_HomePageTabs = "/Setting/HomePageTabs";
