@@ -17,17 +17,20 @@ class MediaTileView extends StatelessWidget {
       title: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-              height: imageWidthHeight,
-              width: imageWidthHeight,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: AdvancedNetworkImage(
-                        media.info.cover,
-                        useDiskCache: true,
-                        cacheRule: CacheRule(maxAge: const Duration(days: 7)),
-                      )))),
+          ClipRRect(
+            borderRadius: new BorderRadius.all(new Radius.circular(10.0)),
+            child: Container(
+                width: imageWidthHeight,
+                height: imageWidthHeight,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AdvancedNetworkImage(
+                          media.info.cover,
+                          useDiskCache: true,
+                          cacheRule: CacheRule(maxAge: const Duration(days: 7)),
+                        )))),
+          ),
           Expanded(
             child: Container(
               height: imageWidthHeight,
