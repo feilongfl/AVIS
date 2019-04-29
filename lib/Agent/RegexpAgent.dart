@@ -102,7 +102,7 @@ class _AgentConfigPageState extends StateMVC {
           )
         ],
       ),
-      leading: Text("\$$index:"),
+      leading: Text("\$${index + 1}:"),
       title: DropdownButtonFormField<String>(
           value: agent.matchGroups[index],
           onChanged: (v) => setState(() => agent.matchGroups[index] = v),
