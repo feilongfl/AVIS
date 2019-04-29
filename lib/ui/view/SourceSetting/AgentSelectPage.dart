@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
-import '../../Agent/common/Agent.dart';
-import '../../Agent/common/AgentCreator.dart';
-import '../../Agent/common/AgentEnums.dart';
-import '../../common/AppRoutes.dart';
-import '../../generated/i18n.dart';
-import '../widget/SettingDivideText.dart';
+import '../../../Agent/common/Agent.dart';
+import '../../../Agent/common/AgentCreator.dart';
+import '../../../Agent/common/AgentEnums.dart';
+import '../../../common/AppRoutes.dart';
+import '../../../generated/i18n.dart';
+import '../../widget/SettingDivideText.dart';
 
 class AgentSelectPage extends StatefulWidget {
   final Agent agent;

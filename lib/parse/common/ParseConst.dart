@@ -72,4 +72,28 @@ class ParseConst {
     "SourceLazy",
     "HomePage",
   ];
+
+  static bool ParseActionTypeVisibility(
+      ParseType type, ParseActionType action) {
+    switch (type) {
+      case ParseType.Source:
+        return true;
+        break;
+
+      case ParseType.weather:
+        return false || action == ParseActionType.Info;
+        break;
+
+      case ParseType.subtitle:
+      case ParseType.scraper:
+        return false ||
+            action == ParseActionType.Source ||
+            action == ParseActionType.Search;
+        break;
+
+      default:
+        return false;
+        break;
+    }
+  }
 }

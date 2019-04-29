@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:uuid/uuid.dart';
+
 import '../../common/AuthorInfo.dart';
 import '../../common/Info.dart';
 
-class ParseInfo implements Info{
+class ParseInfo implements Info {
   // .* (.*?);
   String uuid;
   String name;
@@ -16,13 +18,16 @@ class ParseInfo implements Info{
   // this.$1,
   ParseInfo({
     this.uuid,
-    this.name,
-    this.url,
+    this.name = "New Source",
+    this.url = "https://feilong.home.blog",
     this.author,
-    this.version_number,
-    this.update_url,
-    this.comment,
-  });
+    this.version_number = "v0.0.1",
+    this.update_url = "",
+    this.comment = "todo: change this agent!",
+  }) {
+    this.uuid = this.uuid ?? Uuid().v4();
+    this.author = this.author ?? AuthorInfo();
+  }
 
   // static const jsonKey_$1 = "$1";
   static const jsonKey_uuid = "uuid";

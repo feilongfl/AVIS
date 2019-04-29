@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'Info.dart';
 
-class AuthorInfo implements Info{
+class AuthorInfo implements Info {
   String name;
   String email;
   String phone;
@@ -10,11 +10,11 @@ class AuthorInfo implements Info{
   String donate_url;
 
   AuthorInfo(
-      {this.donate_message,
-      this.donate_url,
-      this.email,
-      this.name,
-      this.phone});
+      {this.donate_message = "donate",
+      this.donate_url = "",
+      this.email = "",
+      this.name = "feilong",
+      this.phone = ""});
 
   /// jsonKeys
   static const String jsonKey_Name = "name";

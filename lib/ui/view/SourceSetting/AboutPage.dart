@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 
-import '../../common/AppRoutes.dart';
-import '../../generated/i18n.dart';
+import '../../../common/AppRoutes.dart';
+import '../../../generated/i18n.dart';
 
 class AboutPage extends StatelessWidget {
   @override

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../common/AppEnums.dart';
 import 'common/Parse.dart';
 import 'common/ParseAction.dart';
 import 'common/ParseConst.dart';
@@ -10,6 +11,7 @@ class BaseParse implements Parse {
   ParseInfo info;
   ParseType type;
   List<ParseAction> actions;
+  MediaType mediaType = MediaType.Article;
 
   int maxSearchPage = 1;
   int initSearchPage = 1;
@@ -18,13 +20,17 @@ class BaseParse implements Parse {
 
   BaseParse({
     this.info,
-    this.type,
+    this.type = ParseType.Source,
     this.actions,
-    this.maxHomePage,
-    this.maxSearchPage,
-    this.initSearchPage,
-    this.initHomePage,
-  });
+    this.mediaType = MediaType.Article,
+    this.maxHomePage = 1,
+    this.maxSearchPage = 1,
+    this.initSearchPage = 1,
+    this.initHomePage = 1,
+  }) {
+    this.info = this.info ?? ParseInfo();
+    this.actions = this.actions ?? List();
+  }
 
   Future<List<Event>> doWork(ParseActionType type, List<Event> eventsIn) async {
     List<Event> eventsOut = List();
@@ -64,6 +70,7 @@ class BaseParse implements Parse {
   static const jsonKey_info = "info";
   static const jsonKey_type = "type";
   static const jsonKey_actions = "actions";
+  static const jsonKey_mediaType = "mediaType";
   static const jsonKey_maxSearchPage = "maxSearchPage";
   static const jsonKey_maxHomePage = "maxHomePage";
   static const jsonKey_initSearchPage = "initSearchPage";
@@ -76,7 +83,9 @@ class BaseParse implements Parse {
       actions: jsonObj[jsonKey_actions]
           .cast<String>()
           .map((s) => ParseAction.fromString(s))
+          .cast<ParseAction>()
           .toList(),
+      mediaType: MediaType.values[jsonObj[jsonKey_mediaType]],
       maxSearchPage: jsonObj[jsonKey_maxSearchPage],
       maxHomePage: jsonObj[jsonKey_maxHomePage],
       initSearchPage: jsonObj[jsonKey_initSearchPage],
@@ -93,6 +102,7 @@ class BaseParse implements Parse {
       jsonKey_info: info.toString(),
       jsonKey_type: type.index,
       jsonKey_actions: actions.map((a) => a.toString()).toList(),
+      jsonKey_mediaType: mediaType.index,
       jsonKey_maxSearchPage: maxSearchPage,
       jsonKey_maxHomePage: maxHomePage,
       jsonKey_initSearchPage: initSearchPage,
