@@ -130,7 +130,7 @@ class Media {
         assert(media != null);
         //add eposide if not exist
         if (media.episode.length == 0) {
-          media.episode.add(MediaEpisode());
+          media.episode.add(MediaEpisode(info: MediaInfo(ID: "")));
         } else {
           // clear if eposide exist
           for (var ep in media.episode) {
