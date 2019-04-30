@@ -27,7 +27,7 @@ class ViewerPage extends StatefulWidget {
     result = result ||
         parse.actions[ParseActionType.Chapter.index].agents.length == 0;
 
-    return result;
+    return !result;
   }
 
   bool isSinglePage() => singlePageMedia(this.media, this.parse);

@@ -39,6 +39,7 @@ dependencies:
   chewie: 0.9.7
   flutter_easyrefresh: 1.2.7
   flutter_widget_from_html: 0.1.5
+  intl: 0.15.8
 #  flutter_crashlytics: 1.0.0
 #  firebase_core: 0.3.4
 #  firebase_analytics: 2.1.1
