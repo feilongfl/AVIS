@@ -118,7 +118,10 @@ class ComicViewer extends ViewerState {
                                                       const Duration(days: 7)),
                                             )));
                                       } else {
-                                        return new Text('Loading...');
+                                        return Container(
+                                            height: 400,
+                                            child: Center(
+                                                child: Text('Loading...')));
                                       }
                                     });
                               }),
