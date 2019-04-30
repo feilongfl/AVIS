@@ -19,7 +19,8 @@ class ViewerState extends StateMVC {
     return mediaResult;
   }
 
-  Future<Media> getMedia(BuildContext context) =>
+  Future<Media> getMedia(BuildContext context,
+          {String eposideId, String chapterId}) =>
       getSingleMedia(context, this.media);
 
   @override
