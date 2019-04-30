@@ -72,7 +72,7 @@ class HTTP {
       if (exception.runtimeType == FileSystemException)
         print(exception.toString());
       else
-        result.body = HttpExpception;
+        result.body = exception.toString();
     }
 
     return result;
