@@ -10,5 +10,6 @@ this program is in developing, not working for this time.
 
 ## current state
 
-
+v1.0.4  
+[youtube](https://youtu.be/MHS7cOwkBE0)
 
