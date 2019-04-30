@@ -42,10 +42,29 @@ class ParseRunner {
     return medias[0];
   }
 
-  static Future<Media> runSource(BuildContext context, Media media) async {
+  static Future<Media> runSource(BuildContext context, Media media,
+      {String chapterId, String eposideId}) async {
     List<Media> medias = new List();
 
     medias.addAll(await run(context, ParseType.Source, ParseActionType.Source,
+        media: media, eposideId: eposideId, chapterId: chapterId));
+
+    return medias[0];
+  }
+
+  static Future<Media> runEposide(BuildContext context, Media media) async {
+    List<Media> medias = new List();
+
+    medias.addAll(await run(context, ParseType.Source, ParseActionType.Eposide,
+        media: media));
+
+    return medias[0];
+  }
+
+  static Future<Media> runChapter(BuildContext context, Media media) async {
+    List<Media> medias = new List();
+
+    medias.addAll(await run(context, ParseType.Source, ParseActionType.Chapter,
         media: media));
 
     return medias[0];
@@ -94,7 +113,11 @@ class ParseRunner {
       for (Parse p in parses) {
         medias.addAll(Media.fromEvent(
             await p.doWork(actionType, [Event(data)]), actionType,
-            media: media, parseUUID: p.info.uuid, type: p.mediaType));
+            media: media,
+            parseUUID: p.info.uuid,
+            type: p.mediaType,
+            chapterId: chapterId,
+            eposideId: eposideId));
       }
 
     return medias;

@@ -40,7 +40,11 @@ class Media {
   }
 
   static List<Media> fromEvent(List<Event> events, ParseActionType actionType,
-      {Media media, MediaType type, String parseUUID}) {
+      {Media media,
+      MediaType type,
+      String parseUUID,
+      String eposideId,
+      String chapterId}) {
     List<Media> medias = List();
 
     switch (actionType) {
@@ -73,17 +77,113 @@ class Media {
 
       case ParseActionType.Source:
         assert(media != null);
-        final Event e = events[0];
-
-        //              todo add more
         //no eposide or chapter
         if (media.episode.length == 0) {
+          final Event e = events[0];
+
           media.episode.add(MediaEpisode());
           media.episode[0].chapter.add(MediaChapter());
           media.episode[0].chapter[0].sources.add(MediaSource());
-          media.episode[0].chapter[0].sources[0].urls.add(e.Data[Event.Body]);
+          media.episode[0].chapter[0].sources[0].urls
+              .add(e.Data[Event.Body]); // todo fix here
         } else {
           // have eposide and chapter
+          assert(eposideId != null);
+          assert(chapterId != null);
+
+          for (Event e in events) {
+            try {
+              media.episode
+                  .firstWhere((ep) => ep.info.ID == eposideId)
+                  .chapter
+                  .firstWhere((cp) => cp.info.ID == chapterId)
+                  .sources
+                  .add(MediaSource()..urls.add(e.Data[Event.Url]));
+            } catch (ex) {
+              print("ep[$eposideId] cp[$chapterId] not match!");
+            }
+          }
+        }
+
+        medias.add(media);
+        break;
+
+      case ParseActionType.Eposide:
+        assert(media != null);
+        media.episode.clear();
+        for (Event e in events) {
+          if (e.Data[Event.EpisodeId] != null) {
+            // have eposide
+            media.episode.add(MediaEpisode()
+              ..info = MediaInfo(
+                title: e.Data[Event.Title] ?? e.Data[Event.EpisodeId],
+                ID: e.Data[Event.EpisodeId],
+                url: e.Data[Event.Url],
+              ));
+          }
+        }
+
+        medias.add(media);
+        break;
+
+      case ParseActionType.Chapter:
+        assert(media != null);
+        //add eposide if not exist
+        if (media.episode.length == 0) {
+          media.episode.add(MediaEpisode());
+        } else {
+          // clear if eposide exist
+          for (var ep in media.episode) {
+            ep.chapter.clear();
+          }
+        }
+
+        for (Event e in events) {
+          if (e.Data[Event.EpisodeId] != null) {
+            // have eposide
+            try {
+              media.episode
+                  .firstWhere((ep) => ep.info.ID == e.Data[Event.EpisodeId])
+                  .chapter
+                  .add(MediaChapter()
+                    ..info = MediaInfo(
+                      title: e.Data[Event.Title] ?? e.Data[Event.EpisodeId],
+                      ID: e.Data[Event.EpisodeId],
+                      url: e.Data[Event.Url],
+                    ));
+            } catch (ex) {
+              if (media.episode[0].info.ID == null) {
+                media.episode[0].info.ID = e.Data[Event.EpisodeId];
+                media.episode[0].info.title = e.Data[Event.EpisodeId];
+                media.episode[0].chapter.add(MediaChapter()
+                  ..info = MediaInfo(
+                    title: e.Data[Event.Title] ?? e.Data[Event.EpisodeId],
+                    ID: e.Data[Event.EpisodeId],
+                    url: e.Data[Event.Url],
+                  ));
+              } else {
+                media.episode.add(MediaEpisode(
+                    info: MediaInfo(
+                        ID: e.Data[Event.EpisodeId],
+                        title: e.Data[Event.EpisodeId]),
+                    chapter: List()
+                      ..add(MediaChapter()
+                        ..info = MediaInfo(
+                          title: e.Data[Event.Title] ?? e.Data[Event.EpisodeId],
+                          ID: e.Data[Event.EpisodeId],
+                          url: e.Data[Event.Url],
+                        ))));
+              }
+            }
+          } else {
+            //no eposide id
+            media.episode[0].chapter.add(MediaChapter()
+              ..info = MediaInfo(
+                title: e.Data[Event.Title] ?? e.Data[Event.EpisodeId],
+                ID: e.Data[Event.EpisodeId],
+                url: e.Data[Event.Url],
+              ));
+          }
         }
 
         medias.add(media);

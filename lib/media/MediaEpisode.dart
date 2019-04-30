@@ -14,6 +14,7 @@ class MediaEpisode {
 
   MediaEpisode({this.info, this.chapter}) {
     this.chapter = this.chapter ?? new List();
+    this.info = this.info ?? new MediaInfo();
   }
 
   Map<String, dynamic> toJson() {

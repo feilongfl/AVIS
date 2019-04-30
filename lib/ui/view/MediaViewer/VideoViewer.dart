@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../media/Media.dart';
+import '../../../parse/common/ParseRunner.dart';
 import 'common/ViewerState.dart';
 
 class VideoViewer extends ViewerState {
@@ -15,9 +16,9 @@ class VideoViewer extends ViewerState {
         super(media: media, eposide: eposide, chapter: chapter);
 
   Future<Media> _getMedias(BuildContext context) async {
-    print("get source");
-//    return ParseRunner.Source(context, media);
-    return Media();
+    print("get source[${media.info.ID}][$eposide][$chapter]");
+    return ParseRunner.runSource(context, media,
+        eposideId: eposide, chapterId: chapter);
   }
 
   bool loaded = false;
@@ -31,8 +32,8 @@ class VideoViewer extends ViewerState {
 
   @override
   void dispose() {
-    videoPlayerController.dispose();
-    chewieController.dispose();
+    if (videoPlayerController != null) videoPlayerController.dispose();
+    if (chewieController != null) chewieController.dispose();
     super.dispose();
   }
 
@@ -40,17 +41,17 @@ class VideoViewer extends ViewerState {
   Widget build(BuildContext context) {
     if (!loaded)
       _getMedias(context).then((media) {
+        setState(() => loaded = true);
 //        this.media.episode[0].chapter[0].info.url =
 //            media.episode[0].chapter[0].info.url;
-        videoPlayerController =
-            VideoPlayerController.network(media.episode[0].chapter[0].info.url);
+        videoPlayerController = VideoPlayerController.network(
+            media.episode[0].chapter[0].sources[0].urls[0]);
         chewieController = ChewieController(
           videoPlayerController: videoPlayerController,
           aspectRatio: 16 / 10,
           autoPlay: true,
           looping: false,
         );
-        setState(() => loaded = true);
       });
     return Scaffold(
       appBar: AppBar(

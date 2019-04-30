@@ -270,8 +270,8 @@ class MediaInfoPageState extends StateMVC {
 
   Future<Media> getMediaFuture(BuildContext context) async {
     Media mediaResult = await ParseRunner.runInfo(context, this.media);
-//    mediaResult = await ParseRunner.Episode(context, mediaResult);
-//    mediaResult = await ParseRunner.Chapter(context, mediaResult);
+    mediaResult = await ParseRunner.runEposide(context, mediaResult);
+    mediaResult = await ParseRunner.runChapter(context, mediaResult);
 
     return mediaResult;
   }
