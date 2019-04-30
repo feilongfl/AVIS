@@ -44,8 +44,12 @@ class VideoViewer extends ViewerState {
         setState(() => loaded = true);
 //        this.media.episode[0].chapter[0].info.url =
 //            media.episode[0].chapter[0].info.url;
-        videoPlayerController = VideoPlayerController.network(
-            media.episode[0].chapter[0].sources[0].urls[0]);
+        videoPlayerController = VideoPlayerController.network(media.episode
+            .firstWhere((ep) => ep.info.ID == eposide)
+            .chapter
+            .firstWhere((cp) => cp.info.ID == chapter)
+            .sources[0]
+            .urls[0]);
         chewieController = ChewieController(
           videoPlayerController: videoPlayerController,
           aspectRatio: 16 / 10,
@@ -57,7 +61,7 @@ class VideoViewer extends ViewerState {
       appBar: AppBar(
         title: Text(media.info.title),
       ),
-      body: loaded
+      body: videoPlayerController != null
           ? Chewie(controller: chewieController)
           : Center(
               child: CircularProgressIndicator(),

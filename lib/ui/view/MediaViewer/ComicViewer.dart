@@ -50,6 +50,12 @@ class ComicViewer extends ViewerState {
   }
 
   @override
+  void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (!loaded) {
       this.getMedia(context).then((m) {
