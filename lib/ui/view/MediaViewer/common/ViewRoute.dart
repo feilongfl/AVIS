@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../common/AppShareData.dart';
 import '../../../../media/Media.dart';
 import 'ViewerPage.dart';
 
@@ -14,6 +15,9 @@ class ViewRoute {
                   media: media,
                   eposide: eposide,
                   chapter: chapter,
+                  parse: AppShareData.of(context)
+                      .appParse
+                      .firstWhere((p) => p.info.uuid == media.ParseUUID),
                 ));
         break;
     }
