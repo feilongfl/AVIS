@@ -119,9 +119,10 @@ class ComicViewer extends ViewerState {
                                             )));
                                       } else {
                                         return Container(
-                                            height: 400,
+                                            height: 1200,
                                             child: Center(
-                                                child: Text('Loading...')));
+                                                child:
+                                                    CircularProgressIndicator()));
                                       }
                                     });
                               }),
