@@ -13,7 +13,7 @@ class HTTPResult {
 }
 
 class _HttpCacheManager extends BaseCacheManager {
-  static const key = "httpcache";
+  static const key = "httpreqcache";
 
   static _HttpCacheManager _instance;
 
@@ -69,7 +69,10 @@ class HTTP {
         result.body = HttpERRORCode;
       }
     } catch (exception) {
-      result.body = HttpExpception;
+      if (exception.runtimeType == FileSystemException)
+        print(exception.toString());
+      else
+        result.body = HttpExpception;
     }
 
     return result;
