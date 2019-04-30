@@ -7,3 +7,8 @@ A media application.
 ## warning
 
 this program is in developing, not working for this time.
+
+## current state
+
+
+

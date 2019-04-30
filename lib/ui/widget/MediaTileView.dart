@@ -63,7 +63,7 @@ class MediaTileView extends StatelessWidget {
                     child: Center(
                       child: Text(
                         media.info.intro ?? "",
-                        maxLines: 4,
+                        maxLines: 3,
                         textAlign: TextAlign.left,
                         overflow: TextOverflow.ellipsis,
                       ),
