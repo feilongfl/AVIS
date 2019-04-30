@@ -179,8 +179,8 @@ class Media {
             //no eposide id
             media.episode[0].chapter.add(MediaChapter()
               ..info = MediaInfo(
-                title: e.Data[Event.Title] ?? e.Data[Event.EpisodeId],
-                ID: e.Data[Event.EpisodeId],
+                title: e.Data[Event.Title] ?? e.Data[Event.ChapterId],
+                ID: e.Data[Event.ChapterId],
                 url: e.Data[Event.Url],
               ));
           }
