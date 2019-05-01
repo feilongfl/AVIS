@@ -12,7 +12,6 @@ class MediaInfoTips extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       color: Colors.black26,

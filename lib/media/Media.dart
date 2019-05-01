@@ -91,6 +91,12 @@ class Media {
           assert(eposideId != null);
           assert(chapterId != null);
 
+          media.episode
+              .firstWhere((ep) => ep.info.ID == eposideId)
+              .chapter
+              .firstWhere((cp) => cp.info.ID == chapterId)
+              .sources = List();
+
           for (Event e in events) {
             try {
               media.episode
