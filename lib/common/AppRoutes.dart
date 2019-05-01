@@ -31,6 +31,7 @@ class AppRoutes {
   static const String PictureView = "/PictureView";
   static const String Settings_HomePageTabs = "/Setting/HomePageTabs";
   static const String Settings_HomePageTabs_edit = "/Setting/HomePageTabs/Edit";
+  static const String DataBase = "/Database";
 
   static launchURL(String url) async {
     if (await canLaunch(url)) {

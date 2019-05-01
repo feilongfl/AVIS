@@ -1,13 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_networkimage/provider.dart';
 
+import '../../common/AppRoutes.dart';
 import '../../media/Media.dart';
+import '../../parse/common/Parse.dart';
+import '../../parse/common/ParseConst.dart';
+import '../../parse/common/ParseRunner.dart';
 
 class MediaCardView extends StatelessWidget {
-  final Media media;
+//  final Media media;
+  final String title;
+  final String cover;
   final VoidCallback onTap;
 
-  MediaCardView(this.media, {this.onTap}) : super();
+  MediaCardView({this.title, this.cover, this.onTap}) : super();
+
+  void _onTap(BuildContext context, Media media) {
+    Parse parse = ParseRunner.findParse(context, media);
+    if (parse == null) return;
+
+    // no eposide and no chapter direct to source
+    if (parse.actions[ParseActionType.Info.index].agents.length == 0 &&
+        parse.actions[ParseActionType.Eposide.index].agents.length == 0 &&
+        parse.actions[ParseActionType.Chapter.index].agents.length == 0) {
+      Navigator.of(context).pushNamed(AppRoutes.MediaView,
+          arguments: {AppRoutes.MediaViewArg_Media: media});
+    } else {
+      Navigator.of(context).pushNamed(AppRoutes.MediaInfo, arguments: media);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +47,7 @@ class MediaCardView extends StatelessWidget {
                         image: DecorationImage(
                             fit: BoxFit.cover,
                             image: AdvancedNetworkImage(
-                              media.info.cover,
+                              cover,
                               useDiskCache: true,
                               cacheRule:
                                   CacheRule(maxAge: const Duration(days: 7)),
@@ -37,7 +58,7 @@ class MediaCardView extends StatelessWidget {
                         child: Container(
                             color: Colors.black45,
                             child: Text(
-                              media.info.title,
+                              title,
                               textAlign: TextAlign.center,
                               style:
                                   TextStyle(color: Colors.white, fontSize: 18),

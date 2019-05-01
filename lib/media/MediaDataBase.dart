@@ -2,6 +2,8 @@ import 'package:meta/meta.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../media/Media.dart';
+import '../parse/common/Parse.dart';
+import 'MediaInfo.dart';
 
 class MediaDataBaseConst {
   static const c_id = "id";
@@ -35,6 +37,15 @@ class MediaDataBase {
       MediaDataBaseConst.c_cover: cover,
       MediaDataBaseConst.c_intro: intro,
     };
+  }
+
+  Media toMedia(List<Parse> parses) {
+    return Media(
+      ParseUUID: parseid,
+      info:
+          MediaInfoFull(title: title, cover: cover, intro: intro, ID: mediaid),
+      type: parses.firstWhere((p) => p.info.uuid == parseid).mediaType,
+    );
   }
 
   static MediaDataBase fromMap(Map<String, dynamic> map,
@@ -71,6 +82,13 @@ class MediaDataBaseProvider {
   static const table_download = "download";
   static const table_viewed = "viewed";
 
+  static const tables = [
+    table_favorite,
+    table_history,
+    table_download,
+    table_viewed,
+  ];
+
   MediaDataBaseProvider(this.table) : assert(table != null);
 
   bool get isOpen => db == null ? false : db.isOpen;
@@ -78,8 +96,8 @@ class MediaDataBaseProvider {
   Future<void> open() async {
     db = await openDatabase(database, version: 1,
         onCreate: (Database db, int version) async {
-      await db.execute('''
-create table $table ( 
+      tables.forEach((t) async => await db.execute('''
+create table $t ( 
   ${MediaDataBaseConst.c_id} integer primary key autoincrement, 
   ${MediaDataBaseConst.c_parseuuid} text not null,
   ${MediaDataBaseConst.c_mediaid} text not null,
@@ -87,7 +105,7 @@ create table $table (
   ${MediaDataBaseConst.c_cover} text,
   ${MediaDataBaseConst.c_intro} text
   )
-''');
+'''));
     });
   }
 
@@ -104,6 +122,21 @@ create table $table (
 
   Future<bool> haveMedia(Media media) async =>
       await getMediaDB(media.ParseUUID, media.info.ID) != null;
+
+  Future<List<MediaDataBase>> getAll() async {
+    List<Map> maps = await db.query(
+      table,
+      columns: [
+        MediaDataBaseConst.c_title,
+        MediaDataBaseConst.c_cover,
+        MediaDataBaseConst.c_intro,
+        MediaDataBaseConst.c_parseuuid,
+        MediaDataBaseConst.c_mediaid,
+      ],
+    );
+    print("$table => get ${maps.length}");
+    return maps.map((m) => MediaDataBase.fromMap(m)).toList();
+  }
 
   Future<MediaDataBase> getMediaDB(String parseuuid, String mediaid) async {
     List<Map> maps = await db.query(table,

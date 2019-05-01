@@ -37,7 +37,10 @@ class HomepageBodyState extends StateMVC {
                           : 3),
                   itemCount: futureData.data.length,
                   itemBuilder: (BuildContext context, int position) {
-                    return MediaCardView(futureData.data[position]);
+                    return MediaCardView(
+                      title: futureData.data[position].info.title,
+                      cover: futureData.data[position].info.cover,
+                    );
                   },
                 )
               : Center(

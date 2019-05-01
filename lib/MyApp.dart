@@ -12,6 +12,7 @@ import 'parse/common/Parse.dart';
 import 'parse/common/ParseAction.dart';
 import 'ui/view/BackupPage.dart';
 import 'ui/view/DonatePage.dart';
+import 'ui/view/MediaDatabase.dart';
 import 'ui/view/MediaInfoPage.dart';
 import 'ui/view/MediaViewer/common/ViewRoute.dart';
 import 'ui/view/PictureViewer.dart';
@@ -147,6 +148,12 @@ class MyAppController extends ControllerMVC {
           builder: (BuildContext context) => HomepageTabItemEdit(
                 item: homepageTabItem,
               ));
+    }
+    if (settings.name == AppRoutes.DataBase) {
+      final String table = settings.arguments;
+      return MaterialPageRoute<HomepageTabItem>(
+          settings: settings,
+          builder: (BuildContext context) => MediaDataBasePage(table));
     }
     return null;
   }

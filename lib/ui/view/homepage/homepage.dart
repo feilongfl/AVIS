@@ -8,6 +8,7 @@ import 'package:simple_gravatar/simple_gravatar.dart';
 import '../../../common/AppRoutes.dart';
 import '../../../common/AppShareData.dart';
 import '../../../generated/i18n.dart';
+import '../../../media/MediaDataBase.dart';
 import '../../controller/HomePageConTroller.dart';
 import '../../widget/RouteButton.dart';
 import 'view/HomeView.dart';
@@ -27,15 +28,18 @@ class _HomePageState extends StateMVC with TickerProviderStateMixin {
       RouteButton(
           name: S.of(context).History,
           icon: Icons.history,
-          route: AppRoutes.Histroy),
+          route: AppRoutes.DataBase,
+          argument: MediaDataBaseProvider.table_history),
       RouteButton(
           name: S.of(context).Favorite,
           icon: Icons.favorite,
-          route: AppRoutes.Favorite),
+          route: AppRoutes.DataBase,
+          argument: MediaDataBaseProvider.table_favorite),
       RouteButton(
           name: S.of(context).Download,
           icon: Icons.file_download,
-          route: AppRoutes.Download),
+          route: AppRoutes.DataBase,
+          argument: MediaDataBaseProvider.table_download),
       RouteButton(devide: true),
       RouteButton(
           name: S.of(context).Backup,

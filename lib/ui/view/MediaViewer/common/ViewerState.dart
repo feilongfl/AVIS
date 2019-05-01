@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
 
 import '../../../../media/Media.dart';
+import '../../../../media/MediaDataBase.dart';
 import '../../../../parse/common/ParseRunner.dart';
 
 class ViewerState extends StateMVC {
@@ -22,6 +23,29 @@ class ViewerState extends StateMVC {
   Future<Media> getMedia(BuildContext context,
           {String eposideId, String chapterId}) =>
       getSingleMedia(context, this.media);
+
+  Future<int> addHistory() async {
+    if (mediadbpri == null) {
+      mediadbpri = MediaDataBaseProvider(MediaDataBaseProvider.table_history);
+    }
+    if (!mediadbpri.isOpen) await mediadbpri.open();
+
+    return mediadbpri.insert(MediaDataBase.fromMedia(media));
+  }
+
+  MediaDataBaseProvider mediadbpri;
+
+  @override
+  void initState() {
+    super.initState();
+    addHistory();
+  }
+
+  @override
+  void dispose() {
+    mediadbpri.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

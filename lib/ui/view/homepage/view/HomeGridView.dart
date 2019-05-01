@@ -17,7 +17,8 @@ class HomeGridViewState extends HomeViewState {
   Widget mediaViewCard(BuildContext context,
           {@required Media media, VoidCallback onTap}) =>
       MediaCardView(
-        media,
+        title: media.info.title,
+        cover: media.info.cover,
         onTap: onTap,
       );
 
