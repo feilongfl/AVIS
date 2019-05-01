@@ -73,19 +73,19 @@ class MediaDataBaseProvider {
 
   MediaDataBaseProvider(this.table) : assert(table != null);
 
-  bool get isOpen => db.isOpen;
+  bool get isOpen => db == null ? false : db.isOpen;
 
   Future<void> open() async {
     db = await openDatabase(database, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
 create table $table ( 
-  ${MediaDataBaseConst.c_id} int primary key autoincrement, 
+  ${MediaDataBaseConst.c_id} integer primary key autoincrement, 
   ${MediaDataBaseConst.c_parseuuid} text not null,
   ${MediaDataBaseConst.c_mediaid} text not null,
   ${MediaDataBaseConst.c_title} text not null,
   ${MediaDataBaseConst.c_cover} text,
-  ${MediaDataBaseConst.c_intro} text,
+  ${MediaDataBaseConst.c_intro} text
   )
 ''');
     });
@@ -95,14 +95,15 @@ create table $table (
       '${MediaDataBaseConst.c_parseuuid} = ? and ${MediaDataBaseConst.c_mediaid} = ?';
 
   Future<int> insert(MediaDataBase mediadb) async {
-    if (getMediaDB(mediadb.parseid, mediadb.mediaid) != null) {
+    if (await getMediaDB(mediadb.parseid, mediadb.mediaid) != null) {
       return update(mediadb);
     }
+    print("insert " + mediadb.parseid + "   " + mediadb.mediaid);
     return db.insert(table, mediadb.toMap());
   }
 
   Future<bool> haveMedia(Media media) async =>
-      getMediaDB(media.ParseUUID, media.info.ID) != null;
+      await getMediaDB(media.ParseUUID, media.info.ID) != null;
 
   Future<MediaDataBase> getMediaDB(String parseuuid, String mediaid) async {
     List<Map> maps = await db.query(table,
@@ -124,11 +125,13 @@ create table $table (
       delete(media.ParseUUID, media.info.ID);
 
   Future<int> delete(String parseuuid, String mediaid) async {
+    print("delete $parseuuid $mediaid");
     return db.delete(table,
         where: whereParseAndMedia, whereArgs: [parseuuid, mediaid]);
   }
 
   Future<int> update(MediaDataBase mediadb) async {
+    print("update " + mediadb.parseid + "   " + mediadb.mediaid);
     return db.update(table, mediadb.toMap(),
         where: whereParseAndMedia,
         whereArgs: [mediadb.parseid, mediadb.mediaid]);

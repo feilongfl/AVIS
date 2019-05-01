@@ -336,35 +336,31 @@ class MediaInfoPageState extends StateMVC {
   bool isFavorited = false;
   MediaDataBaseProvider mediadbpri;
 
-  void openFavoriteDatabase() {
+  Future<void> openFavoriteDatabase() async {
     if (mediadbpri == null) {
       mediadbpri = MediaDataBaseProvider(MediaDataBaseProvider.table_favorite);
     }
+    if (!mediadbpri.isOpen) await mediadbpri.open();
   }
 
-  void favorite() async {
-    openFavoriteDatabase();
-    if (!mediadbpri.isOpen) await mediadbpri.open();
+  Future<void> favorite() async {
+    await openFavoriteDatabase();
 
     await mediadbpri.haveMedia(media)
         ? await mediadbpri.deleteMedia(media)
         : await mediadbpri.insert(MediaDataBase.fromMedia(media));
 
-    checkFavorite();
+    await checkFavorite();
   }
 
-  void checkFavorite() {
-    openFavoriteDatabase();
-    if (!mediadbpri.isOpen)
-      mediadbpri.open().then((v) {
-        mediadbpri
-            .haveMedia(this.media)
-            .then((fav) => setState(() => this.isFavorited = fav));
-      });
-    else
-      mediadbpri
-          .haveMedia(this.media)
-          .then((fav) => setState(() => this.isFavorited = fav));
+  Future<bool> checkFavorite() async {
+    await openFavoriteDatabase();
+
+    await mediadbpri
+        .haveMedia(this.media)
+        .then((fav) => setState(() => this.isFavorited = fav));
+
+    return this.isFavorited;
   }
 
   @override
