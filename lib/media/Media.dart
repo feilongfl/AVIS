@@ -49,6 +49,7 @@ class Media {
 
     switch (actionType) {
       case ParseActionType.HomePage:
+      case ParseActionType.Search:
         for (Event e in events) {
           Media media = Media(
               info: MediaInfoFull(

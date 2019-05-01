@@ -33,6 +33,23 @@ class ParseRunner {
     return medias;
   }
 
+  static Future<List<Media>> runSearch(
+      BuildContext context, String keyword, MediaType type) async {
+    List<Media> medias = List();
+
+    final List<Parse> parses = AppShareData.of(context)
+        .appParse
+        .where((p) => p.mediaType == type)
+        .toList();
+
+    for (final parse in parses) {
+      medias.addAll(await run(context, ParseType.Source, ParseActionType.Search,
+          parseUuid: parse.info.uuid, keyword: keyword));
+    }
+
+    return medias;
+  }
+
   static Future<Media> runInfo(BuildContext context, Media media) async {
     List<Media> medias = new List();
 

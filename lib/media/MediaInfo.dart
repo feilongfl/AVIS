@@ -38,7 +38,7 @@ class MediaInfoFull extends MediaInfo {
   AuthorInfo author;
   DateTime date;
   String studio;
-  bool isFinished;
+  bool isFinished = false;
   String databaseUrl;
   String Theme; // movie theme type todo: change to enum
   int AgeLimit; // 0 = nolimit
