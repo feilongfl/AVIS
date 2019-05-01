@@ -7,6 +7,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../common/AppRoutes.dart';
 import '../../generated/i18n.dart';
 import '../../media/Media.dart';
+import '../../media/MediaDataBase.dart';
 import '../../media/MediaEpisode.dart';
 import '../../parse/common/ParseRunner.dart';
 import '../widget/ActionButton.dart';
@@ -332,6 +333,54 @@ class MediaInfoPageState extends StateMVC {
     return w;
   }
 
+  bool isFavorited = false;
+  MediaDataBaseProvider mediadbpri;
+
+  void openFavoriteDatabase() {
+    if (mediadbpri == null) {
+      mediadbpri = MediaDataBaseProvider(MediaDataBaseProvider.table_favorite);
+    }
+  }
+
+  void favorite() async {
+    openFavoriteDatabase();
+    if (!mediadbpri.isOpen) await mediadbpri.open();
+
+    await mediadbpri.haveMedia(media)
+        ? await mediadbpri.deleteMedia(media)
+        : await mediadbpri.insert(MediaDataBase.fromMedia(media));
+
+    checkFavorite();
+  }
+
+  void checkFavorite() {
+    openFavoriteDatabase();
+    if (!mediadbpri.isOpen)
+      mediadbpri.open().then((v) {
+        mediadbpri
+            .haveMedia(this.media)
+            .then((fav) => setState(() => this.isFavorited = fav));
+      });
+    else
+      mediadbpri
+          .haveMedia(this.media)
+          .then((fav) => setState(() => this.isFavorited = fav));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkFavorite();
+  }
+
+  @override
+  void dispose() {
+    if (mediadbpri != null) {
+      mediadbpri.close();
+    }
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -348,7 +397,8 @@ class MediaInfoPageState extends StateMVC {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.favorite_border), onPressed: () {}),
+          child: Icon(isFavorited ? Icons.favorite : Icons.favorite_border),
+          onPressed: favorite),
     );
   }
 }

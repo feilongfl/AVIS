@@ -73,7 +73,9 @@ class MediaDataBaseProvider {
 
   MediaDataBaseProvider(this.table) : assert(table != null);
 
-  Future open() async {
+  bool get isOpen => db.isOpen;
+
+  Future<void> open() async {
     db = await openDatabase(database, version: 1,
         onCreate: (Database db, int version) async {
       await db.execute('''
@@ -99,6 +101,9 @@ create table $table (
     return db.insert(table, mediadb.toMap());
   }
 
+  Future<bool> haveMedia(Media media) async =>
+      getMediaDB(media.ParseUUID, media.info.ID) != null;
+
   Future<MediaDataBase> getMediaDB(String parseuuid, String mediaid) async {
     List<Map> maps = await db.query(table,
         columns: [
@@ -114,6 +119,9 @@ create table $table (
     }
     return null;
   }
+
+  Future<int> deleteMedia(Media media) async =>
+      delete(media.ParseUUID, media.info.ID);
 
   Future<int> delete(String parseuuid, String mediaid) async {
     return db.delete(table,
