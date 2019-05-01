@@ -116,7 +116,7 @@ create table $t (
     if (await getMediaDB(mediadb.parseid, mediadb.mediaid) != null) {
       return update(mediadb);
     }
-    print("insert " + mediadb.parseid + "   " + mediadb.mediaid);
+    print("insert $table" + mediadb.parseid + "   " + mediadb.mediaid);
     return db.insert(table, mediadb.toMap());
   }
 
@@ -158,13 +158,13 @@ create table $t (
       delete(media.ParseUUID, media.info.ID);
 
   Future<int> delete(String parseuuid, String mediaid) async {
-    print("delete $parseuuid $mediaid");
+    print("delete $table $parseuuid $mediaid");
     return db.delete(table,
         where: whereParseAndMedia, whereArgs: [parseuuid, mediaid]);
   }
 
   Future<int> update(MediaDataBase mediadb) async {
-    print("update " + mediadb.parseid + "   " + mediadb.mediaid);
+    print("update $table" + mediadb.parseid + "   " + mediadb.mediaid);
     return db.update(table, mediadb.toMap(),
         where: whereParseAndMedia,
         whereArgs: [mediadb.parseid, mediadb.mediaid]);
