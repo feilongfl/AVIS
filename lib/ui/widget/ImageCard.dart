@@ -7,11 +7,12 @@ import 'package:photo_view/photo_view.dart';
 
 class ImageCard extends StatelessWidget {
   final String url;
+  final Map<String, String> header;
 
 //  final double defaultHeight;
   static double lastHeight = 1600;
 
-  ImageCard(this.url) : super();
+  ImageCard(this.url, {this.header}) : super();
 
   ImageProvider _advancedNetworkImage;
 
@@ -22,6 +23,7 @@ class ImageCard extends StatelessWidget {
       useDiskCache: true,
       cacheRule: CacheRule(maxAge: const Duration(days: 7)),
       fallbackAssetImage: "assets/images/imageLoadFailed.jpg",
+      header: header,
     );
     _advancedNetworkImage.resolve(new ImageConfiguration()).addListener(
         (ImageInfo info, bool _) => completer.complete(info.image));

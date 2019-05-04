@@ -84,9 +84,15 @@ class Media {
 
           media.episode.add(MediaEpisode());
           media.episode[0].chapter.add(MediaChapter());
-          media.episode[0].chapter[0].sources.add(MediaSource());
-          media.episode[0].chapter[0].sources[0].urls
-              .add(e.Data[Event.Body]); // todo fix here
+          media.episode[0].chapter[0].sources.add(MediaSource(
+            urls: [e.Data[Event.Body]],
+            header: [
+              {
+                MediaConst.Referer: e.Data[Event.Referer],
+                MediaConst.Cookies: e.Data[Event.Cookies],
+              }
+            ],
+          ));
         } else {
           // have eposide and chapter
           assert(eposideId != null);
@@ -105,7 +111,15 @@ class Media {
                   .chapter
                   .firstWhere((cp) => cp.info.ID == chapterId)
                   .sources
-                  .add(MediaSource()..urls.add(e.Data[Event.Url]));
+                  .add(MediaSource(
+                    urls: [e.Data[Event.Url]],
+                    header: [
+                      {
+                        MediaConst.Referer: e.Data[Event.Referer],
+                        MediaConst.Cookies: e.Data[Event.Cookies],
+                      }
+                    ],
+                  ));
             } catch (ex) {
               print("ep[$eposideId] cp[$chapterId] not match!");
             }

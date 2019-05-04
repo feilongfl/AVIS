@@ -19,4 +19,7 @@ class MediaConst {
   static const String databaseUrl = "databaseUrl";
   static const String Theme = "Theme";
   static const String AgeLimit = "AgeLimit";
+  static const String Referer = "referer";
+  static const String Cookies = "cookies";
+  static const String Header = "Header";
 }
