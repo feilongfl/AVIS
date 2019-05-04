@@ -12,8 +12,10 @@ class MediaCardView extends StatelessWidget {
   final String title;
   final String cover;
   final VoidCallback onTap;
+  final bool showTitle;
 
-  MediaCardView({this.title, this.cover, this.onTap}) : super();
+  MediaCardView({this.title, this.cover, this.onTap, this.showTitle = true})
+      : super();
 
   void _onTap(BuildContext context, Media media) {
     Parse parse = ParseRunner.findParse(context, media);
@@ -52,20 +54,24 @@ class MediaCardView extends StatelessWidget {
                               cacheRule:
                                   CacheRule(maxAge: const Duration(days: 7)),
                             )))),
-                Row(
-                  children: <Widget>[
-                    Expanded(
-                        child: Container(
-                            color: Colors.black45,
-                            child: Text(
-                              title,
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                              softWrap: false,
-                              overflow: TextOverflow.ellipsis,
-                            ))),
-                  ],
+                Visibility(
+                  visible:
+                      this.showTitle || this.title == "" || this.title == null,
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                          child: Container(
+                              color: Colors.black45,
+                              child: Text(
+                                title,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
+                                softWrap: false,
+                                overflow: TextOverflow.ellipsis,
+                              ))),
+                    ],
+                  ),
                 ),
               ],
             ),
