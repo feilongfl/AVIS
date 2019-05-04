@@ -10,7 +10,7 @@
 > Agent 用于执行具体的操作请求
 
 #### Http Agent（developing）
-用于http请求，目前正在开发中，仅支持get方法，不支持自定义头
+用于http请求（目前正在开发中，仅支持get方法，不支持自定义头）
 
 #### Base64 Agent
 base64编解码。
@@ -18,7 +18,7 @@ base64编解码。
 #### Eventformat Agent
 产生event消息。
 
-#### Actas Agent（todo）
+#### Actas Agent（plan）
 使用其他Source的Agent序列。
 
 #### Regexp Agent
@@ -27,12 +27,27 @@ base64编解码。
 #### Url Codecs Agent
 url编解码器
 
+#### json Agent(plan)
+json编解码
+
+#### html parse Agent (plan)
+html 解析
+
+#### javascript Agent(plan)
+执行js代码
+
 ### Source
 > Source 用于记录网站的爬取规则，由若干Agent组成。
+目前source的导入有些bug，不能正常修改名称和uuid
 
 ### Settings
 #### homepage tab setting
 通过此处设置首页标签，每个标签可以选择多个支持homepage解析的Source。
+
+##### homepage view type
+- 网格
+- 列表
+- 海报（plan）
 
 ### Media View
 > Media View用于展示最终结果。
@@ -43,13 +58,13 @@ url编解码器
 #### 带章节文档（developing）
 提供类似网络小说等带有章节的文本类资源展示界面
 
-#### 无章节图片预览（todo）
+#### 无章节图片预览（plan）
 提供不包含章节信息的图片浏览界面。
 
-#### 带章节图片预览
+#### 带章节图片预览(developing)
 提供类似漫画等包含章节信息图片的浏览界面。
 
-#### 音乐播放器（todo）
+#### 音乐播放器(plan)
 提供音频类资源的播放。
 
 #### 视频播放器
