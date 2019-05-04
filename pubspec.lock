@@ -84,7 +84,7 @@ packages:
       name: csslib
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.15.0"
+    version: "0.16.0"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -159,14 +159,14 @@ packages:
       name: flutter_widget_from_html
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.2.0"
   flutter_widget_from_html_core:
     dependency: transitive
     description:
       name: flutter_widget_from_html_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.2.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -180,7 +180,7 @@ packages:
       name: html
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.4+2"
+    version: "0.14.0+2"
   http:
     dependency: transitive
     description:
@@ -229,7 +229,7 @@ packages:
       name: mvc_pattern
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.5"
+    version: "3.3.6"
   open_iconic_flutter:
     dependency: transitive
     description:
@@ -243,7 +243,7 @@ packages:
       name: package_info
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.0"
+    version: "0.4.0+3"
   path:
     dependency: transitive
     description:
@@ -308,7 +308,7 @@ packages:
     source: hosted
     version: "0.21.0"
   screen:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: screen
       url: "https://pub.dartlang.org"
@@ -403,20 +403,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.2"
-  utf:
-    dependency: transitive
-    description:
-      name: utf
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.0+5"
   uuid:
     dependency: "direct main"
     description:
       name: uuid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0"
+    version: "2.0.1"
   vector_math:
     dependency: transitive
     description:
@@ -430,7 +423,7 @@ packages:
       name: video_player
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.10.0+5"
+    version: "0.10.0+8"
   webview_flutter:
     dependency: transitive
     description:

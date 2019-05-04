@@ -1,5 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:screen/screen.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../media/Media.dart';
@@ -28,12 +30,16 @@ class VideoViewer extends ViewerState {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    Screen.keepOn(true);
   }
 
   @override
   void dispose() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     if (videoPlayerController != null) videoPlayerController.dispose();
     if (chewieController != null) chewieController.dispose();
+    Screen.keepOn(false);
     super.dispose();
   }
 
@@ -58,9 +64,9 @@ class VideoViewer extends ViewerState {
         );
       });
     return Scaffold(
-      appBar: AppBar(
-        title: Text(media.info.title),
-      ),
+//      appBar: AppBar(
+//        title: Text(media.info.title),
+//      ),
       body: videoPlayerController != null
           ? Chewie(controller: chewieController)
           : Center(

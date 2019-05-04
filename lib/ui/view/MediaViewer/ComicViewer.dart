@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:screen/screen.dart';
 
 import '../../../media/Media.dart';
 import '../../widget/MediaInfoTips.dart';
@@ -19,11 +20,13 @@ class ComicViewer extends ViewerState {
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
+    Screen.keepOn(true);
   }
 
   @override
   void dispose() {
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    Screen.keepOn(false);
     super.dispose();
   }
 
