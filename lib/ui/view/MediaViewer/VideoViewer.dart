@@ -84,6 +84,9 @@ class VideoViewer extends ViewerState {
                 Text(
                   media.info.title,
                   style: Theme.of(context).textTheme.title,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Divider(),
                 Text(
@@ -117,6 +120,9 @@ class VideoViewer extends ViewerState {
               Text(
                 media.info.title,
                 style: Theme.of(context).textTheme.title,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.clip,
               ),
               Divider(),
               Text(
