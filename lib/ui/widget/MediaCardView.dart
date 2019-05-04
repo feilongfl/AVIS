@@ -48,12 +48,15 @@ class MediaCardView extends StatelessWidget {
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             fit: BoxFit.cover,
-                            image: AdvancedNetworkImage(
-                              cover,
-                              useDiskCache: true,
-                              cacheRule:
-                                  CacheRule(maxAge: const Duration(days: 7)),
-                            )))),
+                            image: cover == null
+                                ? ExactAssetImage(
+                                    "assets/images/imageLoadFailed.jpg")
+                                : AdvancedNetworkImage(
+                                    cover,
+                                    useDiskCache: true,
+                                    cacheRule: CacheRule(
+                                        maxAge: const Duration(days: 7)),
+                                  )))),
                 Visibility(
                   visible:
                       this.showTitle || this.title == "" || this.title == null,
