@@ -7,14 +7,15 @@ import 'package:video_player/video_player.dart';
 import '../../../media/Media.dart';
 import '../../../media/MediaChapter.dart';
 import '../../../media/MediaEpisode.dart';
+import '../../../media/MediaSource.dart';
 import '../../../parse/common/ParseRunner.dart';
 import '../../widget/MediaCardView.dart';
 import 'common/ViewerState.dart';
 
 class VideoViewer extends ViewerState {
   final Media media;
-  final String eposide;
-  final String chapter;
+  String eposide;
+  String chapter;
 
   VideoViewer({this.media, this.eposide, this.chapter})
       : assert(media != null),
@@ -159,6 +160,7 @@ class VideoViewer extends ViewerState {
         children: <Widget>[]
           ..add(_videoPlayer(context))
           ..add(_videoInfo(context))
+          ..add(_sourceLabel(context))
           ..add(_playerMediaList(context)),
       ),
     );
@@ -177,13 +179,49 @@ class VideoViewer extends ViewerState {
                 ..add(_videoInfoLand(context)),
             ),
           ),
-          _playerMediaList(context),
+          Container(
+            width: MediaQuery.of(context).size.width * (1 - landSplit),
+            child: Column(
+              children: <Widget>[
+                _sourceLabel(context),
+                _playerMediaList(context),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
   bool loading = false;
+
+  Widget _sourceLabelItem(BuildContext context, MediaSource source) {
+    return Container(
+      child: Chip(
+//        width: 20,
+//        height: 20,
+          label: Text(source.name ?? "source")),
+    );
+  }
+
+  Widget _sourceLabel(BuildContext context) {
+//    return Container(
+//      width: 200,
+//      height: 20,
+//      color: Colors.green,
+//    );
+    return Container(
+//      height: 60,
+      child: Wrap(
+        children: <Widget>[]..addAll(media.episode
+            .firstWhere((ep) => ep.info.ID == eposide ?? this.eposide)
+            .chapter
+            .firstWhere((cp) => cp.info.ID == chapter ?? this.chapter)
+            .sources
+            .map((s) => _sourceLabelItem(context, s))),
+      ),
+    );
+  }
 
   void _loadMedia(BuildContext context, {String eposide, String chapter}) {
 //    if (chewieController != null) chewieController.dispose();
@@ -194,8 +232,10 @@ class VideoViewer extends ViewerState {
     loading = true;
 
     _getMedias(context, eposide: eposide, chapter: chapter).then((media) {
-      setState(() => loaded = true);
-      setState(() => loading = false);
+      setState(() {
+        loaded = true;
+        loading = false;
+      });
 //        this.media.episode[0].chapter[0].info.url =
 //            media.episode[0].chapter[0].info.url;
       final oldvideoPlayerController = videoPlayerController;
@@ -215,6 +255,11 @@ class VideoViewer extends ViewerState {
         looping: false,
       );
       oldchewieController?.dispose();
+
+      setState(() {
+        this.chapter = chapter;
+        this.eposide = eposide;
+      });
     });
   }
 
