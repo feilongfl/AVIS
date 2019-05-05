@@ -245,21 +245,24 @@ class VideoViewer extends ViewerState {
 //        this.media.episode[0].chapter[0].info.url =
 //            media.episode[0].chapter[0].info.url;
       final oldvideoPlayerController = videoPlayerController;
-      videoPlayerController = VideoPlayerController.network(media.episode
-          .firstWhere((ep) => ep.info.ID == eposide ?? this.eposide)
-          .chapter
-          .firstWhere((cp) => cp.info.ID == chapter ?? this.chapter)
-          .sources[0]
-          .urls[0]);
-      oldvideoPlayerController?.dispose();
-
       final oldchewieController = chewieController;
-      chewieController = ChewieController(
-        videoPlayerController: videoPlayerController,
-        aspectRatio: videoRatio,
-        autoPlay: true,
-        looping: false,
-      );
+
+      setState(() {
+        videoPlayerController = VideoPlayerController.network(media.episode
+            .firstWhere((ep) => ep.info.ID == eposide ?? this.eposide)
+            .chapter
+            .firstWhere((cp) => cp.info.ID == chapter ?? this.chapter)
+            .sources[0]
+            .urls[0]);
+        chewieController = ChewieController(
+          videoPlayerController: videoPlayerController,
+          aspectRatio: videoRatio,
+          autoPlay: true,
+          looping: false,
+        );
+      });
+
+      oldvideoPlayerController?.dispose();
       oldchewieController?.dispose();
 
       setState(() {
