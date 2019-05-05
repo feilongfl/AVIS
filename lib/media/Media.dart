@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import '../common/AppEnums.dart';
+import '../parse/common/Parse.dart';
 import '../parse/common/ParseConst.dart';
 import '../parse/event/Event.dart';
 import 'MediaChapter.dart';
@@ -39,12 +40,24 @@ class Media {
     return json.encode(this.toJson());
   }
 
+  static bool checkSinglePage(Parse parse) {
+    bool result = false;
+
+    result = result ||
+        parse.actions[ParseActionType.Chapter.index].agents.length == 0;
+    result = result ||
+        parse.actions[ParseActionType.Eposide.index].agents.length == 0;
+
+    return result;
+  }
+
   static List<Media> fromEvent(List<Event> events, ParseActionType actionType,
       {Media media,
       MediaType type,
       String parseUUID,
       String eposideId,
-      String chapterId}) {
+      String chapterId,
+      Parse parse}) {
     List<Media> medias = List();
 
     switch (actionType) {
@@ -78,8 +91,10 @@ class Media {
 
       case ParseActionType.Source:
         assert(media != null);
+        assert(parse != null);
         //no eposide or chapter
-        if (media.episode.length == 0) {
+//        if (media.episode.length == 0) {
+        if (checkSinglePage(parse)) {
           final Event e = events[0];
 
           media.episode.add(MediaEpisode());

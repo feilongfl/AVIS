@@ -134,7 +134,8 @@ class ParseRunner {
             parseUUID: p.info.uuid,
             type: p.mediaType,
             chapterId: chapterId,
-            eposideId: eposideId));
+            eposideId: eposideId,
+            parse: p));
       }
 
     return medias;

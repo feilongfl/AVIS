@@ -53,7 +53,7 @@ class HTTP {
       HTTPResult hr = HTTPResult();
       hr.body = utf8.decode(file.file.readAsBytesSync());
       hr.status = HttpStatus.ok;
-      return hr;
+      if (hr.body != null) return hr;
     }
 
     try {
