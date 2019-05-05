@@ -11,7 +11,7 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:icon="@mipmap/launcher_icon"
-        android:label="avis"
+        android:label="${appname}"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
