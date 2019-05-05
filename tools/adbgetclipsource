@@ -1,0 +1,3 @@
+#!/usr/bin/env fish
+
+./tools/adbgetclipboard.sh | grep data= | sed -r 's/.*data="(.*)"/\1/g' | jq
