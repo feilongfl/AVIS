@@ -56,7 +56,8 @@ class ImageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getImage(url.replaceAll(r"\", '')),
+      future: getImage(url.replaceAll(r"\", '').replaceFirst("https", "http")),
+      //todo fix here with an agent
       builder: dynamicHeightBuilder,
     );
   }

@@ -26,7 +26,7 @@ class Base64Agent extends BaseAgent {
   Base64Agent({this.text, this.method, this.resultSave}) : super();
 
   Future<List<Event>> doRealWork(Event eventIn) async {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    Map<String, dynamic> data = Map.from(eventIn.Data);
 
     // set replace key
     switch (this.method) {

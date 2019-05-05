@@ -85,7 +85,7 @@ class BaseAgent implements Agent {
   Future<List<Event>> doRealWork(Event eventIn) async {
 //    this.lastRun = DateTime.now();
 
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    Map<String, dynamic> data = Map.from(eventIn.Data);
     data[Event.Body] = "Hello world!";
 
     return [Event(data, SendUUID: this._UUID, success: true)];

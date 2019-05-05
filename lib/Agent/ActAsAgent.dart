@@ -14,7 +14,7 @@ class ActAsAgent extends BaseAgent {
   ActAsAgent({this.parseUUID}) : super();
 
   Future<List<Event>> doRealWork(Event eventIn) async {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    Map<String, dynamic> data = Map.from(eventIn.Data);
 
     // todo finish here
 

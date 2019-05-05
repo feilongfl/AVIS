@@ -89,7 +89,7 @@ class Media {
             header: [
               {
                 MediaConst.Referer: e.Data[Event.Referer],
-                MediaConst.Cookies: e.Data[Event.Cookies],
+//                MediaConst.Cookies: e.Data[Event.Cookies],
               }
             ],
           ));
@@ -116,7 +116,7 @@ class Media {
                     header: [
                       {
                         MediaConst.Referer: e.Data[Event.Referer],
-                        MediaConst.Cookies: e.Data[Event.Cookies],
+//                        MediaConst.Cookies: e.Data[Event.Cookies],
                       }
                     ],
                   ));

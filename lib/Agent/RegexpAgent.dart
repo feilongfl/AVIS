@@ -54,7 +54,7 @@ class RegexpAgent extends BaseAgent {
         regexp.allMatches(ReplaceOneVal(matchBody, eventIn.Data));
 
     for (Match m in matcher) {
-      final Map<String, dynamic> data = new Map<String, dynamic>();
+      Map<String, dynamic> data = Map.from(eventIn.Data);
       int i = 1;
       for (String matchGroup in matchGroups) {
         data[matchGroup] = m.group(i++);

@@ -109,7 +109,10 @@ class ComicListViewState extends State<ComicListView> {
       child: ListView.builder(
         padding: EdgeInsets.all(0),
         itemCount: sources.length,
-        itemBuilder: (context, index) => ImageCard(sources[index].urls[0]),
+        itemBuilder: (context, index) => ImageCard(
+              sources[index].urls[0],
+              header: sources[index].header[0],
+            ),
       ),
     );
   }
