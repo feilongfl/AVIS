@@ -244,10 +244,12 @@ class VideoViewer extends ViewerState {
       });
 //        this.media.episode[0].chapter[0].info.url =
 //            media.episode[0].chapter[0].info.url;
-      final oldvideoPlayerController = videoPlayerController;
-      final oldchewieController = chewieController;
+//      final oldvideoPlayerController = videoPlayerController;
+//      final oldchewieController = chewieController;
 
       setState(() {
+        chewieController?.dispose();
+        videoPlayerController?.dispose();
         videoPlayerController = VideoPlayerController.network(media.episode
             .firstWhere((ep) => ep.info.ID == eposide ?? this.eposide)
             .chapter
@@ -262,8 +264,8 @@ class VideoViewer extends ViewerState {
         );
       });
 
-      oldvideoPlayerController?.dispose();
-      oldchewieController?.dispose();
+//      oldvideoPlayerController?.dispose();
+//      oldchewieController?.dispose();
 
       setState(() {
         this.chapter = chapter;
