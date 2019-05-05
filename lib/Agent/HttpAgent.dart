@@ -31,7 +31,7 @@ class HttpAgent extends BaseAgent {
 
   static const List<HttpMethod> HttpMethods = [
     HttpMethod.Get,
-//    HttpMethod.Post,
+    HttpMethod.Post,
 //    HttpMethod.Put,
 //    HttpMethod.Delete,
   ];

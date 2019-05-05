@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -60,11 +61,40 @@ class HTTP {
       var request = await httpClient
           .getUrl(Uri.parse(data == null ? "$url" : "$url?$data"));
       var response = await request.close();
-
       result.status = response.statusCode;
       if (response.statusCode == HttpStatus.ok) {
         result.body = await response.transform(utf8.decoder).join();
         await _HttpCacheManager().putFile(url, utf8.encode(result.body));
+      } else {
+        result.body = HttpERRORCode;
+      }
+    } catch (exception) {
+      if (exception.runtimeType == FileSystemException)
+        print(exception.toString());
+      else
+        result.body = exception.toString();
+    }
+
+    return result;
+  }
+
+  static Future<HTTPResult> post(String url,
+      {String useragent, String referer, String cookies, String data}) async {
+    HTTPResult result = new HTTPResult();
+
+    // post req should not have cache
+    try {
+      var response = await http.post(url,
+          body: data,
+          headers: {
+            "user-agent": useragent,
+            "referer": referer,
+            "cookies": cookies,
+          }..removeWhere((k, v) => v == null));
+
+      result.status = response.statusCode;
+      if (response.statusCode == HttpStatus.ok) {
+        result.body = response.body;
       } else {
         result.body = HttpERRORCode;
       }
@@ -96,7 +126,11 @@ class HTTP {
         break;
       case HttpMethod.Post:
         {
-          return HTTPResult(); //todo complete here
+          return post(url,
+              useragent: useragent,
+              referer: referer,
+              cookies: cookies,
+              data: data);
         }
         break;
 
