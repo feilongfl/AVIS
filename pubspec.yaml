@@ -28,7 +28,7 @@ dependencies:
   #  gbk2utf8: ^1.0.0
   simple_gravatar: ^1.0.3
   flutter_cache_manager: ^0.3.2
-  cached_network_image: ^0.7.0
+  cached_network_image: ^0.8.0
   flutter_advanced_networkimage: ^0.4.15
   uuid: ^2.0.0
   package_info: ^0.4.0
@@ -38,7 +38,7 @@ dependencies:
   font_awesome_flutter: ^8.4.0
   chewie: ^0.9.7
   flutter_easyrefresh: ^1.2.7
-  flutter_widget_from_html: ^0.2.0
+  flutter_widget_from_html: ^0.2.1
   intl: ^0.15.8
   screen: ^0.0.5
 #  json_serializable: ^3.0.0
