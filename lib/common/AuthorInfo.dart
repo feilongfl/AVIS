@@ -1,7 +1,12 @@
 import 'dart:convert';
 
+import 'package:json_annotation/json_annotation.dart';
+
 import 'Info.dart';
 
+part 'AuthorInfo.g.dart';
+
+@JsonSerializable(nullable: false)
 class AuthorInfo implements Info {
   String name;
   String email;
@@ -16,35 +21,12 @@ class AuthorInfo implements Info {
       this.name = "feilong",
       this.phone = ""});
 
-  /// jsonKeys
-  static const String jsonKey_Name = "name";
-  static const String jsonKey_Email = "email";
-  static const String jsonKey_Phone = "phone";
-  static const String jsonKey_DonateMessage = "dmsg";
-  static const String jsonKey_DonateUrl = "durl";
+  factory AuthorInfo.fromJson(Map<String, dynamic> json) =>
+      _$AuthorInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$AuthorInfoToJson(this);
 
-  static AuthorInfo fromJson(Map<String, dynamic> jsonObj) {
-    return AuthorInfo(
-      name: jsonObj[jsonKey_Name],
-      email: jsonObj[jsonKey_Email],
-      phone: jsonObj[jsonKey_Phone],
-      donateMessage: jsonObj[jsonKey_DonateMessage],
-      donateUrl: jsonObj[jsonKey_DonateUrl],
-    );
-  }
-
-  static AuthorInfo fromString(String str) {
-    return fromJson(json.decode(str));
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      jsonKey_Name: name,
-      jsonKey_Email: email,
-      jsonKey_Phone: phone,
-      jsonKey_DonateMessage: donateMessage,
-      jsonKey_DonateUrl: donateUrl,
-    };
+  factory AuthorInfo.fromString(String str) {
+    return AuthorInfo.fromJson(json.decode(str));
   }
 
   @override
