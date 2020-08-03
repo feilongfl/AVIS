@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'common/AppShareData.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 //  bool isInDebugMode = false;
 //
 //  FlutterError.onError = (FlutterErrorDetails details) {
