@@ -1,5 +1,5 @@
 {
-    "info": "{\"uuid\":\"24097218-9785-4247-8f96-334e7661908a\",\"name\":\"pengpai\",\"url\":\"https://feilong.home.blog\",\"author\":\"{\\\"name\\\":\\\"feilong\\\",\\\"email\\\":\\\"\\\",\\\"phone\\\":\\\"\\\",\\\"donateMessage\\\":null,\\\"donateUrl\\\":null}\",\"version_number\":\"v0.0.1\",\"update_url\":\"\",\"comment\":\"todo: change this agent!\"}",
+    "info": "{\"uuid\":\"24097218-9785-4247-8f96-334e7661908a\",\"name\":\"pengpai\",\"url\":\"https://www.thepaper.cn\",\"author\":\"{\\\"name\\\":\\\"feilong\\\",\\\"email\\\":\\\"\\\",\\\"phone\\\":\\\"\\\",\\\"donateMessage\\\":null,\\\"donateUrl\\\":null}\",\"version_number\":\"v0.0.1\",\"update_url\":\"\",\"comment\":\"todo: change this agent!\"}",
     "type": 0,
     "actions": [
         "{\"type\":0,\"agents\":[]}",
