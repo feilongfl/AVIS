@@ -22,27 +22,28 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
-  mvc_pattern: ^3.3.5
-  rxdart: ^0.21.0
+  cupertino_icons: any
+  mvc_pattern: any
+  rxdart: any
   #  gbk2utf8: ^1.0.0
-  simple_gravatar: ^1.0.3
-  flutter_cache_manager: ^0.3.2
-  cached_network_image: ^0.8.0
-  flutter_advanced_networkimage: ^0.4.15
-  uuid: ^2.0.0
-  package_info: ^0.4.0
-  url_launcher: ^5.0.2
-  photo_view: ^0.3.1
-  dynamic_theme: ^1.0.1
-  font_awesome_flutter: ^8.4.0
-  chewie: ^0.9.7
-  flutter_easyrefresh: ^1.2.7
-  flutter_widget_from_html: ^0.2.1
-  intl: ^0.15.8
-  screen: ^0.0.5
-#  json_serializable: ^3.0.0
-  json_annotation: ^2.4.0
+  simple_gravatar: any
+  flutter_cache_manager: any
+  cached_network_image: any
+  flutter_advanced_networkimage: any
+  uuid: any
+  package_info: any
+  url_launcher: ^5.4.0
+  photo_view: ^0.9.2
+  dynamic_theme: any
+  font_awesome_flutter: any
+  chewie: any
+  flutter_easyrefresh: any
+  # flutter_widget_from_html: 0.2.1
+  flutter_widget_from_html: ^0.4.2
+  intl: any
+  screen: any
+  #  json_serializable: ^3.0.0
+  json_annotation: any
 #  flutter_crashlytics: 1.0.0
 #  firebase_core: 0.3.4
 #  firebase_analytics: 2.1.1
@@ -64,13 +65,11 @@ flutter_icons:
   ios: true
   image_path: "assets/icon/icon.png"
 
-
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -80,13 +79,10 @@ flutter:
   assets:
     - assets/images/imageLoadFailed.jpg
   #  - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.io/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a

@@ -25,8 +25,8 @@ class ImageCard extends StatelessWidget {
       fallbackAssetImage: "assets/images/imageLoadFailed.jpg",
       header: header,
     );
-    _advancedNetworkImage.resolve(new ImageConfiguration()).addListener(
-        (ImageInfo info, bool _) => completer.complete(info.image));
+    // _advancedNetworkImage.resolve(new ImageConfiguration()).addListener(
+    // (ImageInfo info, bool _) => completer.complete(info.image));
     return completer.future;
   }
 
